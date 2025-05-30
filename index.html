@@ -6,145 +6,7 @@
 
 		<script src = 'sounds.js'></script>
 		<title>Below Hayden</title>
-		<style>
-			@font-face{font-family:'unifont'; src: url('unifont.ttf'); }
-			
-			body {
-				font-family: monospace;
-				background: #111;
-				color: #eee;
-				padding: 20px;
-				-webkit-user-select: none; /* Safari */
-				-ms-user-select: none; /* IE 10 and IE 11 */
-				user-select: none; /* Standard syntax */
-				overflow:hidden;
-				transition:opacity .2s;
-			}
-			* {font-family: unifont; image-rendering: pixelated}
-			button {
-				background: #444;
-				color: #000000;
-				border: none;
-				margin: 5px;
-				cursor: pointer;
-				font-size:1px;
-				width:40px;
-				height:40px;
-
-			}
-			button:disabled {opacity:.25;}
-			button:hover:not(button:disabled) {
-				box-shadow: 0px -2px 4px white;
-			}
-			#log {
-				border: 1px solid #333;
-				padding: 10px;
-				height: 200px;
-				overflow-y: auto;
-				background: #222;
-				white-space: pre-line;
-			}
-			#hpbar {
-
-				display: block;
-				width: 216px;
-				height: 18px;
-				background: #1a1a1a;
-				border:1px solid gray;
-			}
-			#hpbar strong { 
-				position: absolute;}
-			#hpbar div {
-				background: #963939;
-				width: 100%;
-				height: 100%;
-			}
-
-			.door { 
-				background: url('dungeon/wee_dung_door_grey.png'); 
-				background-size:cover; 
-				width:40px; 
-				height:40px; 
-				transition: width 1s, height 1s, top 1s, left 1s;
-				vertical-align: top;
-				position: relative;
-				z-index: 1;
-				top: 0;
-				left: 0;
-			}
-
-			.door.open {
-				background-image: url(dungeon/wee_dung_door_grey_open.png);
-				opacity:1;
-			}
-
-
-			.door.chosen {
-				width: 200vw;
-				height: 200vh;
-				top: -50vh;
-				left: -50vw;
-				opacity:1;
-			}
-			#doors { 
-				height:45px; 
-				overflow:visible; 
-				background: url(dungeon/wee_dung_brick_grey.png);
-			}
-
-			.monster { display:none;  background: url('monsters/wee_mons_slime_idle_d_1.png'); background-position: center top; background-size:130%; width:60px; height:60px; animation: myAnim 2s ease 0s infinite normal forwards; }
-			@keyframes myAnim {
-				0%,
-				50%,
-				100% {
-					background-size: 130%;
-				}
-
-				25%,
-				75% {
-					background-size: 140%;
-				}
-			}
-
-			button.item {
-				background: none;
-				border: 1px solid white;
-				background-size: contain;
-			}
-
-			div#inventory {
-				margin-top: 2rem;
-				padding-top: 1rem;
-				border-top: 1px solid gray;
-			}
-
-			#last-log {
-				
-				margin-top: 1rem;
-				text-transform: uppercase;
-			}
-
-			.chest { opacity:0; transition: opacity .5s; display:none; background-size:cover; width:40px; height:40px; }
-			.chest.closed { background-image:url('dungeon/wee_dung_chest.png'); }
-			.chest:not(.closed){ background-image:url('dungeon/wee_dung_chest_open.png'); }
-			.chest.empty:not(.closed) {background-image:url('dungeon/wee_dung_chest_empty.png');}
-
-			.heart { display:inline-block; background:url('ui/wee_ui_heart.png'); background-size:cover;  margin:5px; width:15px; height:15px; }
-			
-			#game-frame {
-				margin-top: 10px; 
-				text-align:center;
-				background:url(dungeon/wee_dung_floor.png);
-			}
-			#game-frame.dead {
-				
-				transition: opacity 3s;
-				opacity: .1;
-				pointer-events: none;
-			}
-			#death-text { opacity: 0; transition: opacity 1s;}
-			#death-text.dead { display:block; opacity: 1;}
-		</style>
+		<link rel = 'stylesheet' href = 'style.css'>
 	</head>
 	<body>
 
@@ -164,30 +26,28 @@
 
 			<div id = 'doors'>
 				<button onclick="pickDoor(this)" class = 'door'>Door 1</button>
-				
 				<button onclick="pickDoor(this)" class = 'door'>Door 2</button>
-				
 				<button onclick="pickDoor(this)" class = 'door'>Door 3</button>
-				
 				<button onclick="pickDoor(this)" class = 'door'>Door 4</button>
 			</div>
 
 			<br/>
-			<br/>
 
-
-			<div id = 'hearts'></div>
 			<button class = 'chest closed' onclick = 'useChest()'></button>
-			<button class = 'monster' onclick="attack()">Monster</button>
+			<div class = 'monsters'>
+			</div>
+			
 
 			<div id="last-log">YOU KICK DOWN THE DOOR. THERE IS A BAT HERE.</div>
 			
 			<div id = 'inventory'>
-				<button class = 'item' data-id = '-1' onclick = "useItem(this)" oncontextmenu="return removeItem(this.dataset.id)"></button>
-				<button class = 'item' data-id = '-1' onclick = "useItem(this)" oncontextmenu="return removeItem(this.dataset.id)"></button>
-				<button class = 'item' data-id = '-1' onclick = "useItem(this)" oncontextmenu="return removeItem(this.dataset.id)"></button>
-				<button class = 'item' data-id = '-1' onclick = "useItem(this)" oncontextmenu="return removeItem(this.dataset.id)"></button>
+				<button class = 'item' data-id = '-1' onmouseleave = "clearItemInfo()" onmouseenter = "showItemInfo(this)" onclick = "useItem(this)" oncontextmenu="return removeItem(this.dataset.id)"></button>
+				<button class = 'item' data-id = '-1' onmouseleave = "clearItemInfo()" onmouseenter = "showItemInfo(this)" onclick = "useItem(this)" oncontextmenu="return removeItem(this.dataset.id)"></button>
+				<button class = 'item' data-id = '-1' onmouseleave = "clearItemInfo()" onmouseenter = "showItemInfo(this)" onclick = "useItem(this)" oncontextmenu="return removeItem(this.dataset.id)"></button>
+				<button class = 'item' data-id = '-1' onmouseleave = "clearItemInfo()" onmouseenter = "showItemInfo(this)" onclick = "useItem(this)" oncontextmenu="return removeItem(this.dataset.id)"></button>
 			</div>
+
+			<p id = 'item-info'></p>
 		</div>
 
 		<div id="death-text">
@@ -210,6 +70,7 @@
 			if(typeof localStorage.highScore == "undefined") { localStorage.highScore = 10; }
 			document.querySelector("#high-score").innerText = Number.parseInt(localStorage.highScore);
 
+			window.id = 0;
 
 			let player = { 
 				hp: 20, 
@@ -220,8 +81,11 @@
 				getDmg: function(){ let d = this.dmg; this.inventory.forEach(item=>{ if(!item.consumable) { d+=item.dmg; } }); return d; },
 				getMaxHp: function(){ let d = this.maxHp; this.inventory.forEach(item=>{ if(!item.consumable) { d+=item.hp; } }); return d; }
 			};
+
+
 			let floor = 1
 			let enemy = null
+			let monsters = [];
 			let thisRoomDifficulty = 0;
 
 			const playerHPSpan = document.getElementById('playerHP')
@@ -232,13 +96,16 @@
 			const enemyHearts = document.querySelector("#hearts");
 			const monsterButton = document.querySelector(".monster");
 			const chestButton = document.querySelector(".chest");
+			const lastLog = document.querySelector("#last-log");
+			const monsterDOM = document.querySelector(".monsters");
+			const itemInfo = document.querySelector("#item-info");
 
 			function log(msg) {
 
 				logDiv.innerText += msg + "\n"
 				logDiv.scrollTop = logDiv.scrollHeight
 
-				document.querySelector("#last-log").innerHTML = msg;
+				lastLog.innerHTML = msg;
 			}
 
 			function updateUI() {
@@ -254,37 +121,52 @@
 
 				document.querySelector("#hpbar div").style.width = 100*(player.hp/player.getMaxHp()) + "%";
 
-				if(enemy) {
-					enemyDiv.innerHTML = `
-						<strong>${enemy.name}</strong><br>
-						HP: ${enemy.hp}/${enemy.maxHp}<br>
-					`;
+				monsterDOM.innerHTML = "";
 
-					enemyHearts.innerHTML = "";
+				if(monsters.length > 0) {
+					monsters.forEach(monster=>{
 
-					for(let v = 0; v < enemy.hp; v++) { enemyHearts.innerHTML += "<span class = 'heart'></span>" } 
+						let monsterHearts = "";
+						
+						for(let v = 0; v < monster.hp; v++) { monsterHearts += "<span class = 'heart'></span>" } 
+
+						let monsterTemplate = `
+							<div class = 'monster-container' style = 'width: ${ 90 / monsters.length }%'>
+								<div id = 'hearts' style = "visibility:visible;">${monsterHearts}</div>
+								<button 
+									data-monster-id="${monster.id}" 
+									class = 'monster' 
+									onclick="attack(${monster.id})"
+									style = "background-image: url(monsters/${monster.sprite});display:inline-block;"
+								>${monster.name}</button>
+							</div>
+						`;
+
+						monsterDOM.innerHTML += monsterTemplate;
+					});
 				}
-
-				else {
-					enemyDiv.innerHTML = `<em>No enemy</em>`;
-				}
+				
 			}
 
+
 			function Monster(name, sprite, hp=5, dmg=1) {
+
+				this.id = window.id;
+				window.id++;
 				this.name = name;
 				this.sprite = sprite;
 				this.maxHp = hp + floor;
 				this.hp = this.maxHp + Math.floor(floor / 4);
 				this.dmg = dmg;
-				this.attack = fn=>{ return this.dmg + (Math.floor(floor / 3)) }
+				this.attack = fn=>{ return this.dmg + (Math.floor(floor / 3)) };
+				this.takeDamage = dmg => { this.hp -= dmg; if(this.hp <= 0) { defeatEnemy(this); } }
+
 				return this;
 			}
 
-			window.id = 0;
 
 			
-
-			function Item(name, desc, sprite="wee_dung_potion_red.png", sound=sou_potion, hp=0, dmg=0, consumable=true, uses=1, use = -1) {
+			function Item(name, desc, sprite="wee_dung_potion_red.png", sound=sou_potion, hp=0, dmg=0, consumable=true, uses=1, slot=-1, use = -1) {
 
 				this.id = window.id;
 				window.id++;
@@ -296,6 +178,7 @@
 				this.consumable = consumable;
 				this.sound = sound;
 				this.uses=uses;
+				this.slot = slot;
 
 				if(typeof use == "function") { this.use = use; }
 				else {
@@ -310,10 +193,14 @@
 
 							this.sound.play();
 
-							if(enemy != null && this.dmg > 0) {
-								enemy.hp -= this.dmg;
+							if(monsters.length > 0 && this.dmg > 0) {
 
-								attack(false, `...dealt ${this.dmg}. `);
+								monsters.forEach(monster=>{
+									//monster.hp -= this.dmg;
+									attack(monster, `...dealt ${this.dmg}. `);
+								});
+
+								//attack(monsters[0], `...dealt ${this.dmg}. `);
 							}
 
 							if(this.hp > 0) {
@@ -359,6 +246,20 @@
 				}
 			}
 
+			function showItemInfo(el) {
+
+				if(el.dataset.id != -1) {
+
+					let item = player.inventory.filter(item=>{return item.id == el.dataset.id; })[0];
+
+					itemInfo.innerHTML = item.name + "<br/>" + item.desc + " " +  (item.consumable ? ("&mdash; " + item.uses + " uses left.") : "");
+				}
+			}
+
+			function clearItemInfo() {
+				itemInfo.innerHTML = "";
+			}
+
 			function generateEnemy(difficultyLevel=0) {
 				
 				const types = [
@@ -381,42 +282,58 @@
 					],
 				];
 
-				console.log(difficultyLevel);
 
 				const enemy = types[difficultyLevel][Math.floor(Math.random() *  types[difficultyLevel].length)];
 
-				monsterButton.style.backgroundImage = `url("monsters/${enemy.sprite}")`;
-				
-				monsterButton.style.display = "inline-block";
-				enemyHearts.style.visibility = "visible"
 
 				log(`A wild ${enemy.name} appears!`)
 
 				return enemy;
 			}
 
-			function defeatEnemy() {
+			function defeatEnemy(enemy) {
 
 				log(`You defeated the ${enemy.name}!`);
 
-				chestButton.classList.add("closed");
-				monsterButton.style.display = "none";
-				enemyHearts.style.visibility = "hidden";
-				chestButton.style.display = "inline-block";
 
-				setTimeout(fn=>{
-					chestButton.style.opacity = 1;
-				},1);
+
+				monsters = monsters.filter(monster=>{ return monster.hp > 0; });
+				
 
 				floor += 1 + thisRoomDifficulty;
 				player.maxHp++;
 				player.dmg += .3;
 
-				enemy = null;
-				enableDoors();
+				if(monsters.length == 0) {
+
+					chestButton.classList.add("closed");
+					chestButton.style.visibility = "visible";
+					
+
+					setTimeout(fn=>{
+						chestButton.style.opacity = 1;
+					},1);
+					
+					enableDoors();
+				}
+
+				updateUI();
 			}
 
-			function attack(doAttack=true, extraLog="") {
+			function lockMonsters() {
+				document.querySelectorAll(".monsters button").forEach(monster=>{monster.disabled = true;})
+			}
+
+			function unlockMonsters() {
+				document.querySelectorAll(".monsters button").forEach(monster=>{monster.disabled = false;})
+			}
+
+
+			function attack(enemy, doAttack=true, extraLog="") {
+
+				if(typeof enemy == "number") {
+					enemy = monsters.filter(monster=>{ return monster.id == enemy; })[0];
+				}
 
 				let logText = extraLog;
 
@@ -430,39 +347,70 @@
 					const playerDmg = Math.floor(player.getDmg() + (Math.random() * 3));
 					enemy.hp -= playerDmg;
 					logText += (`You hit the ${enemy.name} for ${playerDmg} damage.`);
+					sou_punch[Math.floor(Math.random() * sou_punch.length)].play();
+
+					setTimeout(fn=>{
+						let d = document.querySelector(`[data-monster-id="${enemy.id}"]`);
+						if(d != null) {
+							document.querySelector(`[data-monster-id="${enemy.id}"]`).style.animation = "shake .5s ease 0s 1 normal forwards";
+						}
+					},1,enemy);
 				}
+
+				log(logText);
 
 
 				if(enemy.hp <= 0) {
 					sou_kill_foe.play();
-					defeatEnemy();
+					defeatEnemy(enemy);
+					updateUI();
 				} 
 				else {
 
-					sou_punch[Math.floor(Math.random() * sou_punch.length)].play();
+					updateUI();
 
-					const enemyDmg = enemy.attack()
-					player.hp -= enemyDmg;
-					logText += (`The ${enemy.name} hits you for ${enemyDmg} damage.`)
+					lockMonsters();
 
-					
-					log(logText);
+					setTimeout(fn=>{
+
+						let logText = "";
+
+						sou_punch[Math.floor(Math.random() * sou_punch.length)].play();
+
+						const enemyDmg = enemy.attack()
+						player.hp -= enemyDmg;
+
+						logText += (`The ${enemy.name} hits you for ${enemyDmg} damage.`)
+
+						log(logText);
+
+						updateUI();
+						
+
+						if (player.hp <= 0) {
+							logText += ("You died! Game over.")
+
+							
+							document.querySelector("#death-text").classList.add("dead");
+							document.querySelector("#game-frame").classList.add("dead");
+
+							document.querySelector("#died-at-level").innerHTML = floor;
+							document.querySelector("#dead-high-score").innerHTML = floor >= localStorage.highScore ? "A NEW HIGH SCORE!" : ("High Score:"+localStorage.highScore);
+							
+						
+						}
+
+						setTimeout(fn=>{
+
+							log("Your turn.");
+							
+							unlockMonsters();
+						}, 1000);
+
+					}, 1000);
 				}
 
-				if (player.hp <= 0) {
-					logText += ("You died! Game over.")
-
-					
-					document.querySelector("#death-text").classList.add("dead");
-					document.querySelector("#game-frame").classList.add("dead");
-
-					document.querySelector("#died-at-level").innerHTML = floor;
-					document.querySelector("#dead-high-score").innerHTML = floor >= localStorage.highScore ? "A NEW HIGH SCORE!" : ("High Score:"+localStorage.highScore);
-					
 				
-				}
-				
-				updateUI();
 			}
 
 			currentChestContents = null
@@ -480,7 +428,7 @@
 					let dice = Math.floor(Math.random() * 20) + 1;
 
 					//Give gold
-					if(dice < 10) {
+					if(dice < 7) {
 						sou_foundSomethingSm.play();
 						let gold = floor * Math.round(Math.random() * 20) + 5;
 
@@ -506,6 +454,7 @@
 							giveItem(item);
 							log("FOUND " + item.name);
 							chestButton.classList.add("empty");
+							currentChestContents = null;
 						}
 						else {
 							currentChestContents = item;
@@ -519,19 +468,28 @@
 						sou_foundSomethingLg.play();
 
 						let items = [
-							new Item("Sword", "Deal extra damage", "dungeon/wee_dung_sword.png", sou_potion, 0, floor + thisRoomDifficulty,false,1),
-							new Item("Helm", "Increase max HP", "dungeon/wee_dung_helm.png", sou_potion, 4 + thisRoomDifficulty, 0,false,1),
+							new Item("Sword", "Deal extra damage", "dungeon/wee_dung_sword.png", sou_potion, 0, floor + thisRoomDifficulty,false,1, "weapon"),
+							new Item("Helm", "Increase max HP", "dungeon/wee_dung_helm.png", sou_potion, 4 + thisRoomDifficulty, 0,false,1, "helm"),
 						];
 
 						let item = items[Math.floor(Math.random() * items.length)];
 
-						item.name += " of +" + (item.dmg||item.hp);
+						item.name += " of +" + (item.dmg || item.hp);
 						
+						let slotIsEmpty = (item.slot == -1 || player.inventory.filter(i=>{ return i.slot == item.slot;}).length == 0);
 						
-						if(player.inventory.length < 4) {
+						if(player.inventory.length < 4 && slotIsEmpty) {
+							
 							giveItem(item);
 							log("FOUND " + item.name);
 							chestButton.classList.add("empty");
+							currentChestContents = null;
+
+						}
+						else if(!slotIsEmpty) {
+							
+							currentChestContents = item;
+							log("FOUND " + item.name + ". Can only have one " + item.slot + " at a time!");
 						}
 						else {
 							currentChestContents = item;
@@ -602,12 +560,13 @@
 			function enterPath(difficultyLevel) {
 
 				console.log(difficultyLevel);
+
 				difficultyLevel= Number.parseInt(difficultyLevel)||0;
 				thisRoomDifficulty = difficultyLevel;
 				randomizeDoors();
 				disableDoors();
 				
-				chestButton.style.display = "none";
+				chestButton.style.visibility = "hidden";
 				chestButton.style.opacity = 0;
 				chestButton.classList.remove("empty");
 			
@@ -615,8 +574,13 @@
 
 				
 				player.hp = Math.min(player.hp + 5, player.getMaxHp())
-				enemy = generateEnemy(difficultyLevel);
-				log(`You enter the room. There's a ${enemy.name} here!`)
+
+				for(let v = 0; v < 1 + Math.floor(Math.random() * 5); v++) {
+					enemy = generateEnemy(difficultyLevel);
+					monsters.push(enemy);
+				}
+
+				log(`You enter the room. There's a ${monsters.map(m=>{ return m.name }).join(", and a ") } here!`)
 				updateUI()
 			}
 
