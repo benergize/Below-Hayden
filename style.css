@@ -110,6 +110,11 @@ div#inventory {
 	
 	margin-top: 1rem;
 	text-transform: uppercase;
+	min-height:3.5rem;
+	
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
 
 .monsters { display:flex; justify-content: center; align-items: flex-end; min-height:100px; }
@@ -142,8 +147,7 @@ div#inventory {
 #death-text { opacity: 0; transition: opacity 1s;}
 #death-text.dead { display:block; opacity: 1;}
 
-
-
+.critText { color:yellow;}
 
 
 @keyframes combatIdle {
@@ -185,3 +189,25 @@ div#inventory {
 		transform: translateX(-8px);
 	}
 }
+
+/* https://codepen.io/zachkrall/pen/MWWGMPx */
+.wavy {
+	animation-name: wavy;
+	animation-duration: .5s;
+	animation-timing-function: ease;
+	animation-iteration-count: 1;
+	position: relative;
+	top: 0;
+	left: 0;
+  }
+  @keyframes wavy {
+	0% {
+	  top: 0px;
+	}
+	50% {
+	  top: -15px;
+	}
+	100% {
+	  top: 0px;
+	}
+  }

@@ -84,6 +84,8 @@
 				getMaxHp: function(){ let d = this.maxHp; this.inventory.forEach(item=>{ if(!item.consumable) { d+=item.hp; } }); return d; }
 			};
 
+			giveItem(new Item("Healing Potion", "Heal yourself", "dungeon/wee_dung_potion_red.png", sou_potion, 10,0,true,1));
+
 
 			let floor = 1
 			let enemy = null
@@ -133,7 +135,7 @@
 						for(let v = 0; v < monster.hp; v++) { monsterHearts += "<span class = 'heart'></span>" } 
 
 						let monsterTemplate = `
-							<div class = 'monster-container' style = 'width: ${ 90 / monsters.length }%'>
+							<div class = 'monster-container' style = 'width: ${ 80 / monsters.length }%'>
 								<div id = 'hearts' style = "visibility:visible;">${monsterHearts}</div>
 								<button 
 									data-monster-id="${monster.id}" 
@@ -344,11 +346,21 @@
 					return
 				}
 
+				let crit = false;
 				if(doAttack) {
 
-					const playerDmg = Math.floor(player.getDmg() + (Math.random() * 3));
+					let playerDmg = Math.floor(player.getDmg() + (Math.random() * 3));
+
+					if(Math.round(Math.random() * 20) == 20) {
+						logText += "<span class = 'critText'>CRITICAL HIT!</span>&nbsp;";
+						playerDmg *= 2;
+						crit = true;
+					}
+
 					enemy.hp -= playerDmg;
+
 					logText += (`You hit the ${enemy.name} for ${playerDmg} damage.`);
+
 					sou_punch[Math.floor(Math.random() * sou_punch.length)].play();
 
 					setTimeout(fn=>{
@@ -360,6 +372,8 @@
 				}
 
 				log(logText);
+				if(crit) { bindCritAnimation(); }
+
 
 
 				if(enemy.hp <= 0) {
@@ -408,9 +422,9 @@
 							log("Your turn.");
 							
 							unlockMonsters();
-						}, 1000);
+						}, 750);
 
-					}, 1000);
+					}, 750 + (crit ? 500 : 0));
 				}
 
 				
@@ -445,8 +459,8 @@
 						sou_foundSomethingMd.play();
 
 						let items = [
-							new Item("Potion", "Heal yourself", "dungeon/wee_dung_potion_red.png", sou_potion, 10,0,true,1),
-							new Item("Scroll", "Cast magic spell", "dungeon/wee_dung_scroll.png", sou_fire, 0, 1+Math.floor(floor/3),true,3),
+							new Item("Healing Potion", "Heal yourself", "dungeon/wee_dung_potion_red.png", sou_potion, 10,0,true,1),
+							new Item("Pyro Scroll", "Cast fire spell on all enemies", "dungeon/wee_dung_scroll.png", sou_fire, 0, 1+Math.floor(floor/3),true,3),
 						];
 
 						let item = items[Math.floor(Math.random() * items.length)];
@@ -505,7 +519,15 @@
 				}
 
 				else if(currentChestContents != null) {
-					if(player.inventory.length < 4) {
+					
+					let slotIsEmpty = (currentChestContents.slot == -1 || player.inventory.filter(i=>{ return i.slot == currentChestContents.slot;}).length == 0);
+					
+					if(!slotIsEmpty) {
+							
+						currentChestContents = item;
+						log("FOUND " + item.name + ". Can only have one " + item.slot + " at a time!");
+					}
+					else if(player.inventory.length < 4) {
 						giveItem(currentChestContents);
 						chestButton.classList.add("empty");
 						log("FOUND " + item.name);
@@ -638,7 +660,33 @@
 
 
 			// Start game
-			restart()
+			restart();
+
+
+			//https://codepen.io/zachkrall/pen/MWWGMPx
+			function bindCritAnimation(){
+
+				let h1 = document.querySelector(".critText");
+
+				h1.innerHTML = h1.innerHTML
+					.split("")
+					.map(letter => {
+					console.log(letter);
+					return `<span>` + letter + `</span>`;
+					})
+					.join("");
+
+				Array.from(h1.children).forEach((span, index) => {
+					setTimeout(() => {
+						span.classList.add("wavy");
+					}, index * 60);
+				});
+
+			}
 		</script>
+
+		<!-- 
+			Wavy Text Animation - Nick Krall
+		-->
 	</body>
 </html>
