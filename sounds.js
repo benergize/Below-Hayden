@@ -25,8 +25,11 @@ sou_punch[1] = new Sound("x","https://benergize.com/like_a_rogue/sound/sfx/Weapo
 sou_punch[2] = new Sound("x","https://benergize.com/like_a_rogue/sound/sfx/Weapons/Melee/sfx_wpn_punch3.wav",.1);
 sou_punch[3] = new Sound("x","https://benergize.com/like_a_rogue/sound/sfx/Weapons/Melee/sfx_wpn_punch4.wav",.1);
 
+var sou_crit = new Sound("x", "sounds/sfx_sound_neutral10.wav",.2);
+
+
 var sou_damage_foe = new Sound("x","https://benergize.com/like_a_rogue/sound/sfx/General%20Sounds/Impacts/sfx_sounds_impact2.wav",.1);
-var sou_kill_foe = new Sound("x", "https://benergize.com/like_a_rogue/sound/sfx/General%20Sounds/Impacts/sfx_sounds_impact12.wav",.2);
+var sou_kill_foe = new Sound("x", "sounds/sfx_exp_shortest_soft1.wav",.2);
 //Pickups
 var sou_foundSomethingSm = new Sound("x","https://benergize.com/like_a_rogue/sound/sfx/General Sounds/Coins/sfx_coin_double1.wav",.1);
 var sou_foundSomethingMd = new Sound("x","https://benergize.com/like_a_rogue/sound/sfx/General Sounds/Coins/sfx_coin_cluster3.wav",.1);
@@ -34,6 +37,7 @@ var sou_foundSomethingLg = new Sound("x","https://benergize.com/like_a_rogue/sou
 var sou_plant = new Sound("x","https://benergize.com/like_a_rogue/sound/sfx/General Sounds/Interactions/sfx_sounds_interaction22.wav",.1);
 	
 var sou_emptyChest = new Sound("x","https://benergize.com/like_a_rogue/sound/hit2.wav",.1);
+var sou_chest_fadeIn = new Sound("", "sounds/sfx_sounds_interaction20.wav",.2);
 
 var sou_fire = new Sound("x","https://benergize.com/like_a_rogue/sound/sfx/General%20Sounds/Interactions/sfx_sounds_interaction26.wav",.1);
 

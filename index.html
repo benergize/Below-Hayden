@@ -12,16 +12,18 @@
 	</head>
 	<body>
 
-		<h1>Below Hayden</h1>
-		<p>High Score: <span id = 'high-score'></span></p>
+		<h1 class = 'game-title'>Below Hayden</h1>
 
-		<div>
-			<div id = 'hpbar'>
-				<strong>Player HP: <span id="playerHP"></span></strong> 
-				<div></div>
+		<div id = 'main-ui'>
+			<marquee>High Score: <span id = 'high-score'></span></marquee>
+			<div>
+				<div id = 'hpbar'>
+					<strong>Player HP: <span id="playerHP"></span></strong> 
+					<div></div>
+				</div>
+				<strong id = 'level-label'>Level:</strong> <span id="floor">1</span>
+				<strong>Gold:</strong> <span id="gold">1</span>
 			</div>
-			<strong>Level:</strong> <span id="floor">1</span>
-			<strong>Gold:</strong> <span id="gold">1</span>
 		</div>
 
 		<div id = 'game-frame'>
@@ -35,18 +37,19 @@
 
 			<br/>
 
-			<button class = 'chest closed' onclick = 'useChest()'></button>
 			<div class = 'monsters'>
 			</div>
+			
+			<button class = 'chest closed' onclick = 'useChest()'></button>
 			
 
 			<div id="last-log">YOU KICK DOWN THE DOOR. THERE IS A BAT HERE.</div>
 			
 			<div id = 'inventory'>
-				<button class = 'item' data-id = '-1' onmouseleave = "clearItemInfo()" onmouseenter = "showItemInfo(this)" onclick = "useItem(this)" oncontextmenu="return removeItem(this.dataset.id)"></button>
-				<button class = 'item' data-id = '-1' onmouseleave = "clearItemInfo()" onmouseenter = "showItemInfo(this)" onclick = "useItem(this)" oncontextmenu="return removeItem(this.dataset.id)"></button>
-				<button class = 'item' data-id = '-1' onmouseleave = "clearItemInfo()" onmouseenter = "showItemInfo(this)" onclick = "useItem(this)" oncontextmenu="return removeItem(this.dataset.id)"></button>
-				<button class = 'item' data-id = '-1' onmouseleave = "clearItemInfo()" onmouseenter = "showItemInfo(this)" onclick = "useItem(this)" oncontextmenu="return removeItem(this.dataset.id)"></button>
+				<button class = 'item' data-id = '-1' onclick = "showItemInfo(this)"></button>
+				<button class = 'item' data-id = '-1' onclick = "showItemInfo(this)"></button>
+				<button class = 'item' data-id = '-1' onclick = "showItemInfo(this)"></button>
+				<button class = 'item' data-id = '-1' onclick = "showItemInfo(this)"></button>
 			</div>
 
 			<p id = 'item-info'></p>
@@ -85,6 +88,7 @@
 			};
 
 			giveItem(new Item("Healing Potion", "Heal yourself", "dungeon/wee_dung_potion_red.png", sou_potion, 10,0,true,1));
+			giveItem(new Item("Pyro Scroll", "Cast fire spell on all enemies", "dungeon/wee_dung_scroll.png", sou_fire, 0, 1+Math.floor(3),true,3));
 
 
 			let floor = 1
@@ -113,6 +117,8 @@
 			}
 
 			function updateUI() {
+
+				itemInfo.style.display = "none";
 
 				playerHPSpan.textContent = `${player.hp}/${player.getMaxHp()}`
 				floorSpan.textContent = floor
@@ -159,11 +165,14 @@
 				window.id++;
 				this.name = name;
 				this.sprite = sprite;
-				this.maxHp = hp;
-				this.hp = this.maxHp + Math.floor(floor / 4);
+				this.maxHp = hp +  Math.floor(floor / 4);;
+				this.hp = this.maxHp;
 				this.dmg = dmg;
 				this.attack = fn=>{ return this.dmg + (Math.floor(floor / 3)) };
-				this.takeDamage = dmg => { this.hp -= dmg; if(this.hp <= 0) { defeatEnemy(this); } }
+				this.takeDamage = (dmg, autocull) => { 
+					this.hp -= dmg; 
+					if(this.hp <= 0 && autocull) { defeatEnemy(this); } 
+				}
 
 				return this;
 			}
@@ -195,28 +204,73 @@
 							log(`Used ${this.name}...`);
 							console.log(this);
 
-							this.sound.play();
-
 							if(monsters.length > 0 && this.dmg > 0) {
 
-								monsters.forEach(monster=>{
-									//monster.hp -= this.dmg;
-									attack(monster, `...dealt ${this.dmg}. `);
+								lockMonsters();
+
+								monsters.forEach((monster,ind)=>{
+
+									setTimeout(fn=>{
+
+										this.sound.play();
+										monster.takeDamage(this.dmg, false);
+										
+										setTimeout(fn=>{
+											let d = document.querySelector(`[data-monster-id="${monster.id}"]`);
+											if(d != null) {
+												document.querySelector(`[data-monster-id="${monster.id}"]`).style.animation = "shake .5s ease 0s 1 normal forwards";
+											}
+										},1, monster);
+
+										log(`Hit ${monster.name} for ${this.dmg}.`);
+
+										updateUI();
+										lockMonsters();
+
+									},500*ind);
+
 								});
 
-								//attack(monsters[0], `...dealt ${this.dmg}. `);
-							}
+								setTimeout(fn=>{
 
-							if(this.hp > 0) {
-								player.hp += this.hp;
-								log(`...healed for ${this.hp}. `);
-							}
-							if(this.hp < 0) {
-								player.hp += this.hp;
-								log(`...hurt yourself for ${this.hp}. `);
-							}
+									updateUI();
 
-							if(player.hp >= player.maxHp) { player.hp = player.maxHp; }
+									monsters.forEach((monster,ind)=>{
+
+										setTimeout(fnz=>{
+
+											if(monster.hp <= 0) {
+												
+												defeatEnemy(monster);
+											}
+
+
+										},350*ind);
+
+									});
+
+									unlockMonsters();
+
+								}, (monsters.length * 500) + 500);
+								
+							}
+							else {
+
+								this.sound.play();
+
+								if(this.hp > 0) {
+									player.hp += this.hp;
+									log(`...healed for ${this.hp}. `);
+								}
+								if(this.hp < 0) {
+									player.hp += this.hp;
+									log(`...hurt yourself for ${this.hp}. `);
+								}
+
+								if(player.hp >= player.maxHp) { player.hp = player.maxHp; }
+
+								updateUI();
+							}
 
 							this.uses--;
 
@@ -224,7 +278,7 @@
 								removeItem(this.id);
 							}
 						}
-						updateUI();
+
 					}
 					
 				}
@@ -233,6 +287,8 @@
 			}
 
 			function removeItem(id) {
+
+				if(typeof id != "number") {id = id.dataset.id; }
 				
 				let itemEl = document.querySelector(`[data-id="${id}"]`);
 				itemEl.dataset.id = -1;
@@ -243,8 +299,11 @@
 			}
 
 			function useItem(el){
-				if(el.dataset.id != -1) {
-					let item = player.inventory.filter(item=>{return item.id == el.dataset.id;})[0];
+
+				let id = typeof el == "number" ? el : el.dataset.id;
+
+				if(id != -1) {
+					let item = player.inventory.filter(item=>{return item.id == id;})[0];
 					console.log(item);
 					item.use();
 				}
@@ -254,9 +313,18 @@
 
 				if(el.dataset.id != -1) {
 
+					itemInfo.style.display ="block";
+
 					let item = player.inventory.filter(item=>{return item.id == el.dataset.id; })[0];
 
-					itemInfo.innerHTML = item.name + "<br/>" + item.desc + " " +  (item.consumable ? ("&mdash; " + item.uses + " uses left.") : "");
+					itemInfo.innerHTML = `
+						${item.name}<br/>
+						${(item.consumable ? (item.uses + " uses left.") : "")}<br/>
+						<div>${item.desc}</div>
+
+						<button onclick = "useItem(this);updateUI();itemInfo.style.display='none';" data-id="${el.dataset.id}">USE</button> 
+						<button onclick = "removeItem(this);updateUI();itemInfo.style.display='none';" data-id="${el.dataset.id}">DROP</button>
+					`;
 				}
 			}
 
@@ -303,7 +371,7 @@
 
 
 
-				monsters = monsters.filter(monster=>{ return monster.hp > 0; });
+				monsters = monsters.filter(monster=>{ return monster.id != enemy.id; });
 				
 
 				floor += 1 + thisRoomDifficulty;
@@ -321,6 +389,8 @@
 					},1);
 					
 					enableDoors();
+
+					sou_chest_fadeIn.play();
 				}
 
 				updateUI();
@@ -357,6 +427,8 @@
 						logText += "<span class = 'critText'>CRITICAL HIT!</span>&nbsp;";
 						playerDmg *= 2;
 						crit = true;
+
+						sou_crit.play();
 					}
 
 					enemy.hp -= playerDmg;
@@ -450,7 +522,7 @@
 
 				if(!chestButton.classList.contains("empty") && currentChestContents == null) {
 				
-					let dice = Math.floor(Math.random() * 20) + 1;
+					let dice = Math.floor(Math.random() * 20) + 1 + thisRoomDifficulty*2;
 
 					//Give gold
 					if(dice < 7 - ((thisRoomDifficulty-1) * 2)) {
@@ -493,8 +565,8 @@
 						sou_foundSomethingLg.play();
 
 						let items = [
-							new Item("Sword", "Deal extra damage", "dungeon/wee_dung_sword.png", sou_potion, 0, floor + thisRoomDifficulty,false,1, "weapon"),
-							new Item("Helm", "Increase max HP", "dungeon/wee_dung_helm.png", sou_potion, 4 + thisRoomDifficulty, 0,false,1, "helm"),
+							new Item("Sword", "Deal extra damage", "dungeon/wee_dung_sword.png", sou_potion, 0, (floor / 4) + Math.floor(Math.random() * 12) + thisRoomDifficulty,false,1, "weapon"),
+							new Item("Helm", "Increase max HP", "dungeon/wee_dung_helm.png", sou_potion, 4 + (floor / 4) + Math.floor(Math.random() * 12)  + thisRoomDifficulty, 0,false,1, "helm"),
 						];
 
 						let item = items[Math.floor(Math.random() * items.length)];
@@ -589,6 +661,7 @@
 						},200,el);
 
 					},500,el);
+
 				}, 500);
 			}
 

@@ -1,10 +1,10 @@
-@font-face{font-family:'unifont'; src: url('unifont.ttf'); }
+.game-title { position:absolute; top:-10000px; }
 
 body {
 	font-family: monospace;
+	margin:0px;
 	background: #111;
 	color: #eee;
-	padding: 20px;
 	-webkit-user-select: none; /* Safari */
 	-ms-user-select: none; /* IE 10 and IE 11 */
 	user-select: none; /* Standard syntax */
@@ -12,7 +12,24 @@ body {
 	transition:opacity .2s;
 	cursor:url(ui/cursor.png),auto;
 }
+
 * {font-family: unifont; image-rendering: pixelated}
+
+
+#main-ui>div {
+    padding: 5px;
+	margin-bottom:6px;
+}
+#hpbar strong {
+	margin-left: 5px;
+}
+#level-label {
+    margin-left: 5px;
+    margin-top: 3px;
+    display: inline-block;
+
+}
+
 button {
 	background: #444;
 	color: #000000;
@@ -119,7 +136,8 @@ div#inventory {
 
 .monsters { display:flex; justify-content: center; align-items: flex-end; min-height:100px; }
 
-.chest { opacity:0; transition: opacity .5s; visibility:hidden; background-size:cover; width:40px; height:40px; }
+.chest { opacity:0; transition: opacity .5s; visibility:hidden; background-size:cover; width:40px; height:40px; 
+}
 .chest.closed { background-image:url('dungeon/wee_dung_chest.png'); }
 .chest:not(.closed){ background-image:url('dungeon/wee_dung_chest_open.png'); }
 .chest.empty:not(.closed) {background-image:url('dungeon/wee_dung_chest_empty.png');}
@@ -127,16 +145,34 @@ div#inventory {
 .heart { display:inline-block; background:url('ui/wee_ui_heart.png'); background-size:cover;  margin:5px; width:15px; height:15px; }
 
 #item-info {
+
+	display:none;
 	
     padding-bottom: 1rem;
     font-style: italic;
 	min-height:2.5rem;
+    border: 1px solid gray;
+    padding: 1rem;
+    box-shadow: 0px -2px 4px black;
+}
+#item-info button {
+	
+    font-size: 20px;
+    width: auto;
+    border: 1px outset white;
+    color: white;
+    padding: 1px 24px;
+    height: auto;
+    margin-top: 1rem;
+    box-shadow: 0px 1px 2px gray;
+
+
 }
 
 #game-frame {
-	margin-top: 10px; 
 	text-align:center;
 	background:url(dungeon/wee_dung_floor.png);
+	position: relative;
 }
 #game-frame.dead {
 	
@@ -148,6 +184,8 @@ div#inventory {
 #death-text.dead { display:block; opacity: 1;}
 
 .critText { color:yellow;}
+
+
 
 
 @keyframes combatIdle {
