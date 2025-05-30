@@ -159,7 +159,7 @@
 				window.id++;
 				this.name = name;
 				this.sprite = sprite;
-				this.maxHp = hp + floor;
+				this.maxHp = hp;
 				this.hp = this.maxHp + Math.floor(floor / 4);
 				this.dmg = dmg;
 				this.attack = fn=>{ return this.dmg + (Math.floor(floor / 3)) };
