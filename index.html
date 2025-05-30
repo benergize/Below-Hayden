@@ -385,6 +385,7 @@
 						log(logText);
 
 						updateUI();
+						lockMonsters();
 						
 
 						if (player.hp <= 0) {
@@ -515,6 +516,8 @@
 			}
 
 			function giveItem(item) {
+
+				currentChestContents = null;
 				
 				player.inventory.push(item);
 				let found = false;
@@ -569,6 +572,7 @@
 				chestButton.style.visibility = "hidden";
 				chestButton.style.opacity = 0;
 				chestButton.classList.remove("empty");
+				currentChestContents = null;
 			
 				if (player.hp <= 0) return
 
