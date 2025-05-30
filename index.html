@@ -297,6 +297,8 @@
 
 			function defeatEnemy(enemy) {
 
+					
+				sou_kill_foe.play();
 				log(`You defeated the ${enemy.name}!`);
 
 
@@ -349,9 +351,9 @@
 				let crit = false;
 				if(doAttack) {
 
-					let playerDmg = Math.floor(player.getDmg() + (Math.random() * 3));
+					let playerDmg = Math.floor(player.getDmg() + (Math.random() * 6));
 
-					if(Math.round(Math.random() * 20) == 20) {
+					if(Math.round(Math.random() * 20) > 18) {
 						logText += "<span class = 'critText'>CRITICAL HIT!</span>&nbsp;";
 						playerDmg *= 2;
 						crit = true;
@@ -375,46 +377,51 @@
 				if(crit) { bindCritAnimation(); }
 
 
-
 				if(enemy.hp <= 0) {
-					sou_kill_foe.play();
-					defeatEnemy(enemy);
+					
 					updateUI();
+					lockMonsters();
+
+					setTimeout(fn=>{
+						defeatEnemy(enemy);
+						updateUI();
+					}, 1000);
 				} 
 				else {
 
 					updateUI();
-
 					lockMonsters();
 
 					setTimeout(fn=>{
 
 						let logText = "";
 
-						sou_punch[Math.floor(Math.random() * sou_punch.length)].play();
+						if(doAttack) {
+							sou_punch[Math.floor(Math.random() * sou_punch.length)].play();
 
-						const enemyDmg = enemy.attack()
-						player.hp -= enemyDmg;
+							const enemyDmg = enemy.attack()
+							player.hp -= enemyDmg;
 
-						logText += (`The ${enemy.name} hits you for ${enemyDmg} damage.`)
+							logText += (`The ${enemy.name} hits you for ${enemyDmg} damage.`)
 
-						log(logText);
+							log(logText);
 
-						updateUI();
-						lockMonsters();
-						
-
-						if (player.hp <= 0) {
-							logText += ("You died! Game over.")
-
+							updateUI();
+							lockMonsters();
 							
-							document.querySelector("#death-text").classList.add("dead");
-							document.querySelector("#game-frame").classList.add("dead");
 
-							document.querySelector("#died-at-level").innerHTML = floor;
-							document.querySelector("#dead-high-score").innerHTML = floor >= localStorage.highScore ? "A NEW HIGH SCORE!" : ("High Score:"+localStorage.highScore);
+							if (player.hp <= 0) {
+								logText += ("You died! Game over.")
+
+								
+								document.querySelector("#death-text").classList.add("dead");
+								document.querySelector("#game-frame").classList.add("dead");
+
+								document.querySelector("#died-at-level").innerHTML = floor;
+								document.querySelector("#dead-high-score").innerHTML = floor >= localStorage.highScore ? "A NEW HIGH SCORE!" : ("High Score:"+localStorage.highScore);
+								
 							
-						
+							}
 						}
 
 						setTimeout(fn=>{
@@ -422,6 +429,7 @@
 							log("Your turn.");
 							
 							unlockMonsters();
+
 						}, 750);
 
 					}, 750 + (crit ? 500 : 0));
@@ -445,7 +453,7 @@
 					let dice = Math.floor(Math.random() * 20) + 1;
 
 					//Give gold
-					if(dice < 7) {
+					if(dice < 7 - ((thisRoomDifficulty-1) * 2)) {
 						sou_foundSomethingSm.play();
 						let gold = floor * Math.round(Math.random() * 20) + 5;
 
@@ -455,7 +463,7 @@
 					}
 
 					//Give item
-					else if(dice < 18) {
+					else if(dice < 18 - ((thisRoomDifficulty-1) * 2)) {
 						sou_foundSomethingMd.play();
 
 						let items = [
