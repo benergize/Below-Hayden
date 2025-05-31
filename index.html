@@ -77,6 +77,8 @@
 
 			window.id = 0;
 
+			let basicAttack = new Item("Basic Attack",-1,-1, sou_punch[0], 0, 1, 0);
+
 			let player = { 
 				hp: 20, 
 				maxHp: 20, 
@@ -84,8 +86,91 @@
 				dmg: 1, 
 				inventory: [], 
 				getDmg: function(){ let d = this.dmg; this.inventory.forEach(item=>{ if(!item.consumable) { d+=item.dmg; } }); return d; },
-				getMaxHp: function(){ let d = this.maxHp; this.inventory.forEach(item=>{ if(!item.consumable) { d+=item.hp; } }); return d; }
+				getMaxHp: function(){ let d = this.maxHp; this.inventory.forEach(item=>{ if(!item.consumable) { d+=item.hp; } }); return d; },
+				attack: function(targets, item=false) {
+					
+					if(!Array.isArray(targets)) { targets = [targets]; }
+
+					//Run through each of our targets and deal damage/play sound/animation
+					targets.forEach((monster,ind)=>{
+
+						if(typeof monster == "number") { monster = monsters.filter(m=>{return m.id == monster; })[0]; }
+
+						setTimeout(fn=>{
+
+							let crit = false;
+							let playerDmg = item ? item.dmg : Math.floor(player.getDmg() + (Math.random() * 6));
+							let logText = "";
+
+							if(Math.round(Math.random() * 20) > 18) {
+								logText += "<span class = 'critText'>CRITICAL HIT!</span>&nbsp;";
+								playerDmg *= 2;
+								crit = true;
+
+								sou_crit.play();
+							}
+
+							if(item) {
+								item.sound.play();
+							}
+							else {
+								sou_punch[Math.floor(Math.random() * sou_punch.length)].play();
+							}
+
+							monster.takeDamage(playerDmg, false);
+							
+							setTimeout(fn=>{
+								let d = document.querySelector(`[data-monster-id="${monster.id}"]`);
+								if(d != null) {
+									document.querySelector(`[data-monster-id="${monster.id}"]`).style.animation = "shake .5s ease 0s 1 normal forwards";
+								}
+							},1, monster);
+
+							log(`${logText} Hit ${monster.name} for ${playerDmg}.`);
+
+							if(crit) { bindCritAnimation(); }
+
+							updateUI();
+							lockMonsters();
+
+						}, 500 * ind);
+					});
+
+
+					//After we've hit all our targets, check if anyone/everyone is dead and remove them.
+					setTimeout(fn=>{
+
+						updateUI();
+
+						let delay = 0;
+
+						monsters.forEach((monster,ind)=>{
+
+							if(monster.hp <= 0) {
+
+
+								setTimeout(fnz=>{
+
+										
+									defeatEnemy(monster);
+
+								},delay);
+								delay += 350;
+							}
+
+						});
+
+						setTimeout(fn=>{
+							monsterTurn();
+						}, delay);
+
+						//unlockMonsters();
+
+					}, (monsters.length * 500) + 500);
+
+				}
 			};
+
 
 			giveItem(new Item("Healing Potion", "Heal yourself", "dungeon/wee_dung_potion_red.png", sou_potion, 10,0,true,1));
 			giveItem(new Item("Pyro Scroll of +3", "Cast fire spell on all enemies", "dungeon/wee_dung_scroll.png", sou_fire, 0, 3,true,3));
@@ -118,7 +203,7 @@
 
 			function updateUI() {
 
-				itemInfo.style.display = "none";
+				itemInfo.classList.remove("open");
 
 				playerHPSpan.textContent = `${player.hp}/${player.getMaxHp()}`
 				floorSpan.textContent = floor
@@ -136,20 +221,16 @@
 				if(monsters.length > 0) {
 					monsters.forEach(monster=>{
 
-						let monsterHearts = "";
+						let monsterHearts = monster.formatHearts();
 						
-						if(monster.hp < 10) {
-							for(let v = 0; v < monster.hp; v++) { monsterHearts += "<span class = 'heart'></span>" } 
-						}
-						else { monsterHearts = "<span class = 'heart'>&nbsp;x"+monster.hp+"</span>"; }
 
 						let monsterTemplate = `
-							<div class = 'monster-container' style = 'width: ${ 80 / monsters.length }%'>
-								<div id = 'hearts' style = "visibility:visible;">${monsterHearts}</div>
+							<div data-monster-container = "${monster.id}" class = 'monster-container' style = 'width: ${ 80 / monsters.length }%'>
+								<div class = 'hearts' style = "visibility:visible;">${monsterHearts}</div>
 								<button 
 									data-monster-id="${monster.id}" 
 									class = 'monster' 
-									onclick="attack(${monster.id})"
+									onclick="player.attack(${monster.id})"
 									style = "background-image: url(monsters/${monster.sprite});display:inline-block;"
 								>${monster.name}</button>
 							</div>
@@ -171,15 +252,74 @@
 				this.maxHp = hp +  Math.floor(floor / 3);
 				this.hp = this.maxHp;
 				this.dmg = dmg;
-				this.attack = fn=>{ return this.dmg + (Math.floor(floor / 3)) + Math.floor(Math.random() * 6) };
+				this.attack = fn=>{ 
+
+					
+					sou_punch[Math.floor(Math.random() * sou_punch.length)].play();
+
+					let dmg = this.dmg + (Math.floor(floor / 3)) + Math.floor(Math.random() * 6);
+					player.hp -= dmg;
+
+
+					log(`The ${this.name} hits you for ${dmg} damage.`)
+
+					updateUI();
+					lockMonsters();
+
+					document.querySelector(`[data-monster-id="${ this.id }"]`).style.animation = "enemyAttack .5s ease 0s 1 normal forwards";
+					setTimeout(fn=>{document.querySelector(`[data-monster-id="${ this.id }"]`).style.animation = "combatIdle 2s ease 0s infinite normal forwards";}, 512);
+
+					checkIsDefeated();
+				};
+
 				this.takeDamage = (dmg, autocull) => { 
 					this.hp -= dmg; 
 					if(this.hp <= 0 && autocull) { defeatEnemy(this); } 
 				}
 
+				this.formatHearts = function() {
+
+					let monsterHearts = "";
+
+					if(this.hp < 10) {
+						for(let v = 0; v < this.hp; v++) { monsterHearts += "<span class = 'heart'></span>" } 
+					}
+					else { monsterHearts = "<span class = 'heart'>&nbsp;x"+this.hp+"</span>"; }
+
+					return monsterHearts;
+				}
+
 				return this;
 			}
 
+			function monsterTurn() {
+
+				updateUI();
+				lockMonsters();
+
+				monsters.forEach((monster,ind)=>{
+
+					setTimeout(fn=>{
+
+						monster.attack();
+
+					}, 500 * ind);
+
+				});
+
+				setTimeout(fn=>{
+
+					if(!checkIsDefeated() && monsters.length > 0) {
+
+						
+						updateUI();
+
+						log("YOUR TURN.");
+
+						unlockMonsters();
+					}
+				}, (500 * monsters.length));
+			}
 
 			
 			function Item(name, desc, sprite="wee_dung_potion_red.png", sound=sou_potion, hp=0, dmg=0, consumable=true, uses=1, slot=-1, use = -1) {
@@ -211,50 +351,7 @@
 
 								lockMonsters();
 
-								monsters.forEach((monster,ind)=>{
-
-									setTimeout(fn=>{
-
-										this.sound.play();
-										monster.takeDamage(this.dmg, false);
-										
-										setTimeout(fn=>{
-											let d = document.querySelector(`[data-monster-id="${monster.id}"]`);
-											if(d != null) {
-												document.querySelector(`[data-monster-id="${monster.id}"]`).style.animation = "shake .5s ease 0s 1 normal forwards";
-											}
-										},1, monster);
-
-										log(`Hit ${monster.name} for ${this.dmg}.`);
-
-										updateUI();
-										lockMonsters();
-
-									},500*ind);
-
-								});
-
-								setTimeout(fn=>{
-
-									updateUI();
-
-									monsters.forEach((monster,ind)=>{
-
-										setTimeout(fnz=>{
-
-											if(monster.hp <= 0) {
-												
-												defeatEnemy(monster);
-											}
-
-
-										},350*ind);
-
-									});
-
-									unlockMonsters();
-
-								}, (monsters.length * 500) + 500);
+								player.attack(monsters, this);
 								
 							}
 							else {
@@ -318,7 +415,11 @@
 
 					sou_menu_open.play();
 
-					itemInfo.style.display ="block";
+					if(itemInfo.classList.contains("open") && itemInfo.dataset.item == el.dataset.id) { itemInfo.classList.remove("open"); }
+					else { itemInfo.classList.add("open"); }
+
+
+					itemInfo.dataset.item = el.dataset.id;
 
 					let item = player.inventory.filter(item=>{return item.id == el.dataset.id; })[0];
 
@@ -327,9 +428,12 @@
 						${(item.consumable ? (item.uses + " uses left.") : "")}<br/>
 						<div>${item.desc}</div>
 
-						<button onclick = "useItem(this);updateUI();itemInfo.style.display='none';" data-id="${el.dataset.id}">USE</button> 
-						<button onclick = "removeItem(this);sou_item_drop.play();updateUI();itemInfo.style.display='none';" data-id="${el.dataset.id}">DROP</button>
+						<button onclick = "useItem(this);updateUI();" data-id="${el.dataset.id}">USE</button> 
+						<button onclick = "removeItem(this);sou_item_drop.play();updateUI();" data-id="${el.dataset.id}">DROP</button>
 					`;
+				}
+				else {
+					itemInfo.classList.remove("open"); 
 				}
 			}
 
@@ -489,19 +593,7 @@
 							updateUI();
 							lockMonsters();
 							
-
-							if (player.hp <= 0) {
-								logText += ("You died! Game over.")
-
-								
-								document.querySelector("#death-text").classList.add("dead");
-								document.querySelector("#game-frame").classList.add("dead");
-
-								document.querySelector("#died-at-level").innerHTML = floor;
-								document.querySelector("#dead-high-score").innerHTML = floor >= localStorage.highScore ? "A NEW HIGH SCORE!" : ("High Score:"+localStorage.highScore);
-								
-							
-							}
+							checkIsDefeated();
 						}
 
 						setTimeout(fn=>{
@@ -516,6 +608,23 @@
 				}
 
 				
+			}
+
+			function checkIsDefeated() { 
+
+				if (player.hp <= 0) {
+					log("You died! Game over.")
+
+					
+					document.querySelector("#death-text").classList.add("dead");
+					document.querySelector("#game-frame").classList.add("dead");
+
+					document.querySelector("#died-at-level").innerHTML = floor;
+					document.querySelector("#dead-high-score").innerHTML = floor >= localStorage.highScore ? "A NEW HIGH SCORE!" : ("High Score:"+localStorage.highScore);
+					
+					return true;
+				}
+				return false;
 			}
 
 			currentChestContents = null
