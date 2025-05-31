@@ -4,9 +4,9 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
-		<script src = 'sounds.js'></script>
+		<script src = 'sounds.js?1'></script>
 		<title>Below Hayden</title>
-		<link rel = 'stylesheet' href = 'style.css'>
+		<link rel = 'stylesheet' href = 'style.css?1'>
 		<link href="https://cdn.jsdelivr.net/npm/@fontsource/unifont@5.2.5/index.min.css" rel="stylesheet">
 
 	</head>
@@ -39,7 +39,7 @@
 
 			<div class = 'monsters'>
 			</div>
-			
+
 			<button class = 'chest closed' onclick = 'useChest()'></button>
 			
 
@@ -88,7 +88,7 @@
 			};
 
 			giveItem(new Item("Healing Potion", "Heal yourself", "dungeon/wee_dung_potion_red.png", sou_potion, 10,0,true,1));
-			giveItem(new Item("Pyro Scroll", "Cast fire spell on all enemies", "dungeon/wee_dung_scroll.png", sou_fire, 0, 1+Math.floor(3),true,3));
+			giveItem(new Item("Pyro Scroll of +3", "Cast fire spell on all enemies", "dungeon/wee_dung_scroll.png", sou_fire, 0, 3,true,3));
 
 
 			let floor = 1
@@ -138,7 +138,10 @@
 
 						let monsterHearts = "";
 						
-						for(let v = 0; v < monster.hp; v++) { monsterHearts += "<span class = 'heart'></span>" } 
+						if(monster.hp < 10) {
+							for(let v = 0; v < monster.hp; v++) { monsterHearts += "<span class = 'heart'></span>" } 
+						}
+						else { monsterHearts = "<span class = 'heart'>&nbsp;x"+monster.hp+"</span>"; }
 
 						let monsterTemplate = `
 							<div class = 'monster-container' style = 'width: ${ 80 / monsters.length }%'>
@@ -165,10 +168,10 @@
 				window.id++;
 				this.name = name;
 				this.sprite = sprite;
-				this.maxHp = hp +  Math.floor(floor / 4);;
+				this.maxHp = hp +  Math.floor(floor / 3);
 				this.hp = this.maxHp;
 				this.dmg = dmg;
-				this.attack = fn=>{ return this.dmg + (Math.floor(floor / 3)) };
+				this.attack = fn=>{ return this.dmg + (Math.floor(floor / 3)) + Math.floor(Math.random() * 6) };
 				this.takeDamage = (dmg, autocull) => { 
 					this.hp -= dmg; 
 					if(this.hp <= 0 && autocull) { defeatEnemy(this); } 
@@ -196,9 +199,9 @@
 				if(typeof use == "function") { this.use = use; }
 				else {
 
-					this.use = fn=>{
+					this.use = (override=false)=>{
 						
-						if(this.consumable) {
+						if(this.consumable || override) {
 							
 
 							log(`Used ${this.name}...`);
@@ -313,6 +316,8 @@
 
 				if(el.dataset.id != -1) {
 
+					sou_menu_open.play();
+
 					itemInfo.style.display ="block";
 
 					let item = player.inventory.filter(item=>{return item.id == el.dataset.id; })[0];
@@ -323,7 +328,7 @@
 						<div>${item.desc}</div>
 
 						<button onclick = "useItem(this);updateUI();itemInfo.style.display='none';" data-id="${el.dataset.id}">USE</button> 
-						<button onclick = "removeItem(this);updateUI();itemInfo.style.display='none';" data-id="${el.dataset.id}">DROP</button>
+						<button onclick = "removeItem(this);sou_item_drop.play();updateUI();itemInfo.style.display='none';" data-id="${el.dataset.id}">DROP</button>
 					`;
 				}
 			}
@@ -331,31 +336,33 @@
 			function clearItemInfo() {
 				itemInfo.innerHTML = "";
 			}
+			
+			const monsterList = [
+				[
+					["Slime", "wee_mons_slime_idle_d_1.png"], 
+					["Bat", "wee_mons_bat_atk_l_1.png"], 
+					["Ghost", "wee_mons_ghost_atk_d_1.png"]
+				],
+				[
+					["Goblin", "wee_mons_gobwar_idle_d_2.png",4,2], 
+					["Skeleton", "wee_mons_skelshield_atk_u_2.png",4,2], 
+					["Zombie", "wee_mons_zombie_atk_d_1.png",4,1]
+				],
+				[
+					["Red Mage", "wee_mons_mage_atk_d_2.png", 7, 6],
+					["Necromancer", "wee_mons_necro_idle_d_2.png", 2, 8]
+				],
+				[
+					["Reaper", "wee_mons_reaper_atk_d_1.png", 7, 15]
+				],
+			];
 
 			function generateEnemy(difficultyLevel=0) {
 				
-				const types = [
-					[
-						new Monster("Slime", "wee_mons_slime_idle_d_1.png"), 
-						new Monster("Bat", "wee_mons_bat_atk_l_1.png"), 
-						new Monster("Ghost", "wee_mons_ghost_atk_d_1.png")
-					],
-					[
-						new Monster("Goblin", "wee_mons_gobwar_idle_d_2.png",1,2), 
-						new Monster("Skeleton", "wee_mons_skelshield_atk_u_2.png",1,2), 
-						new Monster("Zombie", "wee_mons_zombie_atk_d_1.png",1,1)
-					],
-					[
-						new Monster("Red Mage", "wee_mons_mage_atk_d_2.png", 7, 6),
-						new Monster("Necromancer", "wee_mons_necro_idle_d_2.png", 2, 8)
-					],
-					[
-						new Monster("Reaper", "wee_mons_reaper_atk_d_1.png", 7, 15)
-					],
-				];
+				
 
 
-				const enemy = types[difficultyLevel][Math.floor(Math.random() *  types[difficultyLevel].length)];
+				const enemy = new Monster(...monsterList[difficultyLevel][Math.floor(Math.random() *  monsterList[difficultyLevel].length)]);
 
 
 				log(`A wild ${enemy.name} appears!`)
@@ -376,7 +383,8 @@
 
 				floor += 1 + thisRoomDifficulty;
 				player.maxHp++;
-				player.dmg += .3;
+				player.hp++;
+				//player.dmg += .3;
 
 				if(monsters.length == 0) {
 
@@ -522,10 +530,10 @@
 
 				if(!chestButton.classList.contains("empty") && currentChestContents == null) {
 				
-					let dice = Math.floor(Math.random() * 20) + 1 + thisRoomDifficulty*2;
+					let dice = Math.floor(Math.random() * 20);// + 1 + thisRoomDifficulty*2;
 
 					//Give gold
-					if(dice < 7 - ((thisRoomDifficulty-1) * 2)) {
+					if(dice < 7) {
 						sou_foundSomethingSm.play();
 						let gold = floor * Math.round(Math.random() * 20) + 5;
 
@@ -535,12 +543,12 @@
 					}
 
 					//Give item
-					else if(dice < 18 - ((thisRoomDifficulty-1) * 2)) {
+					else if(dice >= 7 && dice < 12) {
 						sou_foundSomethingMd.play();
 
 						let items = [
 							new Item("Healing Potion", "Heal yourself", "dungeon/wee_dung_potion_red.png", sou_potion, 10,0,true,1),
-							new Item("Pyro Scroll", "Cast fire spell on all enemies", "dungeon/wee_dung_scroll.png", sou_fire, 0, 1+Math.floor(floor/3),true,3),
+							new Item("Pyro Scroll", "Cast fire spell on all enemies", "dungeon/wee_dung_scroll.png", sou_fire, 0, 1 + Math.floor(floor/3), true, 1 + Math.floor(Math.random() * 3)),
 						];
 
 						let item = items[Math.floor(Math.random() * items.length)];
@@ -565,8 +573,10 @@
 						sou_foundSomethingLg.play();
 
 						let items = [
-							new Item("Sword", "Deal extra damage", "dungeon/wee_dung_sword.png", sou_potion, 0, (floor / 4) + Math.floor(Math.random() * 12) + thisRoomDifficulty,false,1, "weapon"),
-							new Item("Helm", "Increase max HP", "dungeon/wee_dung_helm.png", sou_potion, 4 + (floor / 4) + Math.floor(Math.random() * 12)  + thisRoomDifficulty, 0,false,1, "helm"),
+							new Item("Sword", "Deal extra damage", "dungeon/wee_dung_sword.png", sou_potion, 0, (floor / 5) + Math.floor(Math.random() * 4) + thisRoomDifficulty, false, 1, "weapon"),
+							new Item("Axe", "A blade which does cleaving damage.", "dungeon/axe.png", sou_potion, 0, (floor / 4) + Math.floor(Math.random() * 4) + thisRoomDifficulty,false,1, "weapon", function(){ this.use(true); }),
+							new Item("Cursed Blade", "A sword carrying a curse.", "dungeon/wee_dung_sword.png", sou_potion, 0, -((floor / 4) + Math.floor(Math.random() * 4) + thisRoomDifficulty),false,1, "weapon"),
+							new Item("Helm", "Increase max HP", "dungeon/wee_dung_helm.png", sou_potion, 4 + (floor / 4) + Math.floor(Math.random() * 4)  + thisRoomDifficulty, 0,false,1, "helm"),
 						];
 
 						let item = items[Math.floor(Math.random() * items.length)];
@@ -669,7 +679,7 @@
 
 				console.log(difficultyLevel);
 
-				difficultyLevel= Number.parseInt(difficultyLevel)||0;
+				difficultyLevel= Math.min(monsterList.length - 1, (Number.parseInt(difficultyLevel)||0) );
 				thisRoomDifficulty = difficultyLevel;
 				randomizeDoors();
 				disableDoors();
@@ -684,7 +694,7 @@
 				
 				player.hp = Math.min(player.hp + 5, player.getMaxHp())
 
-				for(let v = 0; v < 1 + Math.floor(Math.random() * 5); v++) {
+				for(let v = 0; v < Math.min(floor,1 + Math.floor(Math.random() * 5)); v++) {
 					enemy = generateEnemy(difficultyLevel);
 					monsters.push(enemy);
 				}
@@ -700,7 +710,8 @@
 					
 
 					let dice = Math.random() * 20;
-					let dlvl = dice < 16 ? 0 : Math.floor(20-dice);
+
+					let dlvl = dice < 16 + (floor / 5) ? 0 : Math.floor(20-dice);
 
 					document.querySelector("#doors").innerHTML += `
 						<button onclick="pickDoor(this)" style = 'background-image:url(dungeon/door${dlvl}.png);' class = 'door' data-level="${

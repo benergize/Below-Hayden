@@ -27,6 +27,9 @@ sou_punch[3] = new Sound("x","https://benergize.com/like_a_rogue/sound/sfx/Weapo
 
 var sou_crit = new Sound("x", "sounds/sfx_sound_neutral10.wav",.2);
 
+var sou_menu_open = new Sound("x", "sounds/sfx_menu_move2.wav",.2);
+var sou_item_drop = new Sound("x", "sounds/sfx_sounds_impact1.wav",.2);
+
 
 var sou_damage_foe = new Sound("x","https://benergize.com/like_a_rogue/sound/sfx/General%20Sounds/Impacts/sfx_sounds_impact2.wav",.1);
 var sou_kill_foe = new Sound("x", "sounds/sfx_exp_shortest_soft1.wav",.2);
