@@ -191,7 +191,7 @@ div#inventory {
 #game-frame.dead {
 	
 	transition: opacity 3s;
-	opacity: .1;
+	opacity: 0;
 	pointer-events: none;
 }
 #death-text { opacity: 0; transition: opacity 1s; }

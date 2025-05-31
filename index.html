@@ -4,9 +4,9 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
-		<script src = 'sounds.js?1'></script>
+		<script src = 'sounds.js?11'></script>
 		<title>Below Hayden</title>
-		<link rel = 'stylesheet' href = 'style.css?1'>
+		<link rel = 'stylesheet' href = 'style.css?11'>
 		<link href="https://cdn.jsdelivr.net/npm/@fontsource/unifont@5.2.5/index.min.css" rel="stylesheet">
 
 	</head>
@@ -85,7 +85,7 @@
 				gold: 0, 
 				dmg: 1, 
 				inventory: [], 
-				getDmg: function(){ let d = this.dmg; this.inventory.forEach(item=>{ if(!item.consumable) { d+=item.dmg; } }); return d; },
+				getDmg: function(){ let d = this.dmg + (floor / 4); this.inventory.forEach(item=>{ if(!item.consumable) { d+=item.dmg; } }); return d; },
 				getMaxHp: function(){ let d = this.maxHp; this.inventory.forEach(item=>{ if(!item.consumable) { d+=item.hp; } }); return d; },
 				attack: function(targets, item=false) {
 					
@@ -683,7 +683,7 @@
 
 						let items = [
 							new Item("Sword", "Deal extra damage", "dungeon/wee_dung_sword.png", sou_potion, 0, (floor / 5) + Math.floor(Math.random() * 4) + thisRoomDifficulty, false, 1, "weapon"),
-							new Item("Axe", "A blade which does cleaving damage.", "dungeon/axe.png", sou_potion, 0, (floor / 4) + Math.floor(Math.random() * 4) + thisRoomDifficulty,false,1, "weapon", function(){ this.use(true); }),
+							new Item("Axe", "A blade which does cleaving damage.", "dungeon/axe.png", sou_potion, 0, (floor / 4) + Math.floor(Math.random() * 4) + thisRoomDifficulty,false,1, "weapon"),
 							new Item("Cursed Blade", "A sword carrying a curse.", "dungeon/wee_dung_sword.png", sou_potion, 0, -((floor / 4) + Math.floor(Math.random() * 4) + thisRoomDifficulty),false,1, "weapon"),
 							new Item("Helm", "Increase max HP", "dungeon/wee_dung_helm.png", sou_potion, 4 + (floor / 4) + Math.floor(Math.random() * 4)  + thisRoomDifficulty, 0,false,1, "helm"),
 						];
@@ -854,7 +854,7 @@
 				floor = 1
 				logDiv.innerText = ''
 				
-				log("You awaken in a dungeon. Choose a door to explore.")
+				log("You awaken in a dungeon.<br/>Choose a door to explore.")
 
 				updateUI()
 			}
@@ -885,9 +885,5 @@
 
 			}
 		</script>
-
-		<!-- 
-			Wavy Text Animation - Nick Krall
-		-->
 	</body>
 </html>
