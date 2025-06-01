@@ -4,9 +4,9 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
-		<script src = 'sounds.js?11'></script>
+		<script src = 'sounds.js?111'></script>
 		<title>Below Hayden</title>
-		<link rel = 'stylesheet' href = 'style.css?11'>
+		<link rel = 'stylesheet' href = 'style.css?111'>
 		<link href="https://cdn.jsdelivr.net/npm/@fontsource/unifont@5.2.5/index.min.css" rel="stylesheet">
 
 	</head>
@@ -17,8 +17,12 @@
 		<div id = 'main-ui'>
 			<marquee>High Score: <span id = 'high-score'></span></marquee>
 			<div>
-				<div id = 'hpbar'>
-					<strong>Player HP: <span id="playerHP"></span></strong> 
+				<div id = 'hpbar' class = 'bar'>
+					<strong>HP: <span id="playerHP"></span></strong> 
+					<div></div>
+				</div>
+				<div id = 'xpbar' class = 'bar'>
+					<strong>XP: <span id="playerXP"></span></strong> 
 					<div></div>
 				</div>
 				<strong id = 'level-label'>Level:</strong> <span id="floor">1</span>
@@ -83,9 +87,32 @@
 				hp: 20, 
 				maxHp: 20, 
 				gold: 0, 
-				dmg: 1, 
+				dmg: 1,
+				level: 1,
 				inventory: [], 
-				getDmg: function(){ let d = this.dmg + (floor / 4); this.inventory.forEach(item=>{ if(!item.consumable) { d+=item.dmg; } }); return d; },
+				xp:0,
+
+				getXPToNextLevel: fn=>{ return xpToNextLevel =  100 * (player.level ^ 1.5); },
+				handleLeveling: function() {
+
+
+					let xpToNextLevel = player.getXPToNextLevel();
+
+					//XPToLevel(n) = XPBase * (n ^ LevelCurve)
+
+					//document.querySelector("#xpbar div").style.width = ((player.xp / xpToNextLevel) * 100) + "%"
+
+					if(player.xp > xpToNextLevel) {
+
+						player.level++;
+						player.maxHp += 10;
+						player.dmg++;
+						player.hp = player.getMaxHp();
+						player.xp = 0;
+
+					}
+				},
+				getDmg: function(){ let d = this.dmg + (player.level / 4); this.inventory.forEach(item=>{ if(!item.consumable) { d+=item.dmg; } }); return d; },
 				getMaxHp: function(){ let d = this.maxHp; this.inventory.forEach(item=>{ if(!item.consumable) { d+=item.hp; } }); return d; },
 				attack: function(targets, item=false) {
 					
@@ -182,6 +209,7 @@
 			let thisRoomDifficulty = 0;
 
 			const playerHPSpan = document.getElementById('playerHP')
+			const playerXPSpan = document.getElementById('playerXP')
 			const floorSpan = document.getElementById('floor')
 			const goldSpan = document.getElementById('gold')
 			const logDiv = document.getElementById('log')
@@ -206,15 +234,18 @@
 				itemInfo.classList.remove("open");
 
 				playerHPSpan.textContent = `${player.hp}/${player.getMaxHp()}`
-				floorSpan.textContent = floor
+				playerXPSpan.textContent = `${player.xp}/${player.getXPToNextLevel()}`
+
+				floorSpan.textContent = player.level
 				goldSpan.textContent = player.gold;
 
-				if(floor > localStorage.highScore) {
-					localStorage.highScore = floor;
+				if(player.level > localStorage.highScore) {
+					localStorage.highScore = player.level;
 					document.querySelector("#high-score").innerText = floor;
 				}
 
 				document.querySelector("#hpbar div").style.width = 100*(player.hp/player.getMaxHp()) + "%";
+				document.querySelector("#xpbar div").style.width = 100*(player.xp/player.getXPToNextLevel()) + "%";
 
 				monsterDOM.innerHTML = "";
 
@@ -249,7 +280,7 @@
 				window.id++;
 				this.name = name;
 				this.sprite = sprite;
-				this.maxHp = hp +  Math.floor(floor / 3);
+				this.maxHp = (hp +  Math.floor(floor / 3)) * (thisRoomDifficulty+1);
 				this.hp = this.maxHp;
 				this.dmg = dmg;
 				this.attack = fn=>{ 
@@ -448,16 +479,17 @@
 					["Ghost", "wee_mons_ghost_atk_d_1.png"]
 				],
 				[
-					["Goblin", "wee_mons_gobwar_idle_d_2.png",4,2], 
-					["Skeleton", "wee_mons_skelshield_atk_u_2.png",4,2], 
-					["Zombie", "wee_mons_zombie_atk_d_1.png",4,1]
+					["Goblin", "wee_mons_gobwar_idle_d_2.png",6,3], 
+					["Skeleton", "wee_mons_skelshield_atk_u_2.png",6,2],
+					["Evil Eye", "wee_mons_eye_idle_d_2.png",8,1], 
+					["Zombie", "wee_mons_zombie_atk_d_1.png",5,3]
 				],
 				[
-					["Red Mage", "wee_mons_mage_atk_d_2.png", 7, 6],
-					["Necromancer", "wee_mons_necro_idle_d_2.png", 2, 8]
+					["Red Mage", "wee_mons_mage_atk_d_2.png", 15, 6],
+					["Necromancer", "wee_mons_necro_idle_d_2.png", 15, 8]
 				],
 				[
-					["Reaper", "wee_mons_reaper_atk_d_1.png", 7, 15]
+					["Reaper", "wee_mons_reaper_atk_d_1.png", 25, 30]
 				],
 			];
 
@@ -466,8 +498,8 @@
 				
 
 
-				const enemy = new Monster(...monsterList[difficultyLevel][Math.floor(Math.random() *  monsterList[difficultyLevel].length)]);
-
+				const enemy = new Monster(...monsterList[floor-1][Math.floor(Math.random() *  monsterList[floor-1].length)]);
+				enemy.level = thisRoomDifficulty;
 
 				log(`A wild ${enemy.name} appears!`)
 
@@ -485,10 +517,13 @@
 				monsters = monsters.filter(monster=>{ return monster.id != enemy.id; });
 				
 
-				floor += 1 + thisRoomDifficulty;
-				player.maxHp++;
-				player.hp++;
-				//player.dmg += .3;
+				//floor += 1 + thisRoomDifficulty;
+
+				//XP = BaseXP * (EnemyLevel ^ EnemyPowerCurve)
+				
+				player.xp += 10 * (enemy.maxHp ^ 1.3) * (thisRoomDifficulty+1);
+				player.handleLeveling();
+				
 
 				if(monsters.length == 0) {
 
@@ -619,8 +654,8 @@
 					document.querySelector("#death-text").classList.add("dead");
 					document.querySelector("#game-frame").classList.add("dead");
 
-					document.querySelector("#died-at-level").innerHTML = floor;
-					document.querySelector("#dead-high-score").innerHTML = floor >= localStorage.highScore ? "A NEW HIGH SCORE!" : ("High Score:"+localStorage.highScore);
+					document.querySelector("#died-at-level").innerHTML = player.level;
+					document.querySelector("#dead-high-score").innerHTML = player.level >= localStorage.highScore ? "A NEW HIGH SCORE!" : ("High Score:"+localStorage.highScore);
 					
 					return true;
 				}
@@ -644,7 +679,7 @@
 					//Give gold
 					if(dice < 7) {
 						sou_foundSomethingSm.play();
-						let gold = floor * Math.round(Math.random() * 20) + 5;
+						let gold = thisRoomDifficulty * Math.round(Math.random() * 20) + 5;
 
 						log(`FOUND ${gold} GOLD`);
 						player.gold += gold;
@@ -761,7 +796,7 @@
 				el.classList.add("open");
 				sou_door.play();
 
-				//if(el.classList.contains("stairs")) { floor += 4; }
+				if(el.classList.contains("stairs")) { floor += 1; }
 
 				setTimeout(fn=>{
 					el.classList.add("chosen");
@@ -788,7 +823,7 @@
 
 				console.log(difficultyLevel);
 
-				difficultyLevel= Math.min(monsterList.length - 1, (Number.parseInt(difficultyLevel)||0) );
+				difficultyLevel = Math.min(monsterList.length - 1, (Number.parseInt(difficultyLevel)||0) );
 				thisRoomDifficulty = difficultyLevel;
 				randomizeDoors();
 				disableDoors();
@@ -803,7 +838,8 @@
 				
 				player.hp = Math.min(player.hp + 5, player.getMaxHp())
 
-				for(let v = 0; v < Math.min(floor,1 + Math.floor(Math.random() * 5)); v++) {
+				for(let v = 0; v < 1 + Math.floor(Math.random() * (2 + floor + difficultyLevel)); v++) {
+					
 					enemy = generateEnemy(difficultyLevel);
 					monsters.push(enemy);
 				}

@@ -20,9 +20,6 @@ body {
     padding: 5px;
 	margin-bottom:6px;
 }
-#hpbar strong {
-	margin-left: 5px;
-}
 #level-label {
     margin-left: 5px;
     margin-top: 3px;
@@ -60,7 +57,14 @@ button:hover:not(button:disabled) {
 	background: #222;
 	white-space: pre-line;
 }
-#hpbar {
+
+#hpbar div {
+	background: #963939;
+	width: 100%;
+	height: 100%;
+}
+
+.bar {
 
 	display: block;
 	width: 216px;
@@ -68,11 +72,14 @@ button:hover:not(button:disabled) {
 	background: #1a1a1a;
 	border:1px solid gray;
 }
-#hpbar strong { 
-	position: absolute;}
-#hpbar div {
-	background: #963939;
-	width: 100%;
+.bar strong { 
+	position: absolute;
+	margin-left: 5px;
+}
+
+#xpbar div {
+	background: #395096;
+	width: 0%;
 	height: 100%;
 }
 
