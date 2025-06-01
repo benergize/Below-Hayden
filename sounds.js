@@ -29,10 +29,13 @@ var sou_crit = new Sound("x", "sounds/sfx_sound_neutral10.wav",.2);
 
 var sou_menu_open = new Sound("x", "sounds/sfx_menu_move2.wav",.2);
 var sou_item_drop = new Sound("x", "sounds/sfx_sounds_impact1.wav",.2);
+var sou_level_up = new Sound("x", "sounds/level up.wav",.2);
 
 
 var sou_damage_foe = new Sound("x","https://benergize.com/like_a_rogue/sound/sfx/General%20Sounds/Impacts/sfx_sounds_impact2.wav",.1);
 var sou_kill_foe = new Sound("x", "sounds/sfx_exp_shortest_soft1.wav",.2);
+
+
 //Pickups
 var sou_foundSomethingSm = new Sound("x","https://benergize.com/like_a_rogue/sound/sfx/General Sounds/Coins/sfx_coin_double1.wav",.1);
 var sou_foundSomethingMd = new Sound("x","https://benergize.com/like_a_rogue/sound/sfx/General Sounds/Coins/sfx_coin_cluster3.wav",.1);
