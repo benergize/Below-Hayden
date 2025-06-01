@@ -11,6 +11,9 @@ body {
 	overflow:hidden;
 	transition:opacity .2s;
 	cursor:url(ui/cursor.png),auto;
+
+	opacity:0;
+	transition: opacity 1s;
 }
 
 * {font-family: unifont; image-rendering: pixelated}
@@ -119,9 +122,18 @@ button:hover:not(button:disabled) {
 
 
 button.item {
-	background: none;
-	border: 1px solid white;
-	background-size: contain;
+    background: none;
+    border: 1px solid white;
+    background-size: contain;
+    font-size: 14px;
+    color: white;
+    text-shadow: -1px -2px #0000008c;
+    vertical-align: top;
+    align-items: flex-end;
+    justify-content: flex-end;
+    display: inline-flex;
+    font-weight: bold;
+    padding: 2px;
 }
 
 div#inventory {
