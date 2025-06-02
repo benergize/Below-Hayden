@@ -338,6 +338,12 @@
 					if(item.consumable) { el.innerText = item.uses; }
 					else { el.innerText = ""; }
 				});
+
+				for(let v = player.inventory.length; v < itemElements.length; v++) {
+					itemElements[v].style.backgroundImage = "";
+					itemElements[v].dataset.id = -1;
+					itemElements[v].innerText = "";
+				}
 			}
 
 
