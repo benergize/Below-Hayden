@@ -129,7 +129,11 @@
 
 					}
 				},
-				getDmg: function(){ let d = this.dmg + (player.level / 4); this.inventory.forEach(item=>{ if(!item.consumable) { d+=item.dmg; } }); return d; },
+				getDmg: function(){ 
+					let d = this.dmg + (player.level / 4); 
+					this.inventory.forEach(item=>{ if(!item.consumable) { d += item.dmg; } }); 
+					return d; 
+				},
 				getMaxHp: function(){ let d = this.maxHp; this.inventory.forEach(item=>{ if(!item.consumable) { d+=item.hp; } }); return d; },
 				attack: function(targets, item=false) {
 					
@@ -143,10 +147,10 @@
 						setTimeout(fn=>{
 
 							let crit = false;
-							let playerDmg = item ? item.getDmg() : Math.floor(player.getDmg() + (Math.random() * 6));
+							let playerDmg = item ? item.getDmg() : Math.floor(player.getDmg() + dice(1,6));
 							let logText = "";
 
-							if(Math.round(Math.random() * 20) > 18) {
+							if(dice(1,20) > 18) {
 								logText += "<span class = 'critText'>CRITICAL HIT!</span>&nbsp;";
 								playerDmg *= 2;
 								crit = true;
@@ -200,6 +204,7 @@
 									defeatEnemy(monster);
 
 								},delay);
+
 								delay += 350;
 							}
 
@@ -211,7 +216,7 @@
 
 						//unlockMonsters();
 
-					}, (monsters.length * 500) + 250);
+					}, (targets.length * 500) + 250);
 
 				}
 			};
@@ -322,18 +327,16 @@
 			}
 
 			function updateInventoryUI() {
-				document.querySelectorAll("button.item").forEach(item=>{
 
-					if(item.dataset.id != -1) {
-						let ii = player.inventory.filter(pi=>{return pi.id == item.dataset.id})[0];
-						if(typeof ii != "undefined") {
+				let itemElements = document.querySelectorAll("#inventory button.item")
 
-							if(ii.consumable) { item.innerText = ii.uses; }
-						}
-					}
-					else {
-						item.innerText = "";
-					}
+				player.inventory.forEach((item,ind)=>{
+
+					let el = itemElements[ind];
+					el.dataset.id = item.id;
+					el.style.backgroundImage = `url("${item.sprite}")`;
+					if(item.consumable) { el.innerText = item.uses; }
+					else { el.innerText = ""; }
 				});
 			}
 
@@ -647,7 +650,7 @@
 
 					sou_gameover.play();
 					
-					document.querySelector("#death-text").classList.add("dead");
+					document.body.classList.add("dead");
 					document.querySelector("#game-frame").classList.add("dead");
 
 					document.querySelector("#died-at-level").innerHTML = player.level;
@@ -774,21 +777,14 @@
 				}
 				
 				player.inventory.push(item);
-				let found = false;
-
-				document.querySelectorAll(".item").forEach(el=>{
-					if(el.dataset.id == '-1' && !found) {
-						el.style.backgroundImage = `url("${item.sprite}")`;
-						el.dataset.id = item.id;
-						found = true;
-					}
-				});
+				
+				updateInventoryUI()
 			}
 
 			function pickDoor(el) {
 				
 				sou_shop_music.sound.pause()
-				
+
 				disableDoors();
 				el.classList.add("open");
 				sou_door.play();

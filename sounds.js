@@ -33,7 +33,7 @@ var sou_level_up = new Sound("x", "sounds/level up.wav",.2);
 
 
 var sou_gameover = new Sound("x", "sounds/game over.wav",.2);
-var sou_shop_music = new Sound("x", "sounds/menu music.wav",.2);
+var sou_shop_music = new Sound("x", "sounds/shop music.mp3",.2);
 sou_shop_music.sound.loop = true;
 
 

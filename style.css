@@ -8,16 +8,25 @@ body {
 	-webkit-user-select: none; /* Safari */
 	-ms-user-select: none; /* IE 10 and IE 11 */
 	user-select: none; /* Standard syntax */
-	overflow:hidden;
 	transition:opacity .2s;
 	cursor:url(ui/cursor.png),auto;
 
 	opacity:0;
 	transition: opacity 1s;
+
+	max-width:100vw;
+	overflow:hidden;
 }
 
 * {font-family: unifont; image-rendering: pixelated}
 
+#main-ui { 
+	transition: opacity 3s;
+	opacity:1;
+}
+.dead #main-ui {
+	opacity:0;
+}
 
 #main-ui>div {
     padding: 5px;
@@ -207,14 +216,14 @@ div#inventory {
 	background:url(dungeon/wee_dung_floor.png);
 	position: relative;
 }
-#game-frame.dead {
+.dead #game-frame {
 	
 	transition: opacity 3s;
 	opacity: 0;
 	pointer-events: none;
 }
 #death-text { opacity: 0; transition: opacity 1s; }
-#death-text.dead { display:block; opacity: 1; 
+.dead #death-text { display:block; opacity: 1; 
     padding: 1rem;
     position: absolute;
     width: 100%;
