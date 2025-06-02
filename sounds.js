@@ -10,10 +10,24 @@ var sou_sneak = new Sound("x","https://benergize.com/like_a_rogue/sound/sneak.wa
 
 */
 
+window.actx = new AudioContext(); 
+
+
 function Sound(unused, src, volume){
 	this.sound = new Audio(src);
+	this.sound.crossOrigin = "anonymous";
+	
+	this.track = new MediaElementAudioSourceNode(window.actx, {
+		mediaElement: this.sound,
+	});
+	
+	this.gain = new GainNode(window.actx);
+
+	this.track.connect(this.gain).connect(window.actx.destination);
+
 	this.sound.volume = volume;
-	this.play = fn=>{this.sound.play()};
+	this.play = fn=>{ this.sound.play()};
+
 	return this;
 }
 

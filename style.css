@@ -252,6 +252,22 @@ div#inventory {
     font-size: 53px;
 }
 
+details { display:none; }
+
+#annoying-splash {
+	position: absolute;
+	z-index:33;
+	top:0;
+	left:0;
+	width:100vw;
+	height:100vh;
+	background-color: black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	transition:left 1s ease-in;
+}
 
 @keyframes combatIdle {
 	0%,
