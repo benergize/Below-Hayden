@@ -32,6 +32,11 @@ var sou_item_drop = new Sound("x", "sounds/sfx_sounds_impact1.wav",.2);
 var sou_level_up = new Sound("x", "sounds/level up.wav",.2);
 
 
+var sou_gameover = new Sound("x", "sounds/game over.wav",.2);
+var sou_shop_music = new Sound("x", "sounds/menu music.wav",.2);
+sou_shop_music.sound.loop = true;
+
+
 var sou_damage_foe = new Sound("x","https://benergize.com/like_a_rogue/sound/sfx/General%20Sounds/Impacts/sfx_sounds_impact2.wav",.1);
 var sou_kill_foe = new Sound("x", "sounds/sfx_exp_shortest_soft1.wav",.2);
 

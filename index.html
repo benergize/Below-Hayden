@@ -97,6 +97,7 @@
 				hp: 20, 
 				maxHp: 20, 
 				gold: 0, 
+				dgold:0,
 				dmg: 1,
 				level: 1,
 				inventory: [], 
@@ -154,7 +155,8 @@
 							}
 
 							if(item) {
-								item.sound.play();
+								if(typeof item.sound == "string") { window[item.sound].play() }
+								else { item.sound.play(); }
 							}
 							else {
 								sou_punch[Math.floor(Math.random() * sou_punch.length)].play();
@@ -185,7 +187,7 @@
 
 						updateUI();
 
-						let delay = 0;
+						let delay = 1;
 
 						monsters.forEach((monster,ind)=>{
 
@@ -249,6 +251,7 @@
 
 			function updateBars() {
 
+
 				playerHPSpan.textContent = `${Math.round(player.dhp)}/${Math.round(player.getMaxHp())}`
 				playerXPSpan.textContent = `${Math.round(player.dxp)}/${Math.round(player.getXPToNextLevel())}`
 
@@ -257,6 +260,10 @@
 
 				let xp = player.xp;
 				let hp = player.hp;
+				let gold = player.gold
+
+				if(player.dgold < gold) { player.dgold++; }
+				if(player.dgold > gold) { player.dgold--; }
 
 				if(player.dxp < xp) { player.dxp += 1; }
 				if(player.dxp > xp) { player.dxp = xp; }
@@ -264,10 +271,13 @@
 				if(player.dhp < hp) { player.dhp+=.2; }
 				if(player.dhp > hp) { player.dhp-=.2; }
 
-				if(player.dhp != hp || player.dxp != xp) { clearTimeout(ubto); ubto = setTimeout(fn=>{ updateBars(); }, 5); }
+				
+				goldSpan.innerText = player.dgold;
+
+				if(player.dhp != hp || player.dxp != xp || player.dgold != player.gold) { clearTimeout(ubto); ubto = setTimeout(fn=>{ updateBars(); }, 5); }
 
 			}
-			//setInterval(updateBars,5);
+			
 
 			function updateUI() {
 
@@ -307,6 +317,11 @@
 					});
 				}
 
+				updateInventoryUI();
+				
+			}
+
+			function updateInventoryUI() {
 				document.querySelectorAll("button.item").forEach(item=>{
 
 					if(item.dataset.id != -1) {
@@ -319,8 +334,7 @@
 					else {
 						item.innerText = "";
 					}
-				})
-				
+				});
 			}
 
 
@@ -381,7 +395,6 @@
 				lockMonsters();
 
 				monsters.forEach((monster,ind)=>{
-
 					setTimeout(fn=>{
 
 						monster.attack();
@@ -426,6 +439,7 @@
 				this.sound = sound;
 				this.uses=uses;
 				this.slot = slot;
+				this.value = 10;
 
 				this.getName = function() {
 
@@ -459,7 +473,12 @@
 							}
 							else {
 
-								this.sound.play();
+								if(typeof this.sound == "string") {
+									window[this.sound].play();
+								}
+								else {
+									this.sound.play();
+								}
 
 								if(this.hp > 0) {
 
@@ -512,6 +531,10 @@
 
 			function showItemInfo(el) {
 
+				if(el == -1) {
+					return  itemInfo.classList.remove("open");
+				}
+
 				if(el.dataset.id != -1) {
 
 					sou_menu_open.play();
@@ -521,17 +544,30 @@
 
 
 					itemInfo.dataset.item = el.dataset.id;
-					console.log(el.dataset.id);
+					
+					let isShop = el.classList.contains("shop");
 
-					let item = player.inventory.filter(i=>{ console.log(i.id); return i.id == el.dataset.id; })[0];
-
+					let item = -1;
+					if(isShop) {
+						item = itemShopItems.filter(i=>{ console.log(i.id); return i.id == el.dataset.id; })[0];
+					}
+					else {
+						item = player.inventory.filter(i=>{ console.log(i.id); return i.id == el.dataset.id; })[0];
+					}
 					itemInfo.innerHTML = `
 						${ item.getName() }<br/>
 						${(item.consumable ? (item.uses + " uses left.") : "")}<br/>
 						<div>${item.desc}</div>
 
-						<button onclick = "useItem(this);updateUI();" data-id="${el.dataset.id}">USE</button> 
-						<button onclick = "removeItem(this);sou_item_drop.play();updateUI();" data-id="${el.dataset.id}">DROP</button>
+						${
+							!isShop ?
+								`<button onclick = "useItem(this);updateUI();" data-id="${el.dataset.id}">USE</button> 
+								<button onclick = "removeItem(this);sou_item_drop.play();updateUI();" data-id="${el.dataset.id}">DROP</button>`
+							:
+								`
+								<button onclick = "buyItem(this);" data-id="${item.id}">BUY FOR ${item.value}</button> 
+								`
+						}
 					`;
 				}
 				else {
@@ -609,6 +645,7 @@
 				if (player.hp <= 0) {
 					log("You died! Game over.")
 
+					sou_gameover.play();
 					
 					document.querySelector("#death-text").classList.add("dead");
 					document.querySelector("#game-frame").classList.add("dead");
@@ -710,9 +747,9 @@
 						log("FOUND " + item.getName() + ". Can only have one " + item.slot + " at a time!");
 					}
 					else if(player.inventory.length < 4) {
+						log("FOUND " + currentChestContents.getName());
 						giveItem(currentChestContents);
 						chestButton.classList.add("empty");
-						log("FOUND " + item.getName());
 						currentChestContents = null;
 					}
 					else {
@@ -750,7 +787,8 @@
 
 			function pickDoor(el) {
 				
-
+				sou_shop_music.sound.pause()
+				
 				disableDoors();
 				el.classList.add("open");
 				sou_door.play();
@@ -782,10 +820,12 @@
 
 				console.log(difficultyLevel);
 
+				let isShop = difficultyLevel == "_shop";
+
 				difficultyLevel = Math.min(monsterList.length - 1, (Number.parseInt(difficultyLevel)||0) );
 				thisRoomDifficulty = difficultyLevel;
 				randomizeDoors();
-				disableDoors();
+				
 				
 				chestButton.style.visibility = "hidden";
 				chestButton.style.opacity = 0;
@@ -797,14 +837,24 @@
 				
 				player.hp = Math.min(player.hp + 5, player.getMaxHp())
 
-				for(let v = 0; v < 1 + Math.floor(Math.random() * (2 + floor + difficultyLevel)); v++) {
+				if(!isShop) {
+					disableDoors();
 					
-					enemy = generateEnemy(difficultyLevel);
-					monsters.push(enemy);
+					for(let v = 0; v < 1 + Math.floor(Math.random() * (2 + floor + difficultyLevel)); v++) {
+						
+						enemy = generateEnemy(difficultyLevel);
+						monsters.push(enemy);
+					}
+
+					
+					log(`You enter the room. There's a ${monsters.map(m=>{ return m.name }).join(", and a ") } here!`)
+					updateUI()
+				}
+				else {
+					showShop();
 				}
 
-				log(`You enter the room. There's a ${monsters.map(m=>{ return m.name }).join(", and a ") } here!`)
-				updateUI()
+
 			}
 
 			function randomizeDoors() {
@@ -816,6 +866,8 @@
 					let dice = Math.random() * 20;
 
 					let dlvl = dice < 16 + (floor / 5) ? 0 : Math.floor(20-dice);
+
+					if(Math.random() * 100 > 90) { dlvl = "_shop"; }
 
 					document.querySelector("#doors").innerHTML += `
 						<button onclick="pickDoor(this)" style = 'background-image:url(dungeon/door${dlvl}.png);' class = 'door' data-level="${
@@ -844,10 +896,73 @@
 				});
 			}
 
+			itemShopItems = [];
+
+			function showShop() {
+
+				sou_shop_music.play();
+
+				log('"BUY SOMETHING, WILL YOU?"');
+
+				itemShopItems = [
+
+					new Item(...window.items[0]),
+					new Item(...window.gear[Math.round(Math.random() * window.gear.length-1)]),
+					new Item(...window.items[0]),
+				];
+
+
+				monsterDOM.innerHTML = `
+					<img src="monsters/shopkeeper.png" width="80" height="80">
+					<button class = 'item shop' data-shop=1 onclick = 'showItemInfo(this);'></button>
+					<button class = 'item shop' data-shop=1 onclick = 'showItemInfo(this);'></button>
+					<button class = 'item shop' data-shop=1 onclick = 'showItemInfo(this);'></button>
+				`;
+
+				itemShopItems.forEach((item,ind)=>{
+
+					let el = monsterDOM.querySelectorAll(".item.shop")[ind];
+					
+					el.style.backgroundImage = `url("${item.sprite}")`;
+					el.dataset.id = item.id;
+					
+				});
+			}
+
+			function buyItem(el) {
+
+				let item = itemShopItems.filter(i=>{return i.id == el.dataset.id;})[0];
+
+				console.log(item);
+
+				let slotTaken = item.slot != -1 && player.inventory.filter(i=>{return i.slot == item.slot;}).length > 0;
+
+				if(player.gold >= item.value && player.inventory.length < 4 && !slotTaken) {
+
+					player.gold -= item.value;
+					giveItem(item);
+					itemShopItems = itemShopItems.filter(i=>{return i.id != item.id;})
+
+					let idom = document.querySelector(`.shop.item[data-id="${item.id}"]`);
+					idom.style.backgroundImage = "";
+					idom.dataset.id = -1;
+
+					showItemInfo(-1);
+
+					updateInventoryUI();
+					updateBars();
+					
+				}
+
+				else if(player.gold < item.value) { log(`"You can't afford that!"`); }
+				else if(player.inventory.length >= 4) { log(`"Inventory is full!"`); }
+				else if(slotTaken) { log(`"You can only have one ${item.slot} at a time!"`); }
+			}
+
 			function restart() {
 				player.hp = 20
 				floor = 1
-				logDiv.innerText = ''
+				logDiv.innerText = '';
 				
 				log("You awaken in a dungeon.<br/>Choose a door to explore.")
 
