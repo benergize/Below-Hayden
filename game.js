@@ -218,14 +218,20 @@ function updateUI() {
 		document.querySelector("#high-score").innerText = floor;
 	}
 
-	monsterDOM.innerHTML = "";
+	updateMonsters();
 
-	if(monsters.length > 0) {
-		monsters.forEach(monster=>{
+	updateInventoryUI();
+	
+}
+
+function monsterUIInit() {
+
+	monsterDOM.innerHTML = "";
+	monsters.forEach(monster=>{
+
 
 			let monsterHearts = monster.formatHearts();
 			
-
 			let monsterTemplate = `
 				<div data-monster-container = "${monster.id}" class = 'monster-container' style = 'width: ${ 80 / monsters.length }%'>
 					<div class = 'hearts' style = "visibility:visible;">${monsterHearts}</div>
@@ -239,11 +245,24 @@ function updateUI() {
 			`;
 
 			monsterDOM.innerHTML += monsterTemplate;
-		});
-	}
-
-	updateInventoryUI();
+		
+	});
 	
+}
+
+function updateMonsters() {
+	let monsterElements = document.querySelectorAll(`.monster-container`);
+	monsterElements.forEach(md=>{
+
+		
+
+		let monster = monsters.filter(m=>{return md.dataset.monsterContainer == m.id; });
+		if(monster.length == 0) { md.innerHTML = ""; }
+		else {
+			monster = monster[0]; 
+			md.querySelector(".hearts").innerHTML = monster.formatHearts();
+		}
+	});
 }
 
 function updateInventoryUI() {
@@ -461,6 +480,7 @@ function useItem(el){
 function showItemInfo(el) {
 
 	if(el == -1) {
+		sou_menu_close.play();
 		return  itemInfo.classList.remove("open");
 	}
 
@@ -475,9 +495,10 @@ function showItemInfo(el) {
 		itemInfo.dataset.item = el.dataset.id;
 		
 		let isShop = game.roomType == "shop";
+		let isShopItem = isShop && el.classList.contains("shop");
 
 		let item = -1;
-		if(isShop && el.classList.contains("shop")) {
+		if(isShopItem) {
 			item = game.itemShopItems.filter(i=>{ console.log(i.id); return i.id == el.dataset.id; })[0];
 		}
 		else {
@@ -493,9 +514,11 @@ function showItemInfo(el) {
 					`<button onclick = "useItem(this);updateUI();" data-id="${el.dataset.id}">USE</button> 
 					<button onclick = "removeItem(this);sou_item_drop.play();updateUI();" data-id="${el.dataset.id}">DROP</button>`
 				:
-					`
-					<button onclick = "buyItem(this);" data-id="${item.id}">BUY FOR ${item.value}</button> 
-					`
+				(
+					isShopItem ?
+						`<button onclick = "buyItem(this);" data-id="${item.id}">BUY FOR ${item.value}</button>` :
+						`<button onclick = "sellItem(this);" data-id="${item.id}">SELL FOR FOR ${Math.ceil(item.value * .75)}</button>`
+				)
 			}
 		`;
 	}
@@ -672,7 +695,8 @@ function useChest() {
 		
 		if(!slotIsEmpty) {
 				
-			currentChestContents = item;
+			//currentChestContents = item;
+			sou_error.play(); 
 			log("FOUND " + item.getName() + ". Can only have one " + item.slot + " at a time!");
 		}
 		else if(player.inventory.length < 4) {
@@ -682,6 +706,7 @@ function useChest() {
 			currentChestContents = null;
 		}
 		else {
+			sou_error.play(); 
 			log("FOUND " + currentChestContents.getName() + ". Inventory full!");
 		}
 	}
@@ -773,7 +798,8 @@ function enterPath(difficultyLevel) {
 
 		
 		log(`You enter the room. There's a ${monsters.map(m=>{ return m.name }).join(", and a ") } here!`)
-		updateUI()
+		updateUI();
+		monsterUIInit();
 	}
 	else {
 		showShop();
@@ -864,13 +890,12 @@ function buyItem(el) {
 
 	let item = game.itemShopItems.filter(i=>{return i.id == el.dataset.id;})[0];
 
-	console.log(item);
 
 	let slotTaken = item.slot != -1 && player.inventory.filter(i=>{return i.slot == item.slot;}).length > 0;
 
-	let inventoryFull = player.inventory.length < 4 && !(item.consumable && player.inventory.filter(i=>{ i.getName() == item.getName() }).length > 0)
+	let inventoryNotFull = player.inventory.length < 4 || (item.consumable && player.inventory.filter(i=>{ return i.getName() == item.getName(); }).length > 0)
 
-	if(player.gold >= item.value && player.inventory.length < 4 && !slotTaken) {
+	if(player.gold >= item.value && inventoryNotFull && !slotTaken) {
 
 		player.gold -= item.value;
 		giveItem(item);
@@ -880,6 +905,8 @@ function buyItem(el) {
 		idom.style.backgroundImage = "";
 		idom.dataset.id = -1;
 
+		sou_buy.play();
+
 		showItemInfo(-1);
 
 		updateInventoryUI();
@@ -887,9 +914,25 @@ function buyItem(el) {
 		
 	}
 
-	else if(player.gold < item.value) { log(`"You can't afford that!"`); }
-	else if(player.inventory.length >= 4) { log(`"Inventory is full!"`); }
-	else if(slotTaken) { log(`"You can only have one ${item.slot} at a time!"`); }
+	else if(player.gold < item.value) { sou_error.play(); log(`"You can't afford that!"`); }
+	else if(player.inventory.length >= 4) { sou_error.play(); log(`"Inventory is full!"`); }
+	else if(slotTaken) { sou_error.play();  log(`"You can only have one ${item.slot} at a time!"`); }
+}
+
+function sellItem(el) {
+
+	
+	let item = player.inventory.filter(i=>{return i.id == el.dataset.id;})[0];
+
+	player.gold += Math.ceil(item.value * .75);
+
+	if(item.consumable && item.uses > 1) { item.uses--; }
+	else { player.inventory = player.inventory.filter(i=>{ return i.id != item.id; }); showItemInfo(-1); }
+
+	sou_sell.play();
+	
+	updateInventoryUI();
+	updateBars();
 }
 
 function restart() {
