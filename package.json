@@ -1,0 +1,23 @@
+{
+  "name": "below-hayden",
+  "version": "1.0.0",
+  "description": "",
+  "main": "editor-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benergize/Below-Hayden.git"
+  },
+  "author": "benergize",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benergize/Below-Hayden/issues"
+  },
+  "homepage": "https://github.com/benergize/Below-Hayden#readme",
+  "dependencies": {
+    "events": "^3.3.0",
+    "express": "^5.1.0"
+  }
+}
