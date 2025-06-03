@@ -165,7 +165,9 @@ div#inventory {
 
 .monsters { display:flex; justify-content: center; align-items: flex-end; height:100px; }
 
-.chest { opacity:0; transition: opacity .5s; visibility:hidden; background-size:cover; width:40px; height:40px; margin-top:-40px;margin-bottom:40px;
+.chest { opacity:0; transition: opacity .5s; visibility:hidden; background-size:cover; width:40px; height:40px; margin-bottom:12px;
+    position: relative;
+    top: -48px;
 }
 .chest.closed { background-image:url('dungeon/wee_dung_chest.png'); }
 .chest:not(.closed){ background-image:url('dungeon/wee_dung_chest_open.png'); }
@@ -197,7 +199,7 @@ div#inventory {
 #item-info.open {
 	display:block;
 }
-#item-info button {
+#item-info button, #death-text button {
 	
     font-size: 20px;
     width: auto;
@@ -266,7 +268,8 @@ details { display:none; }
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	transition:left 1s ease-in;
+    background-image: url(dungeon/brick_dark.png?1);
+	transition:left 2.3s ease-in;
 }
 
 @keyframes combatIdle {
@@ -313,7 +316,7 @@ details { display:none; }
 /* https://codepen.io/zachkrall/pen/MWWGMPx */
 .wavy {
 	animation-name: wavy;
-	animation-duration: .5s;
+	animation-duration: .4s;
 	animation-timing-function: ease;
 	animation-iteration-count: 1;
 	position: relative;
@@ -351,4 +354,22 @@ details { display:none; }
 		opacity: 1;
 		transform: translateY(0px);
 	}
+}
+
+.explosion {
+    width: 64px;
+    height: 64px;
+    background-image: url(fx/Gw6wm.png);
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    background-size: 64px;
+    background-position-y: 64px;
+	opacity:1;
+    margin: 0 auto;
+	animation: explode .25s steps(3);
+}
+
+@keyframes explode {
+	from { background-position-y: 0px; }
+	to { background-position-y: -192px; }
 }
