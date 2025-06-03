@@ -5,8 +5,15 @@ setTimeout(fn=>{
 
 if(typeof localStorage.highScore == "undefined") { localStorage.highScore = 10; }
 document.querySelector("#high-score").innerText = Number.parseInt(localStorage.highScore);
-
 window.id = 0;
+
+fetch("data/data.json").then(dat=>{return dat.json();}).then(dat=>{
+	console.log(dat);
+	window.gear = dat.gear;
+	window.items = dat.items;
+	window.monsterList = dat.monsterList;
+	console.log(dat);
+});
 
 let basicAttack = new Item("Basic Attack",-1,-1, sou_punch[0], 0, 1, 0);
 
@@ -239,7 +246,7 @@ function monsterUIInit() {
 						data-monster-id="${monster.id}" 
 						class = 'monster' 
 						onclick="player.attack(${monster.id})"
-						style = "background-image: url(monsters/${monster.sprite});display:inline-block;"
+						style = "background-image: url(${monster.sprite});display:inline-block;"
 					>${monster.name}</button>
 				</div>
 			`;
@@ -251,13 +258,18 @@ function monsterUIInit() {
 }
 
 function updateMonsters() {
+
 	let monsterElements = document.querySelectorAll(`.monster-container`);
 	monsterElements.forEach(md=>{
 
-		
-
 		let monster = monsters.filter(m=>{return md.dataset.monsterContainer == m.id; });
-		if(monster.length == 0) { md.innerHTML = ""; }
+		if(monster.length == 0) { 
+
+			if(md.dataset.explode == null || typeof md.dataset.explode == "undefined") {
+				md.innerHTML = "<div class = 'explosion'></div>"; 
+				md.dataset.explode = "yes";
+			}
+		}
 		else {
 			monster = monster[0]; 
 			md.querySelector(".hearts").innerHTML = monster.formatHearts();
@@ -286,16 +298,25 @@ function updateInventoryUI() {
 }
 
 
-function Monster(name, sprite, hp=5, dmg=1, strongTo=[], weakTo=[]) {
+function Monster(name, sprite="", hp=5, dmg=1, strongTo=[], weakTo=[]) {
 
 	this.id = window.id;
 	window.id++;
-	this.name = name;
-	this.sprite = sprite;
-	this.maxHp = (hp +  Math.floor(floor / 3)) * (thisRoomDifficulty+1);
-	this.hp = this.maxHp;
-	this.dmg = dmg;
+	
+	if(typeof name == "object") {
+		for(let p in name) {
+			this[p] = JSON.parse(JSON.stringify(name[p]));
+		}
+		this.maxHp = (hp +  Math.floor(floor / 3)) * (thisRoomDifficulty+1);
+	}
+	else {
+		this.name = name;
+		this.sprite = sprite;
+		this.maxHp = (hp +  Math.floor(floor / 3)) * (thisRoomDifficulty+1);
+		this.dmg = dmg;
+	}
 
+	this.hp = this.maxHp;
 
 	this.attack = fn=>{ 
 
@@ -374,28 +395,36 @@ function dice(numberOfDice, numberOfSides) {
 }
 
 
-function Item(name, desc, sprite="wee_dung_potion_red.png", sound=sou_potion, hp=0, dmg=0, numberOfDice, numberOfSides, consumable=true, uses=1, slot=-1, use = -1) {
+function Item(name, desc="", sprite="wee_dung_potion_red.png", sound=sou_potion, hp=0, dmg=0, numberOfDice, numberOfSides, consumable=true, uses=1, slot=-1, use = -1) {
 
 	this.id = window.id;
 	window.id++;
-	this.name = name;
-	this.desc = desc;
-	this.sprite = sprite;
-	this.hp = hp;
-	this.dmg = dmg;
-	this.consumable = consumable;
-	this.sound = sound;
-	this.uses=uses;
-	this.slot = slot;
-	this.value = 10;
+
+	if(typeof name == "object") {
+		for(let p in name) {
+			this[p] = JSON.parse(JSON.stringify(name[p]));
+		}
+	}
+	else {
+		this.name = name;
+		this.desc = desc;
+		this.sprite = sprite;
+		this.hp = hp;
+		this.dmg = dmg;
+		this.consumable = consumable;
+		this.sound = sound;
+		this.uses=uses;
+		this.slot = slot;
+		this.value = 10;
+		this.numberOfDice = numberOfDice;
+		this.numberOfSides = numberOfSides;
+	}
 
 	this.getName = function() {
 
 		return this.name + " of +" + (this.dmg||this.hp);
 	}
 
-	this.numberOfDice = numberOfDice;
-	this.numberOfSides = numberOfSides;
 
 	this.getDmg = function() {
 		return this.dmg + dice(this.numberOfDice, this.numberOfSides);
@@ -531,14 +560,17 @@ function clearItemInfo() {
 	itemInfo.innerHTML = "";
 }
 
+Array.prototype.chooseRandom = function() {
+    return this[Math.round(Math.random() * (this.length-1))]
+}
 
 
 function generateEnemy(difficultyLevel=0) {
 	
 	
+	let enemy = monsterList[floor-1].chooseRandom();
 
-
-	const enemy = new Monster(...monsterList[floor-1][Math.floor(Math.random() *  monsterList[floor-1].length)]);
+	enemy = Array.isArray(enemy) ? new Monster(...enemy) : new Monster(enemy);
 	enemy.level = thisRoomDifficulty;
 
 	log(`A wild ${enemy.name} appears!`)
@@ -573,7 +605,7 @@ function defeatEnemy(enemy) {
 
 		setTimeout(fn=>{
 			chestButton.style.opacity = 1;
-		},1);
+		},250);
 		
 		enableDoors();
 
@@ -638,7 +670,8 @@ function useChest() {
 		else if(roll >= 7 && roll < 12) {
 			sou_foundSomethingMd.play();
 
-			let item = new Item(...items[Math.floor(Math.random() * items.length)]);
+			let i = items.pickRandom();
+			let item = Array.isArray(i) ? new Item(...i) : new Item(i);
 
 			let isDuplicate = player.inventory.filter(i=>{ return i.getName() == item.getName(); }).length > 0;
 
@@ -659,7 +692,12 @@ function useChest() {
 		else {
 			sou_foundSomethingLg.play();
 
-			let item = new Item(...gear[Math.floor(Math.random() * gear.length)]);
+			let item = gear[Math.floor(Math.random() * gear.length)];
+			
+			if(Array.isArray(item)) {
+				item = new Item(...item);
+			}
+			else { item = new Item(item); }
 
 			if(item.dmg != 0) { item.dmg += ((floor / 5) + Math.floor(Math.random() * 4) + thisRoomDifficulty) * (Math.abs(item.dmg) / item.dmg); }
 			if(item.hp != 0) { item.hp += ((floor / 5) + Math.floor(Math.random() * 4) + thisRoomDifficulty) * (Math.abs(item.hp) / item.hp); }
@@ -734,7 +772,8 @@ function giveItem(item) {
 
 function pickDoor(el) {
 	
-	sou_shop_music.sound.pause()
+	sou_shop_music.sound.pause();
+	sou_mainMenu.sound.pause();
 
 	disableDoors();
 	el.classList.add("open");
@@ -763,9 +802,8 @@ function pickDoor(el) {
 	}, 500);
 }
 
+//chooseDoor, choosePath
 function enterPath(difficultyLevel) {
-
-	
 
 	console.log(difficultyLevel);
 
@@ -860,14 +898,21 @@ function showShop() {
 	sou_shop_music.play();
 
 	log('"BUY SOMETHING, WILL YOU?"');
+	
+	let i1 = window.items[Math.round(Math.random() * (window.items.length-1))];
+	i1 = Array.isArray(i1) ? new Item(...i1) : new Item(i1);
+
+	let i2 = window.items[Math.round(Math.random() * (window.items.length-1))];
+	i2 = Array.isArray(i2) ? new Item(...i2) : new Item(i2);
+
+	let i3 = window.items[Math.round(Math.random() * (window.items.length-1))];
+	i3 = Array.isArray(i3) ? new Item(...i3) : new Item(i3);
 
 	game.itemShopItems = [
-
-		new Item(...window.items[0]),
-		new Item(...window.gear[Math.round(Math.random() * window.gear.length-1)]),
-		new Item(...window.items[0]),
+		i1,
+		i2,
+		i3
 	];
-
 
 	monsterDOM.innerHTML = `
 		<img src="monsters/shopkeeper.png" width="80" height="80">
@@ -936,11 +981,12 @@ function sellItem(el) {
 }
 
 function restart() {
+
 	player.hp = 20
 	floor = 1
 	logDiv.innerText = '';
 	
-	log("You awaken in a dungeon.<br/>Choose a door to explore.")
+	log("YOU HAVE FOUND YOURSELF BELOW.<br/>Choose a door to explore.")
 
 	updateUI()
 }
@@ -973,5 +1019,8 @@ function bindCritAnimation(){
 
 document.querySelector("#annoying-splash").onclick = fn=>{
 	actx.resume();
+	
+	sou_slide.play();
+	sou_mainMenu.play();
 	document.querySelector("#annoying-splash").style.left='100%';
 };
