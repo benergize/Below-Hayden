@@ -18,6 +18,7 @@
     label { display: block; margin-bottom: 0.2em; }
     input, select, textarea { width: 100%; padding: 0.4em; background: #111; color: #fff; border: 1px solid #555; }
     button { background: #09f; color: #fff; padding: 0.5em 1em; border: none; cursor: pointer; margin-top: 1em; }
+    .preview { display: block; margin-top: 0.5em; max-width: 100px; }
   </style>
 </head>
 <body>
@@ -27,27 +28,29 @@
   </div>
   <div class="editor">
     <div class="list-panel">
+      <button id="add-button">+ Add</button>
       <div id="object-list"></div>
-	  <button id="add-button">+ Add</button>
     </div>
     <div class="props-panel" id="props-panel"></div>
   </div>
 
   <script>
     let data = { items: [], gear: [], monsterList: [] };
-	let resources = { sprites: [], sounds: [] };
     let currentTab = 'items';
     let selectedIndex = -1;
+    let spriteFiles = [];
+    let soundFiles = [];
 
-    async function loadData() {
-      const res = await fetch('/data');
-      data = await res.json();
-      renderList();
+    async function loadAssets() {
+      spriteFiles = await fetch('/assets/sprites').then(res => res.json());
+      soundFiles = await fetch('/assets/sounds').then(res => res.json());
     }
 
-    async function loadResources() {
-      const res = await fetch('/resources');
+    async function loadData() {
+      await loadAssets();
+      const res = await fetch('/data');
       data = await res.json();
+	  console.log(data);
       renderList();
     }
 
@@ -77,6 +80,10 @@
     }
 
     function renderProperties(obj) {
+
+	if(typeof obj.value == "undefined") {obj.value=10;}
+	if(typeof obj.rarity == "undefined") {obj.rarity = "normal";}
+ 
       const panel = document.getElementById('props-panel');
       panel.innerHTML = '';
       Object.entries(obj).forEach(([key, val]) => {
@@ -84,7 +91,78 @@
         group.className = 'input-group';
         const label = document.createElement('label');
         label.textContent = key;
-        const input = document.createElement(key === 'desc' || Array.isArray(val) ? 'textarea' : 'input');
+        let input;
+
+        if (key === 'sprite' && spriteFiles.length) {
+          input = document.createElement('select');
+          spriteFiles.forEach(file => {
+            const option = document.createElement('option');
+            option.value = file;
+            option.textContent = file;
+            if (file === val) option.selected = true;
+            input.appendChild(option);
+          });
+          const img = document.createElement('img');
+          img.className = 'preview';
+          img.src = val;
+		  img.width = 80;
+		  img.height = 80;
+		  img.style.imageRendering = "pixelated";
+          input.onchange = () => {
+            obj[key] = input.value;
+            img.src = input.value;
+            saveData();
+          };
+          group.appendChild(label);
+          group.appendChild(input);
+          group.appendChild(img);
+          panel.appendChild(group);
+          return;
+        } 
+		else if (key === 'rarity') {
+          input = document.createElement('select');
+          ["junk","normal","rare","epic","legendary"].forEach(rarity => {
+            const option = document.createElement('option');
+            option.value = rarity;
+            option.textContent = rarity;
+            if (rarity === val) option.selected = true;
+            input.appendChild(option);
+          });
+          input.onchange = () => {
+            obj[key] = input.value;
+            img.src = input.value;
+            saveData();
+          };
+          group.appendChild(label);
+          group.appendChild(input);
+          panel.appendChild(group);
+          return;
+        }
+		else if (key === 'sound' && soundFiles.length) {
+          input = document.createElement('select');
+          soundFiles.forEach(file => {
+            const option = document.createElement('option');
+            option.value = file;
+            option.textContent = file;
+            if (file === val) option.selected = true;
+            input.appendChild(option);
+          });
+          const audio = document.createElement('audio');
+          audio.controls = true;
+          audio.src = val;
+          input.onchange = () => {
+            obj[key] = input.value;
+            audio.src = input.value;
+            saveData();
+          };
+          group.appendChild(label);
+          group.appendChild(input);
+          group.appendChild(audio);
+          panel.appendChild(group);
+          return;
+        }
+
+        input = document.createElement(key === 'desc' || Array.isArray(val) ? 'textarea' : 'input');
         input.value = Array.isArray(val) ? val.join(',') : val;
         input.onchange = () => {
           obj[key] = input.value.includes(',') ? input.value.split(',').map(x => x.trim()) : input.value;
@@ -109,10 +187,10 @@
 
     document.getElementById('add-button').onclick = () => {
       const newObj = currentTab === 'monsters' ? {
-        name: '', sprite: '', hp: 5, dmg: 1, strongTo: [], weakTo: [], floor
+        name: '', sprite: '', hp: 5, dmg: 1, strongTo: [], weakTo: []
       } : {
         name: '', desc: '', sprite: '', sound: '', hp: 0, dmg: 0, numberOfDice: 0, numberOfSides: 0,
-        consumable: true, uses: 1, slot: -1, effectType: '', value: 0
+        consumable: true, uses: 1, slot: -1, effectType: '', value
       };
       if (currentTab === 'monsters') {
         if (!data.monsterList[0]) data.monsterList[0] = [];
