@@ -1,8 +1,12 @@
 window.actx = new AudioContext(); 
 
+window.soundRegistry = {};
 
 function Sound(unused, src, volume){
 	this.sound = new Audio(src);
+
+	window.soundRegistry[src] = this;
+
 	this.sound.crossOrigin = "anonymous";
 	
 	this.track = new MediaElementAudioSourceNode(window.actx, {
