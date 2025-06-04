@@ -7,8 +7,8 @@
 
 		<title>Below Hayden</title>
 
-		<script src = 'sounds.js?1111111111111'></script>
-		<link rel = 'stylesheet' href = 'style.css?1111111111111111' />
+		<script src = 'sounds.js?11111111111111'></script>
+		<link rel = 'stylesheet' href = 'style.css?11111111111111111' />
 		<link href="https://cdn.jsdelivr.net/npm/@fontsource/unifont@5.2.5/index.min.css" rel="stylesheet" />
 
 	</head>
@@ -59,6 +59,11 @@
 
 			<div id="last-log">YOU KICK DOWN THE DOOR. THERE IS A BAT HERE.</div>
 			
+
+		</div>
+
+		<div class = 'inventory-and-info'>
+			<p id = 'item-info'></p>
 			<div id = 'inventory'>
 				<button class = 'item' data-id = '-1' onclick = "showItemInfo(this)"></button>
 				<button class = 'item' data-id = '-1' onclick = "showItemInfo(this)"></button>
@@ -66,14 +71,12 @@
 				<button class = 'item' data-id = '-1' onclick = "showItemInfo(this)"></button>
 				<button class = 'item' data-id = '-1' onclick = "showItemInfo(this)"></button>
 			</div>
-
-			<p id = 'item-info'></p>
 		</div>
 
 		<div id="death-text">
 			<h2>You died at Level <span id = 'died-at-level'></span>!</h2>
 			<p><span id = 'dead-high-score'></span></p>
-			<a href="?">Play Again?</a>
+			<button onclick = 'location.reload();'>Play Again?</button>
 		</div>
 
 		<div id="level-up"><h2>LEVEL UP!</h2></div>
@@ -88,6 +91,6 @@
 		</details>
 
 		<!--<script src = 'data/data.js'></script>-->
-		<script src = 'game.js?111111'></script>
+		<script src = 'game.js?11111111'></script>
 	</body>
 </html>
