@@ -80,9 +80,11 @@
     }
 
     function renderProperties(obj) {
-
-	if(typeof obj.value == "undefined") {obj.value=10;}
-	if(typeof obj.rarity == "undefined") {obj.rarity = "normal";}
+		
+		if(typeof obj.value == "undefined") {obj.value=10;}
+		if(typeof obj.rarity == "undefined") {obj.rarity = "normal";}
+		if(typeof obj.minimumDropFloor == "undefined") {obj.minimumDropFloor = 0;}
+		if(typeof obj.minimumDropPlayerLevel == "undefined") {obj.minimumDropPlayerLevel = 0;}
  
       const panel = document.getElementById('props-panel');
       panel.innerHTML = '';
@@ -122,6 +124,25 @@
 		else if (key === 'rarity') {
           input = document.createElement('select');
           ["junk","normal","rare","epic","legendary"].forEach(rarity => {
+            const option = document.createElement('option');
+            option.value = rarity;
+            option.textContent = rarity;
+            if (rarity === val) option.selected = true;
+            input.appendChild(option);
+          });
+          input.onchange = () => {
+            obj[key] = input.value;
+            img.src = input.value;
+            saveData();
+          };
+          group.appendChild(label);
+          group.appendChild(input);
+          panel.appendChild(group);
+          return;
+        }
+		else if (key === 'consumable') {
+          input = document.createElement('select');
+          ["false","true"].forEach(rarity => {
             const option = document.createElement('option');
             option.value = rarity;
             option.textContent = rarity;
@@ -190,7 +211,7 @@
         name: '', sprite: '', hp: 5, dmg: 1, strongTo: [], weakTo: []
       } : {
         name: '', desc: '', sprite: '', sound: '', hp: 0, dmg: 0, numberOfDice: 0, numberOfSides: 0,
-        consumable: true, uses: 1, slot: -1, effectType: '', value
+        consumable: true, uses: 1, slot: -1, effectType: '', value:0, minimumDropFloor:0, minimumDropPlayerLevel:0
       };
       if (currentTab === 'monsters') {
         if (!data.monsterList[0]) data.monsterList[0] = [];
