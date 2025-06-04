@@ -75,9 +75,12 @@ let player = {
 	},
 	getMaxHp: function(){
 		let d = this.maxHp; 
-		this.inventory.forEach(item=>{ 
-			if(!item.consumable) { d+=item.hp; } 
-		}); 
+
+		for(let v in player.slots) {
+			let i = player.getItemInSlot(player.slots[v]);
+			if(i) { d += i.hp; }
+		}
+		
 		return d; 
 	},
 	attack: function(targets, item=false) {
@@ -96,15 +99,21 @@ let player = {
 			setTimeout(fn=>{
 
 				let logText = "";
+				let bonuses = "";
+
 				let crit = false;
 				let playerDmg = item ? item.getDmg() : Math.floor(player.getDmg() + dice(1,6));
 
 				if(playerWeapon && typeof monster.weakTo != "undefined") {
-					if(monster.weakTo.indexOf(playerWeapon.effectType)!=-1) { playerDmg *= 1.5; logText += (`${monster.getName()} is weak to ${playerWeapon.effectType} damage!`); }
+					if(monster.weakTo.indexOf(playerWeapon.effectType) != -1) {
+						bonuses += (` <span style = 'color:lightgreen;'>&nbsp;+ ${Math.abs(playerDmg - (playerDmg * 1.5))}</span>`); playerDmg *= 1.5; 
+					}
 
 				}
 				if(playerWeapon && typeof monster.strongTo != "undefined") {
-					if(monster.strongTo.indexOf(playerWeapon.effectType)!=1) { playerDmg /= 1.5; logText += (`${monster.getName()} is strong to ${playerWeapon.effectType} damage!`); }
+					if(monster.strongTo.indexOf(playerWeapon.effectType) != -1 ) { 
+						bonuses += (` <span style = 'color:red;'>&nbsp;- ${Math.abs(playerDmg - (playerDmg / 1.5))}</span>`); playerDmg /= 1.5; 
+					}
 				}
 
 
@@ -134,7 +143,7 @@ let player = {
 					}
 				},1, monster);
 
-				log(`${logText} Hit ${monster.name} for ${playerDmg}.`);
+				log(`${logText} Hit ${monster.name} for ${playerDmg}${bonuses}.`);
 
 				if(crit) { bindCritAnimation(); }
 
@@ -377,12 +386,12 @@ function Monster(name, sprite="", hp=5, dmg=1, strongTo=[], weakTo=[]) {
 
 			finalDmg = Math.max(0, dmg - roll);
 
-			shieldText = `Blocked ${(dmg - finalDmg)} with your ${shield.name}!`;
+			shieldText = ` <span style = 'color:lightgreen;'>&nbsp;- ${(dmg - finalDmg)}`;
 		}
 
 
 		player.hp -= finalDmg;
-		log(`The ${this.name} hits you for ${dmg} damage. ${shieldText}`)
+		log(`The ${this.name} hits you for ${dmg} ${shieldText} damage. `)
 
 		updateUI();
 		lockMonsters();
@@ -475,19 +484,44 @@ function Item(name, desc="", sprite="wee_dung_potion_red.png", sound=sou_potion,
 		this.numberOfSides = numberOfSides;
 	}
 
+	this.hp = Number.parseFloat(this.hp)||0;
+	this.dmg = Number.parseFloat(this.dmg)||0;
+
+	this.numberOfDice = Number.parseInt(this.numberOfDice)||0;
+	this.numberOfSides = Number.parseInt(this.numberOfSides)||0;
+
+	this.minimumDropFloor = Number.parseInt(this.minimumDropFloor);
+	this.minimumDropPlayerLevel = Number.parseInt(this.minimumDropPlayerLevel);
+
+	console.log(this);
 
 	if(this.consumable == "true") { this.consumable = true; }
 	if(this.consumable == "false") { this.consumable = false; }
 
 	this.getName = function() {
 
-		return this.name + " of +" + (this.dmg||this.hp);
+		return this.name;// + " of +" + (this.dmg||this.hp);
 	}
 
 
 	this.getDmg = function() {
 		return this.dmg + dice(this.numberOfDice, this.numberOfSides);
 	}
+
+	this.getDamageRange = function() {
+		if(this.dmg == 0) { return ""; }
+		let low = this.dmg + this.numberOfDice;
+		let high = this.dmg + (this.numberOfDice * this.numberOfSides);
+		return high==low ? high : ((this.dmg + this.numberOfDice) + "-" + (this.dmg + (this.numberOfDice * this.numberOfSides)));
+	}
+
+	this.getHPRange = function() {
+		if(this.hp == 0) { return ""; }
+		let low = this.hp + this.numberOfDice;
+		let high = this.hp + (this.numberOfDice * this.numberOfSides);
+		return high==low ? high : ((this.hp + this.numberOfDice) + "-" + (this.hp + (this.numberOfDice * this.numberOfSides)));
+	}
+
 
 	if(typeof use == "function") { this.use = use; }
 	else {
@@ -619,8 +653,14 @@ function showItemInfo(el,ignoreOpen=false) {
 		}
 		itemInfo.innerHTML = `
 			${ item.getName() }<br/>
-			${(item.consumable ? (item.uses + " uses left.") : "")}<br/>
-			<div>${item.desc}</div>
+			<div><small>${item.desc}</small></div>
+
+			<table><tbody><tr>
+				<td>${ item.getDamageRange() }<img width=10 height=10 src="ui/sword_mini.png" alt="sword"></td>
+				<td>${ item.getHPRange() }<img width=10 height=10 src="ui/wee_ui_heart.png" alt="heart"></td>
+				<td>${ item.consumable ? (item.uses + " uses") : item.slot }</td>
+				<td>${ item.effectType||"" }</td>
+			</tr></tbody></table>
 
 			${
 				!isShop ?
@@ -762,7 +802,7 @@ function useChest() {
 		else if(roll >= 7 && roll < 12) {
 			sou_foundSomethingMd.play();
 
-			let i = items.chooseRandom();
+			let i = items.filter(item=>{return floor >= item.minimumDropFloor && player.level >= item.minimumDropPlayerLevel; }).chooseRandom();
 			let item = Array.isArray(i) ? new Item(...i) : new Item(i);
 
 			let isDuplicate = player.inventory.filter(i=>{ return i.getName() == item.getName(); }).length > 0;
@@ -981,6 +1021,25 @@ game = {
 	roomType: "dungeon",
 	itemShopItems: []
 };
+
+function showDialog(port, text) {
+
+	if(itemInfo.classList.contains("open")) {
+
+		if(itemInfo.querySelector("blockquote").innerHTML == text) { return;  }
+		itemInfo.classList.remove("open");
+		setTimeout(fn=>{ showDialog(port,text); }, 500, port, text);
+		return;
+	}
+
+	itemInfo.innerHTML = `
+		<div class="chatbox">
+			<img src="${ port }" alt = "Portrait">
+			<blockquote>${ text }</blockquote>
+		</div>
+	`;
+	itemInfo.classList.add("open");
+}
 
 
 function showShop() {
