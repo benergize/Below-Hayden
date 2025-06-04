@@ -35,6 +35,9 @@ var sou_crit = new Sound("x", "sounds/sfx_sound_neutral10.wav",.2);
 var sou_buy = new Sound("x", "sounds/sfx_coin_double7.wav",.2);
 var sou_sell = new Sound("x", "sounds/sfx_coin_double4.wav",.2);
 
+var sou_equip = new Sound("x", "sounds/equip.wav",.2);
+var sou_unequip = new Sound("x", "sounds/unequip.wav",.2);
+
 var sou_error = new Sound("x", "sounds/sfx_sounds_damage1.wav",.2);
 
 
