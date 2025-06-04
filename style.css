@@ -1,8 +1,14 @@
 .game-title { position:absolute; top:-10000px; }
 
+html,body {
+
+	width:100vw;
+	overflow:hidden;
+	overflow-x: hidden;
+	margin:0px;
+}
 body {
 	font-family: monospace;
-	margin:0px;
 	background: #111;
 	color: #eee;
 	-webkit-user-select: none; /* Safari */
@@ -13,9 +19,7 @@ body {
 
 	opacity:0;
 	transition: opacity 1s;
-
-	max-width:100vw;
-	overflow:hidden;
+	overflow-x: hidden;
 }
 
 * {font-family: unifont; image-rendering: pixelated}
@@ -144,6 +148,7 @@ button.item {
     font-weight: bold;
     padding: 2px;
 }
+button.item.equipped { border-width:2.5px; }
 
 div#inventory {
 	margin-top: 2rem;

@@ -24,8 +24,9 @@ app.get('/data', (req, res) => {
 
 	parsed.monsterList.forEach((floor,ind)=>{
 		parsed.monsterList[ind] = floor.map(monster=>{
+			let m = monster;
 			if(Array.isArray(monster)) {
-				return {
+				m = {
 					name:monster[0],
 					sprite:monster[1],
 					hp:monster[2],
@@ -36,7 +37,12 @@ app.get('/data', (req, res) => {
 					rarity:monster[7]||"normal"
 				};
 			}
-			else { return monster; }
+			if(typeof m.weakTo == "undefined") { m.weakTo = []; }
+			else if(typeof m.weakTo == "string") { m.weakTo = m.weakTo.split(","); }
+			if(typeof m.strongTo == "undefined") { m.strongTo = []; }
+			else if(typeof m.strongTo == "string") { m.strongTo = m.strongTo.split(","); }
+
+			return m;
 		});
 	});
 	res.json(parsed);
