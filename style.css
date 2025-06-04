@@ -269,12 +269,29 @@ div#inventory {
 	opacity: 0;
 	pointer-events: none;
 }
-#death-text { opacity: 0; transition: opacity 1s; pointer-events:none;}
-.dead #death-text { display:block; opacity: 1; 
-    padding: 1rem;
+#death-text { 
+	opacity: 0; 
+	transition: opacity 3s; 
+	pointer-events:none;
+
+    height: 100vh;
+    top: 0;
+    position: absolute;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+    padding: 0px;
+    z-index: 99;
+    background: black;
+}
+.dead #death-text { 
+	opacity: 1; 
+	
     position: absolute;
     width: 100%;
-    top: 75px;
+	
 	pointer-events:all;
 }
 
