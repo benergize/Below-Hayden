@@ -45,6 +45,45 @@ app.get('/data', (req, res) => {
 			return m;
 		});
 	});
+
+	parsed.items = parsed.items.map((item)=>{
+		if(Array.isArray(item)) {
+			return {
+				name:item[0],
+				desc:item[1],
+				sprite:item[2],
+				sound:item[3],
+				hp:item[4],
+				dmg:item[5],
+				numberOfDice:item[6],
+				numberOfSides:item[7],
+				consumable:item[8],
+				uses:item[9],
+				slot:item[10],
+				effectType:item[11]
+			}
+		}
+		return item;
+	});
+	parsed.gear = parsed.gear.map((item)=>{
+		if(Array.isArray(item)) {
+			return {
+				name:item[0],
+				desc:item[1],
+				sprite:item[2],
+				sound:item[3],
+				hp:item[4],
+				dmg:item[5],
+				numberOfDice:item[6],
+				numberOfSides:item[7],
+				consumable:item[8],
+				uses:item[9],
+				slot:item[10],
+				effectType:item[11]
+			}
+		}
+		return item;
+	});
 	res.json(parsed);
 });
 
