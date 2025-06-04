@@ -89,7 +89,7 @@ let player = {
 
 		let critDelay = 0;
 
-		let playerWeapon = player.getItemInSlot("weapon");
+		let playerWeapon = item || player.getItemInSlot("weapon");
 
 		//Run through each of our targets and deal damage/play sound/animation
 		targets.forEach((monster,ind)=>{
@@ -605,6 +605,8 @@ function equipItem(el) {
 
 	let item = player.inventory.filter(i=>{ return i.id == el.dataset.id; })[0];
 
+	sou_equip.play();
+
 	let sl = player.getItemInSlot(item.slot);
 
 	if(sl) {
@@ -616,6 +618,7 @@ function equipItem(el) {
 	
 }
 function unequipItem(el) {
+
 
 	let id = typeof el == "object" ? el.dataset.id : el;
 	let item = player.inventory.filter(i=>{ return i.id == id; })[0];
@@ -670,7 +673,7 @@ function showItemInfo(el,ignoreOpen=false) {
 							((typeof item.slot != "undefined" && item.slot != -1 && item.slot != "") ? (
 								player.slots[item.slot] != item.id ? 
 								`<button onclick = "equipItem(this);showItemInfo(this,true);" data-id="${el.dataset.id}">EQUIP</button>` :
-								`<button onclick = "unequipItem(this);showItemInfo(this,true);" data-id="${el.dataset.id}">UNEQUIP</button>`
+								`<button onclick = "unequipItem(this);sou_unequip.play();showItemInfo(this,true);" data-id="${el.dataset.id}">UNEQUIP</button>`
 			 				) : "")
 					}
 					<button onclick = "removeItem(this);sou_item_drop.play();updateUI();" data-id="${el.dataset.id}">DROP</button>`
@@ -805,7 +808,7 @@ function useChest() {
 			let i = items.filter(item=>{return floor >= item.minimumDropFloor && player.level >= item.minimumDropPlayerLevel; }).chooseRandom();
 			let item = Array.isArray(i) ? new Item(...i) : new Item(i);
 
-			let isDuplicate = player.inventory.filter(i=>{ return i.getName() == item.getName(); }).length > 0;
+			let isDuplicate = item.consumable && player.inventory.filter(i=>{ return i.getName() == item.getName(); }).length > 0;
 
 			if(player.inventory.length < player.maxItems || isDuplicate) {
 				giveItem(item);
