@@ -47,42 +47,37 @@ app.get('/data', (req, res) => {
 	});
 
 	parsed.items = parsed.items.map((item)=>{
-		if(Array.isArray(item)) {
-			return {
-				name:item[0],
-				desc:item[1],
-				sprite:item[2],
-				sound:item[3],
-				hp:item[4],
-				dmg:item[5],
-				numberOfDice:item[6],
-				numberOfSides:item[7],
-				consumable:item[8],
-				uses:item[9],
-				slot:item[10],
-				effectType:item[11]
-			}
+
+		//Item schema defined here.
+		//We do this weird define->overwrite so that everything has all the schema, even if we added the new fields after the item was initially entered into the system.
+		let i = {
+			name: "",
+			desc: "",
+			sprite:"",
+			sound:"",
+			hp:0,
+			dmg:0,
+			numberOfDice:0,
+			numberOfSides:0,
+			consumable: false,
+			uses:-1,
+			slot:"",
+			effectType:"",
+			minimumDropFloor: 0,
+			minimumDropPlayerLevel:0,
+			rarity:"normal",
 		}
-		return item;
-	});
-	parsed.gear = parsed.gear.map((item)=>{
-		if(Array.isArray(item)) {
-			return {
-				name:item[0],
-				desc:item[1],
-				sprite:item[2],
-				sound:item[3],
-				hp:item[4],
-				dmg:item[5],
-				numberOfDice:item[6],
-				numberOfSides:item[7],
-				consumable:item[8],
-				uses:item[9],
-				slot:item[10],
-				effectType:item[11]
-			}
+
+		//Overwrite existing properties.
+		for(let p in item) {
+			i[p] = item[p];
 		}
-		return item;
+
+		
+		if(item.consumable == "false") { item.consumable = false; }
+		else if(item.consumable == "true") { item.consumable = true; }
+
+		return i;
 	});
 	res.json(parsed);
 });

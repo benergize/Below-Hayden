@@ -80,7 +80,7 @@
     }
 
     function renderProperties(obj) {
-		
+
 		if(typeof obj.value == "undefined") {obj.value=10;}
 		if(typeof obj.rarity == "undefined") {obj.rarity = "normal";}
 		if(typeof obj.minimumDropFloor == "undefined") {obj.minimumDropFloor = 0;}
@@ -151,7 +151,6 @@
           });
           input.onchange = () => {
             obj[key] = input.value;
-            img.src = input.value;
             saveData();
           };
           group.appendChild(label);

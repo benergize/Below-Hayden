@@ -297,6 +297,16 @@ div#inventory {
 
 .critText { color:yellow;}
 
+.greenText {
+	color: lightgreen;
+ 
+}
+td .greenText {
+	
+    font-size: 11px;
+    vertical-align: super;
+}
+
 #level-up {
 	
 	position: absolute;

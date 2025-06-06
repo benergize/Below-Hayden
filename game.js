@@ -6,16 +6,29 @@ setTimeout(fn=>{
 if(typeof localStorage.highScore == "undefined") { localStorage.highScore = 10; }
 document.querySelector("#high-score").innerText = Number.parseInt(localStorage.highScore);
 window.id = 0;
+window.db = {};
+db.findItem = function(itemName) {
+	let i = db.items.filter(item=>{ return item.name == itemName; });
+	if(i.length > 0) { return i[0]; }
+	else { return false; }
+}
 
 fetch("data/data.json").then(dat=>{return dat.json();}).then(dat=>{
 	console.log(dat);
 	window.gear = dat.gear;
+	db.gear = dat.gear
 	window.items = dat.items;
+	db.items = dat.items;
 	window.monsterList = dat.monsterList;
+	db.monsterList = dat.monsterList;
 	console.log(dat);
+
+		
+	giveItem(new Item(db.findItem("Healing Potion")));
+	giveItem(new Item(db.findItem("Pyro Scroll")));
 });
 
-let basicAttack = new Item("Basic Attack",-1,-1, sou_punch[0], 0, 1, 0);
+
 
 let player = { 
 	hp: 20, 
@@ -29,7 +42,7 @@ let player = {
 	xp:0,
 	dhp: 20,
 	dxp: 0,
-	maxItems:5,
+	maxItems:6,
 
 	getXPToNextLevel: fn=>{ return 100 * (player.level ** 3); },
 	handleLeveling: function() {
@@ -57,10 +70,31 @@ let player = {
 	},
 	getDmg: function(){ 
 		let d = this.dmg + (player.level / 4);
+		let damageSources = {};
 
 		for(let slot in player.slots) {
 			let i = this.getItemInSlot(slot);
-			if(i) { d += i.dmg; }
+
+			
+			if(i) { 
+				
+				if(slot != "ring") {
+
+					damageSources[i.effectType] += i.getDmg();
+				}
+			}
+		}
+
+		let ring = player.getItemInSlot("ring");
+
+		if(ring) {
+			for(let d in damageSources) {
+
+				if(typeof damageSources[ring.effectType] == "number") {
+
+					d += damageSources[ring.effectType] * ring.dmg; 
+				}
+			}
 		}
 		
 		return d; 
@@ -77,7 +111,7 @@ let player = {
 		let d = this.maxHp; 
 
 		for(let v in player.slots) {
-			let i = player.getItemInSlot(player.slots[v]);
+			let i = player.getItemInSlot(v);
 			if(i) { d += i.hp; }
 		}
 		
@@ -190,8 +224,6 @@ let player = {
 };
 
 
-giveItem(new Item("Healing Potion", "Heal yourself", "dungeon/wee_dung_potion_red.png", sou_potion, 10,0,true,1));
-giveItem(new Item("Pyro Scroll", "Cast fire spell on all enemies", "dungeon/wee_dung_scroll.png", sou_fire, 0, 3,true,3));
 
 
 let floor = 1
@@ -458,8 +490,10 @@ function dice(numberOfDice, numberOfSides) {
 	return d;
 }
 
+function greenText(text) { return `<span class = 'greenText'>${text}</span>`; }
 
-function Item(name, desc="", sprite="wee_dung_potion_red.png", sound=sou_potion, hp=0, dmg=0, numberOfDice, numberOfSides, consumable=true, uses=1, slot=-1, use = -1) {
+
+function Item(name, desc="", sprite="dungeon/wee_dung_potion_red.png", sound=sou_potion, hp=0, dmg=0, numberOfDice, numberOfSides, consumable=true, uses=1, slot=-1, use = -1) {
 
 	this.id = window.id;
 	window.id++;
@@ -510,9 +544,22 @@ function Item(name, desc="", sprite="wee_dung_potion_red.png", sound=sou_potion,
 
 	this.getDamageRange = function() {
 		if(this.dmg == 0) { return ""; }
-		let low = this.dmg + this.numberOfDice;
-		let high = this.dmg + (this.numberOfDice * this.numberOfSides);
-		return high==low ? high : ((this.dmg + this.numberOfDice) + "-" + (this.dmg + (this.numberOfDice * this.numberOfSides)));
+
+		let dmgBonus = "";
+		
+		if(this.slot != "ring") { 
+		let ring = player.getItemInSlot("ring");
+			if(ring) {
+				if(ring.effectType == this.effectType) {
+
+					dmgBonus = greenText(" + " + ((this.dmg+this.numberOfDice) * ring.dmg));
+				}
+			}
+		}
+
+		let low = (this.dmg + this.numberOfDice);
+		let high = (this.dmg + (this.numberOfDice * this.numberOfSides));
+		return high==low ? (`${high} ${dmgBonus}`) : `${low} ${dmgBonus} - ${high} ${dmgBonus}`
 	}
 
 	this.getHPRange = function() {
@@ -544,7 +591,8 @@ function Item(name, desc="", sprite="wee_dung_potion_red.png", sound=sou_potion,
 				else {
 
 					if(typeof this.sound == "string") {
-						window[this.sound].play();
+						soundRegistry[this.sound].play();
+						//window[this.sound].play();
 					}
 					else {
 						this.sound.play();
@@ -626,57 +674,76 @@ function unequipItem(el) {
 	player.slots[item.slot] = -1;
 }
 
-function showItemInfo(el,ignoreOpen=false) {
+function showItemInfo(el,ignoreOpen=false, initiator="inventory") {
 
 	if(el == -1) {
 		sou_menu_close.play();
 		return  itemInfo.classList.remove("open");
 	}
 
-	if(el.dataset.id != -1) {
+	let itemId = -1;
+	if(typeof el.getName == "function" && el.id != -1) { itemId = el.id; }
+	else if(typeof el.dataset != "undefined") { itemId = el.dataset.id }
+
+	if(itemId != -1) {
 
 
 		if(!ignoreOpen) {
 			sou_menu_open.play();
-			if(itemInfo.classList.contains("open") && itemInfo.dataset.item == el.dataset.id) { itemInfo.classList.remove("open"); }
+			if(itemInfo.classList.contains("open") && itemInfo.dataset.item == itemId) { itemInfo.classList.remove("open"); }
 			else { itemInfo.classList.add("open"); }
 		}
+		else if(ignoreOpen == "open") {
+			itemInfo.classList.add("open");
+		}
 
-		itemInfo.dataset.item = el.dataset.id;
+		itemInfo.dataset.item = itemId;
 		
 		let isShop = game.roomType == "shop";
 		let isShopItem = isShop && el.classList.contains("shop");
 
 		let item = -1;
-		if(isShopItem) {
-			item = game.itemShopItems.filter(i=>{ console.log(i.id); return i.id == el.dataset.id; })[0];
+
+		if(typeof el.getName == "function") {
+			item = el;
+		}
+		else if(isShopItem) {
+			item = game.itemShopItems.filter(i=>{ console.log(i.id); return i.id == itemId; })[0];
 		}
 		else {
-			item = player.inventory.filter(i=>{ console.log(i.id); return i.id == el.dataset.id; })[0];
+			item = player.inventory.filter(i=>{ console.log(i.id); return i.id == itemId; })[0];
 		}
+
+		let dmgRange = item.slot != "ring" ? item.getDamageRange() : ((item.dmg * 100) + "%");
+		let hpRange = item.getHPRange();
+
+		console.log(initiator);
 		itemInfo.innerHTML = `
 			${ item.getName() }<br/>
 			<div><small>${item.desc}</small></div>
 
 			<table><tbody><tr>
-				<td>${ item.getDamageRange() }<img width=10 height=10 src="ui/sword_mini.png" alt="sword"></td>
-				<td>${ item.getHPRange() }<img width=10 height=10 src="ui/wee_ui_heart.png" alt="heart"></td>
+				${  (dmgRange != "" ? `<td>${dmgRange}<img width=10 height=10 src="ui/sword_mini.png" alt="sword"></td>` : "") }
+				${  (hpRange != "" ? `<td>${hpRange}<img width=10 height=10 src="ui/${item.slot!='shield'?'wee_ui_heart.png':'wee_dung_shield.png'}" alt="heart"></td>` : "") }
 				<td>${ item.consumable ? (item.uses + " uses") : item.slot }</td>
 				<td>${ item.effectType||"" }</td>
 			</tr></tbody></table>
 
 			${
+				initiator == "chest" ? (
+					`<button onclick = "takeItemFromChest()" data-id="${itemId}">TAKE</button>`
+				) :
 				!isShop ?
 					`${
 						item.consumable ? 
-							`<button onclick = "useItem(this);updateUI();" data-id="${el.dataset.id}">USE</button>` :
+							`<button onclick = "useItem(this);updateUI();" data-id="${itemId}">USE</button>` :
 							((typeof item.slot != "undefined" && item.slot != -1 && item.slot != "") ? (
 								player.slots[item.slot] != item.id ? 
-								`<button onclick = "equipItem(this);showItemInfo(this,true);" data-id="${el.dataset.id}">EQUIP</button>` :
-								`<button onclick = "unequipItem(this);sou_unequip.play();showItemInfo(this,true);" data-id="${el.dataset.id}">UNEQUIP</button>`
+								`<button onclick = "equipItem(this);showItemInfo(this,true);" data-id="${itemId}">EQUIP</button>` :
+								`<button onclick = "unequipItem(this);sou_unequip.play();showItemInfo(this,true);" data-id="${itemId}">UNEQUIP</button>`
 			 				) : "")
 					}
-					<button onclick = "removeItem(this);sou_item_drop.play();updateUI();" data-id="${el.dataset.id}">DROP</button>`
+					<button onclick = "removeItem(this);sou_item_drop.play();updateUI();" data-id="${itemId}">DROP</button>`
 				:
 				(
 					isShopItem ?
@@ -688,6 +755,25 @@ function showItemInfo(el,ignoreOpen=false) {
 	}
 	else {
 		itemInfo.classList.remove("open"); 
+	}
+}
+
+function takeItemFromChest() {
+	
+	//this should work we hope
+	let item = currentChestContents;
+
+	let isDuplicate = item.consumable && player.inventory.filter(i=>{ return i.getName() == item.getName(); }).length > 0;
+
+	if(player.inventory.length < player.maxItems || isDuplicate) {
+		giveItem(currentChestContents);
+		showItemInfo(-1);
+		currentChestContents = null;
+		chestButton.classList.add("empty");
+		updateUI();
+	}
+	else {
+		log("INVENTORY IS FULL.");
 	}
 }
 
@@ -779,7 +865,13 @@ function checkIsDefeated() {
 
 currentChestContents = null
 
+
+//openChest
 function useChest() {
+
+	if(chestButton.classList.contains("empty")) {
+		log("IT'S EMPTY.");
+	}
 
 	if(chestButton.classList.contains("closed")) {
 		log("You open the chest...");
@@ -802,60 +894,17 @@ function useChest() {
 		}
 
 		//Give item
-		else if(roll >= 7 && roll < 12) {
+		else if(roll >= 7) {
 			sou_foundSomethingMd.play();
 
-			let i = items.filter(item=>{return floor >= item.minimumDropFloor && player.level >= item.minimumDropPlayerLevel; }).chooseRandom();
+			let i = gear.concat(items).filter(item=>{return floor >= item.minimumDropFloor && player.level >= item.minimumDropPlayerLevel; }).chooseRandom();
 			let item = Array.isArray(i) ? new Item(...i) : new Item(i);
+			console.log(item);
 
-			let isDuplicate = item.consumable && player.inventory.filter(i=>{ return i.getName() == item.getName(); }).length > 0;
-
-			if(player.inventory.length < player.maxItems || isDuplicate) {
-				giveItem(item);
-				log("FOUND " + item.getName());
-				chestButton.classList.add("empty");
-				currentChestContents = null;
-			}
-			else {
-				currentChestContents = item;
-				log("FOUND " + item.getName() + ". Inventory full!");
-			}
-
-		}
-		
-		//Give gear
-		else {
-			sou_foundSomethingLg.play();
-
-			let item = gear[Math.floor(Math.random() * gear.length)];
-			
-			if(Array.isArray(item)) {
-				item = new Item(...item);
-			}
-			else { item = new Item(item); }
-
-			if(item.dmg != 0) { item.dmg += ((floor / 5) + Math.floor(Math.random() * 4) + thisRoomDifficulty) * (Math.abs(item.dmg) / item.dmg); }
-			if(item.hp != 0) { item.hp += ((floor / 5) + Math.floor(Math.random() * 4) + thisRoomDifficulty) * (Math.abs(item.hp) / item.hp); }
-			
-			let slotIsEmpty = true;//(item.slot == -1 || player.inventory.filter(i=>{ return i.slot == item.slot;}).length == 0);
-			
-			if(player.inventory.length < player.maxItems && slotIsEmpty) {
-				
-				giveItem(item);
-				log("FOUND " + item.getName());
-				chestButton.classList.add("empty");
-				currentChestContents = null;
-
-			}
-			else if(!slotIsEmpty) {
-				
-				currentChestContents = item;
-				log("FOUND " + item.getName() + ". Can only have one " + item.slot + " at a time!");
-			}
-			else {
-				currentChestContents = item;
-				log("FOUND " + item.getName() + ". Inventory full!");
-			}
+			log("FOUND " + item.getName());
+			currentChestContents = item;
+			showItemInfo(item,false,"chest");	
+			return;		
 		}
 
 
@@ -873,10 +922,12 @@ function useChest() {
 			log("FOUND " + currentChestContents.getName() + ". Can only have one " + currentChestContents.slot + " at a time!");
 		}
 		else if(player.inventory.length < player.maxItems) {
+			showItemInfo(currentChestContents, false, "chest");
+		/*	
 			log("FOUND " + currentChestContents.getName());
 			giveItem(currentChestContents);
 			chestButton.classList.add("empty");
-			currentChestContents = null;
+			currentChestContents = null;*/
 		}
 		else {
 			sou_error.play(); 
