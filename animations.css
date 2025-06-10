@@ -1,0 +1,6145 @@
+
+.archer_d_atk { 
+	background-image:url(monsters/wee_mons_archer_atk_d_1.png);
+	animation: archer_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes archer_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_archer_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_archer_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_archer_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_archer_atk_d_2.png);
+		}
+
+	}
+.archer_l_atk { 
+	background-image:url(monsters/wee_mons_archer_atk_l_1.png);
+	animation: archer_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes archer_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_archer_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_archer_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_archer_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_archer_atk_l_2.png);
+		}
+
+	}
+.archer_r_atk { 
+	background-image:url(monsters/wee_mons_archer_atk_r_1.png);
+	animation: archer_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes archer_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_archer_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_archer_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_archer_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_archer_atk_r_2.png);
+		}
+
+	}
+.archer_u_atk { 
+	background-image:url(monsters/wee_mons_archer_atk_u_1.png);
+	animation: archer_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes archer_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_archer_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_archer_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_archer_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_archer_atk_u_2.png);
+		}
+
+	}
+.archer_d_idle { 
+	background-image:url(monsters/wee_mons_archer_idle_d_1.png);
+	animation: archer_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes archer_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_archer_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_archer_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_archer_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_archer_idle_d_2.png);
+		}
+
+	}
+.archer_l_idle { 
+	background-image:url(monsters/wee_mons_archer_idle_l_1.png);
+	animation: archer_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes archer_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_archer_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_archer_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_archer_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_archer_idle_l_2.png);
+		}
+
+	}
+.archer_r_idle { 
+	background-image:url(monsters/wee_mons_archer_idle_r_1.png);
+	animation: archer_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes archer_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_archer_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_archer_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_archer_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_archer_idle_r_2.png);
+		}
+
+	}
+.archer_u_idle { 
+	background-image:url(monsters/wee_mons_archer_idle_u_1.png);
+	animation: archer_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes archer_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_archer_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_archer_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_archer_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_archer_idle_u_2.png);
+		}
+
+	}
+.bat_d_atk { 
+	background-image:url(monsters/wee_mons_bat_atk_d_1.png);
+	animation: bat_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes bat_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_bat_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_bat_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_bat_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_bat_atk_d_2.png);
+		}
+
+	}
+.bat_l_atk { 
+	background-image:url(monsters/wee_mons_bat_atk_l_1.png);
+	animation: bat_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes bat_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_bat_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_bat_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_bat_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_bat_atk_l_2.png);
+		}
+
+	}
+.bat_r_atk { 
+	background-image:url(monsters/wee_mons_bat_atk_r_1.png);
+	animation: bat_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes bat_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_bat_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_bat_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_bat_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_bat_atk_r_2.png);
+		}
+
+	}
+.bat_u_atk { 
+	background-image:url(monsters/wee_mons_bat_atk_u_1.png);
+	animation: bat_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes bat_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_bat_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_bat_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_bat_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_bat_atk_u_2.png);
+		}
+
+	}
+.bat_d_idle { 
+	background-image:url(monsters/wee_mons_bat_idle_d_1.png);
+	animation: bat_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes bat_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_bat_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_bat_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_bat_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_bat_idle_d_2.png);
+		}
+
+	}
+.bat_l_idle { 
+	background-image:url(monsters/wee_mons_bat_idle_l_1.png);
+	animation: bat_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes bat_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_bat_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_bat_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_bat_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_bat_idle_l_2.png);
+		}
+
+	}
+.bat_r_idle { 
+	background-image:url(monsters/wee_mons_bat_idle_r_1.png);
+	animation: bat_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes bat_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_bat_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_bat_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_bat_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_bat_idle_r_2.png);
+		}
+
+	}
+.bat_u_idle { 
+	background-image:url(monsters/wee_mons_bat_idle_u_1.png);
+	animation: bat_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes bat_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_bat_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_bat_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_bat_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_bat_idle_u_2.png);
+		}
+
+	}
+.chicken_d_atk { 
+	background-image:url(monsters/wee_mons_chicken_atk_d_1.png);
+	animation: chicken_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes chicken_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_chicken_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_chicken_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_chicken_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_chicken_atk_d_2.png);
+		}
+
+	}
+.chicken_l_atk { 
+	background-image:url(monsters/wee_mons_chicken_atk_l_1.png);
+	animation: chicken_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes chicken_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_chicken_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_chicken_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_chicken_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_chicken_atk_l_2.png);
+		}
+
+	}
+.chicken_r_atk { 
+	background-image:url(monsters/wee_mons_chicken_atk_r_1.png);
+	animation: chicken_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes chicken_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_chicken_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_chicken_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_chicken_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_chicken_atk_r_2.png);
+		}
+
+	}
+.chicken_u_atk { 
+	background-image:url(monsters/wee_mons_chicken_atk_u_1.png);
+	animation: chicken_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes chicken_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_chicken_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_chicken_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_chicken_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_chicken_atk_u_2.png);
+		}
+
+	}
+.chicken_d_idle { 
+	background-image:url(monsters/wee_mons_chicken_idle_d_1.png);
+	animation: chicken_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes chicken_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_chicken_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_chicken_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_chicken_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_chicken_idle_d_2.png);
+		}
+
+	}
+.chicken_l_idle { 
+	background-image:url(monsters/wee_mons_chicken_idle_l_1.png);
+	animation: chicken_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes chicken_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_chicken_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_chicken_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_chicken_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_chicken_idle_l_2.png);
+		}
+
+	}
+.chicken_r_idle { 
+	background-image:url(monsters/wee_mons_chicken_idle_r_1.png);
+	animation: chicken_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes chicken_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_chicken_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_chicken_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_chicken_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_chicken_idle_r_2.png);
+		}
+
+	}
+.chicken_u_idle { 
+	background-image:url(monsters/wee_mons_chicken_idle_u_1.png);
+	animation: chicken_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes chicken_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_chicken_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_chicken_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_chicken_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_chicken_idle_u_2.png);
+		}
+
+	}
+.demon_d_atk { 
+	background-image:url(monsters/wee_mons_demon_atk_d_1.png);
+	animation: demon_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes demon_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_demon_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_demon_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_demon_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_demon_atk_d_2.png);
+		}
+
+	}
+.demon_l_atk { 
+	background-image:url(monsters/wee_mons_demon_atk_l_1.png);
+	animation: demon_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes demon_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_demon_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_demon_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_demon_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_demon_atk_l_2.png);
+		}
+
+	}
+.demon_r_atk { 
+	background-image:url(monsters/wee_mons_demon_atk_r_1.png);
+	animation: demon_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes demon_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_demon_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_demon_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_demon_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_demon_atk_r_2.png);
+		}
+
+	}
+.demon_u_atk { 
+	background-image:url(monsters/wee_mons_demon_atk_u_1.png);
+	animation: demon_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes demon_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_demon_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_demon_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_demon_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_demon_atk_u_2.png);
+		}
+
+	}
+.demon_d_idle { 
+	background-image:url(monsters/wee_mons_demon_idle_d_1.png);
+	animation: demon_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes demon_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_demon_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_demon_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_demon_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_demon_idle_d_2.png);
+		}
+
+	}
+.demon_l_idle { 
+	background-image:url(monsters/wee_mons_demon_idle_l_1.png);
+	animation: demon_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes demon_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_demon_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_demon_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_demon_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_demon_idle_l_2.png);
+		}
+
+	}
+.demon_r_idle { 
+	background-image:url(monsters/wee_mons_demon_idle_r_1.png);
+	animation: demon_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes demon_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_demon_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_demon_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_demon_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_demon_idle_r_2.png);
+		}
+
+	}
+.demon_u_idle { 
+	background-image:url(monsters/wee_mons_demon_idle_u_1.png);
+	animation: demon_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes demon_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_demon_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_demon_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_demon_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_demon_idle_u_2.png);
+		}
+
+	}
+.druid_d_atk { 
+	background-image:url(monsters/wee_mons_druid_atk_d_1.png);
+	animation: druid_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes druid_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_druid_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_druid_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_druid_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_druid_atk_d_2.png);
+		}
+
+	}
+.druid_l_atk { 
+	background-image:url(monsters/wee_mons_druid_atk_l_1.png);
+	animation: druid_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes druid_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_druid_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_druid_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_druid_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_druid_atk_l_2.png);
+		}
+
+	}
+.druid_r_atk { 
+	background-image:url(monsters/wee_mons_druid_atk_r_1.png);
+	animation: druid_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes druid_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_druid_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_druid_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_druid_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_druid_atk_r_2.png);
+		}
+
+	}
+.druid_u_atk { 
+	background-image:url(monsters/wee_mons_druid_atk_u_1.png);
+	animation: druid_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes druid_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_druid_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_druid_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_druid_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_druid_atk_u_2.png);
+		}
+
+	}
+.druid_d_idle { 
+	background-image:url(monsters/wee_mons_druid_idle_d_1.png);
+	animation: druid_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes druid_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_druid_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_druid_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_druid_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_druid_idle_d_2.png);
+		}
+
+	}
+.druid_l_idle { 
+	background-image:url(monsters/wee_mons_druid_idle_l_1.png);
+	animation: druid_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes druid_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_druid_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_druid_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_druid_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_druid_idle_l_2.png);
+		}
+
+	}
+.druid_r_idle { 
+	background-image:url(monsters/wee_mons_druid_idle_r_1.png);
+	animation: druid_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes druid_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_druid_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_druid_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_druid_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_druid_idle_r_2.png);
+		}
+
+	}
+.druid_u_idle { 
+	background-image:url(monsters/wee_mons_druid_idle_u_1.png);
+	animation: druid_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes druid_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_druid_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_druid_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_druid_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_druid_idle_u_2.png);
+		}
+
+	}
+.dwarf_d_atk { 
+	background-image:url(monsters/wee_mons_dwarf_atk_d_1.png);
+	animation: dwarf_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes dwarf_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_dwarf_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_dwarf_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_dwarf_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_dwarf_atk_d_2.png);
+		}
+
+	}
+.dwarf_l_atk { 
+	background-image:url(monsters/wee_mons_dwarf_atk_l_1.png);
+	animation: dwarf_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes dwarf_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_dwarf_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_dwarf_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_dwarf_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_dwarf_atk_l_2.png);
+		}
+
+	}
+.dwarf_r_atk { 
+	background-image:url(monsters/wee_mons_dwarf_atk_r_1.png);
+	animation: dwarf_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes dwarf_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_dwarf_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_dwarf_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_dwarf_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_dwarf_atk_r_2.png);
+		}
+
+	}
+.dwarf_u_atk { 
+	background-image:url(monsters/wee_mons_dwarf_atk_u_1.png);
+	animation: dwarf_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes dwarf_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_dwarf_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_dwarf_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_dwarf_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_dwarf_atk_u_2.png);
+		}
+
+	}
+.dwarf_d_idle { 
+	background-image:url(monsters/wee_mons_dwarf_idle_d_1.png);
+	animation: dwarf_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes dwarf_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_dwarf_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_dwarf_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_dwarf_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_dwarf_idle_d_2.png);
+		}
+
+	}
+.dwarf_l_idle { 
+	background-image:url(monsters/wee_mons_dwarf_idle_l_1.png);
+	animation: dwarf_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes dwarf_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_dwarf_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_dwarf_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_dwarf_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_dwarf_idle_l_2.png);
+		}
+
+	}
+.dwarf_r_idle { 
+	background-image:url(monsters/wee_mons_dwarf_idle_r_1.png);
+	animation: dwarf_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes dwarf_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_dwarf_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_dwarf_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_dwarf_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_dwarf_idle_r_2.png);
+		}
+
+	}
+.dwarf_u_idle { 
+	background-image:url(monsters/wee_mons_dwarf_idle_u_1.png);
+	animation: dwarf_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes dwarf_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_dwarf_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_dwarf_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_dwarf_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_dwarf_idle_u_2.png);
+		}
+
+	}
+.elfarcher_d_atk { 
+	background-image:url(monsters/wee_mons_elfarcher_atk_d_1.png);
+	animation: elfarcher_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes elfarcher_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_elfarcher_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elfarcher_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elfarcher_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elfarcher_atk_d_2.png);
+		}
+
+	}
+.elfarcher_l_atk { 
+	background-image:url(monsters/wee_mons_elfarcher_atk_l_1.png);
+	animation: elfarcher_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes elfarcher_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_elfarcher_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elfarcher_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elfarcher_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elfarcher_atk_l_2.png);
+		}
+
+	}
+.elfarcher_r_atk { 
+	background-image:url(monsters/wee_mons_elfarcher_atk_r_1.png);
+	animation: elfarcher_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes elfarcher_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_elfarcher_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elfarcher_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elfarcher_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elfarcher_atk_r_2.png);
+		}
+
+	}
+.elfarcher_u_atk { 
+	background-image:url(monsters/wee_mons_elfarcher_atk_u_1.png);
+	animation: elfarcher_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes elfarcher_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_elfarcher_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elfarcher_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elfarcher_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elfarcher_atk_u_2.png);
+		}
+
+	}
+.elfarcher_d_idle { 
+	background-image:url(monsters/wee_mons_elfarcher_idle_d_1.png);
+	animation: elfarcher_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes elfarcher_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_elfarcher_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elfarcher_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elfarcher_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elfarcher_idle_d_2.png);
+		}
+
+	}
+.elfarcher_l_idle { 
+	background-image:url(monsters/wee_mons_elfarcher_idle_l_1.png);
+	animation: elfarcher_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes elfarcher_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_elfarcher_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elfarcher_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elfarcher_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elfarcher_idle_l_2.png);
+		}
+
+	}
+.elfarcher_r_idle { 
+	background-image:url(monsters/wee_mons_elfarcher_idle_r_1.png);
+	animation: elfarcher_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes elfarcher_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_elfarcher_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elfarcher_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elfarcher_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elfarcher_idle_r_2.png);
+		}
+
+	}
+.elfarcher_u_idle { 
+	background-image:url(monsters/wee_mons_elfarcher_idle_u_1.png);
+	animation: elfarcher_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes elfarcher_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_elfarcher_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elfarcher_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elfarcher_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elfarcher_idle_u_2.png);
+		}
+
+	}
+.elffight_d_atk { 
+	background-image:url(monsters/wee_mons_elffight_atk_d_1.png);
+	animation: elffight_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes elffight_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_elffight_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elffight_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elffight_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elffight_atk_d_2.png);
+		}
+
+	}
+.elffight_l_atk { 
+	background-image:url(monsters/wee_mons_elffight_atk_l_1.png);
+	animation: elffight_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes elffight_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_elffight_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elffight_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elffight_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elffight_atk_l_2.png);
+		}
+
+	}
+.elffight_r_atk { 
+	background-image:url(monsters/wee_mons_elffight_atk_r_1.png);
+	animation: elffight_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes elffight_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_elffight_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elffight_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elffight_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elffight_atk_r_2.png);
+		}
+
+	}
+.elffight_u_atk { 
+	background-image:url(monsters/wee_mons_elffight_atk_u_1.png);
+	animation: elffight_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes elffight_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_elffight_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elffight_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elffight_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elffight_atk_u_2.png);
+		}
+
+	}
+.elffight_d_idle { 
+	background-image:url(monsters/wee_mons_elffight_idle_d_1.png);
+	animation: elffight_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes elffight_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_elffight_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elffight_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elffight_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elffight_idle_d_2.png);
+		}
+
+	}
+.elffight_l_idle { 
+	background-image:url(monsters/wee_mons_elffight_idle_l_1.png);
+	animation: elffight_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes elffight_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_elffight_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elffight_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elffight_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elffight_idle_l_2.png);
+		}
+
+	}
+.elffight_r_idle { 
+	background-image:url(monsters/wee_mons_elffight_idle_r_1.png);
+	animation: elffight_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes elffight_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_elffight_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elffight_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elffight_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elffight_idle_r_2.png);
+		}
+
+	}
+.elffight_u_idle { 
+	background-image:url(monsters/wee_mons_elffight_idle_u_1.png);
+	animation: elffight_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes elffight_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_elffight_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elffight_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elffight_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elffight_idle_u_2.png);
+		}
+
+	}
+.elfmage_d_atk { 
+	background-image:url(monsters/wee_mons_elfmage_atk_d_1.png);
+	animation: elfmage_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes elfmage_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_elfmage_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elfmage_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elfmage_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elfmage_atk_d_2.png);
+		}
+
+	}
+.elfmage_l_atk { 
+	background-image:url(monsters/wee_mons_elfmage_atk_l_1.png);
+	animation: elfmage_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes elfmage_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_elfmage_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elfmage_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elfmage_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elfmage_atk_l_2.png);
+		}
+
+	}
+.elfmage_r_atk { 
+	background-image:url(monsters/wee_mons_elfmage_atk_r_1.png);
+	animation: elfmage_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes elfmage_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_elfmage_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elfmage_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elfmage_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elfmage_atk_r_2.png);
+		}
+
+	}
+.elfmage_u_atk { 
+	background-image:url(monsters/wee_mons_elfmage_atk_u_1.png);
+	animation: elfmage_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes elfmage_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_elfmage_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elfmage_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elfmage_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elfmage_atk_u_2.png);
+		}
+
+	}
+.elfmage_d_idle { 
+	background-image:url(monsters/wee_mons_elfmage_idle_d_1.png);
+	animation: elfmage_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes elfmage_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_elfmage_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elfmage_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elfmage_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elfmage_idle_d_2.png);
+		}
+
+	}
+.elfmage_l_idle { 
+	background-image:url(monsters/wee_mons_elfmage_idle_l_1.png);
+	animation: elfmage_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes elfmage_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_elfmage_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elfmage_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elfmage_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elfmage_idle_l_2.png);
+		}
+
+	}
+.elfmage_r_idle { 
+	background-image:url(monsters/wee_mons_elfmage_idle_r_1.png);
+	animation: elfmage_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes elfmage_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_elfmage_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elfmage_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elfmage_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elfmage_idle_r_2.png);
+		}
+
+	}
+.elfmage_u_idle { 
+	background-image:url(monsters/wee_mons_elfmage_idle_u_1.png);
+	animation: elfmage_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes elfmage_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_elfmage_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_elfmage_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_elfmage_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_elfmage_idle_u_2.png);
+		}
+
+	}
+.eye_d_atk { 
+	background-image:url(monsters/wee_mons_eye_atk_d_1.png);
+	animation: eye_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes eye_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_eye_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_eye_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_eye_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_eye_atk_d_2.png);
+		}
+
+	}
+.eye_l_atk { 
+	background-image:url(monsters/wee_mons_eye_atk_l_1.png);
+	animation: eye_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes eye_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_eye_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_eye_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_eye_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_eye_atk_l_2.png);
+		}
+
+	}
+.eye_r_atk { 
+	background-image:url(monsters/wee_mons_eye_atk_r_1.png);
+	animation: eye_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes eye_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_eye_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_eye_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_eye_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_eye_atk_r_2.png);
+		}
+
+	}
+.eye_u_atk { 
+	background-image:url(monsters/wee_mons_eye_atk_u_1.png);
+	animation: eye_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes eye_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_eye_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_eye_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_eye_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_eye_atk_u_2.png);
+		}
+
+	}
+.eye_d_idle { 
+	background-image:url(monsters/wee_mons_eye_idle_d_1.png);
+	animation: eye_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes eye_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_eye_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_eye_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_eye_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_eye_idle_d_2.png);
+		}
+
+	}
+.eye_l_idle { 
+	background-image:url(monsters/wee_mons_eye_idle_l_1.png);
+	animation: eye_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes eye_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_eye_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_eye_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_eye_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_eye_idle_l_2.png);
+		}
+
+	}
+.eye_r_idle { 
+	background-image:url(monsters/wee_mons_eye_idle_r_1.png);
+	animation: eye_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes eye_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_eye_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_eye_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_eye_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_eye_idle_r_2.png);
+		}
+
+	}
+.eye_u_idle { 
+	background-image:url(monsters/wee_mons_eye_idle_u_1.png);
+	animation: eye_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes eye_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_eye_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_eye_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_eye_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_eye_idle_u_2.png);
+		}
+
+	}
+.fighter_d_atk { 
+	background-image:url(monsters/wee_mons_fighter_atk_d_1.png);
+	animation: fighter_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes fighter_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_fighter_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_fighter_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_fighter_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_fighter_atk_d_2.png);
+		}
+
+	}
+.fighter_l_atk { 
+	background-image:url(monsters/wee_mons_fighter_atk_l_1.png);
+	animation: fighter_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes fighter_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_fighter_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_fighter_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_fighter_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_fighter_atk_l_2.png);
+		}
+
+	}
+.fighter_r_atk { 
+	background-image:url(monsters/wee_mons_fighter_atk_r_1.png);
+	animation: fighter_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes fighter_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_fighter_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_fighter_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_fighter_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_fighter_atk_r_2.png);
+		}
+
+	}
+.fighter_u_atk { 
+	background-image:url(monsters/wee_mons_fighter_atk_u_1.png);
+	animation: fighter_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes fighter_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_fighter_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_fighter_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_fighter_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_fighter_atk_u_2.png);
+		}
+
+	}
+.fighter_d_idle { 
+	background-image:url(monsters/wee_mons_fighter_idle_d_1.png);
+	animation: fighter_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes fighter_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_fighter_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_fighter_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_fighter_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_fighter_idle_d_2.png);
+		}
+
+	}
+.fighter_l_idle { 
+	background-image:url(monsters/wee_mons_fighter_idle_l_1.png);
+	animation: fighter_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes fighter_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_fighter_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_fighter_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_fighter_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_fighter_idle_l_2.png);
+		}
+
+	}
+.fighter_r_idle { 
+	background-image:url(monsters/wee_mons_fighter_idle_r_1.png);
+	animation: fighter_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes fighter_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_fighter_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_fighter_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_fighter_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_fighter_idle_r_2.png);
+		}
+
+	}
+.fighter_u_idle { 
+	background-image:url(monsters/wee_mons_fighter_idle_u_1.png);
+	animation: fighter_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes fighter_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_fighter_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_fighter_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_fighter_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_fighter_idle_u_2.png);
+		}
+
+	}
+.ghost_d_atk { 
+	background-image:url(monsters/wee_mons_ghost_atk_d_1.png);
+	animation: ghost_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes ghost_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_ghost_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_ghost_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_ghost_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_ghost_atk_d_2.png);
+		}
+
+	}
+.ghost_l_atk { 
+	background-image:url(monsters/wee_mons_ghost_atk_l_1.png);
+	animation: ghost_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes ghost_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_ghost_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_ghost_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_ghost_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_ghost_atk_l_2.png);
+		}
+
+	}
+.ghost_r_atk { 
+	background-image:url(monsters/wee_mons_ghost_atk_r_1.png);
+	animation: ghost_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes ghost_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_ghost_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_ghost_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_ghost_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_ghost_atk_r_2.png);
+		}
+
+	}
+.ghost_u_atk { 
+	background-image:url(monsters/wee_mons_ghost_atk_u_1.png);
+	animation: ghost_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes ghost_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_ghost_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_ghost_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_ghost_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_ghost_atk_u_2.png);
+		}
+
+	}
+.ghost_d_idle { 
+	background-image:url(monsters/wee_mons_ghost_idle_d_1.png);
+	animation: ghost_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes ghost_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_ghost_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_ghost_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_ghost_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_ghost_idle_d_2.png);
+		}
+
+	}
+.ghost_l_idle { 
+	background-image:url(monsters/wee_mons_ghost_idle_l_1.png);
+	animation: ghost_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes ghost_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_ghost_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_ghost_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_ghost_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_ghost_idle_l_2.png);
+		}
+
+	}
+.ghost_r_idle { 
+	background-image:url(monsters/wee_mons_ghost_idle_r_1.png);
+	animation: ghost_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes ghost_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_ghost_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_ghost_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_ghost_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_ghost_idle_r_2.png);
+		}
+
+	}
+.ghost_u_idle { 
+	background-image:url(monsters/wee_mons_ghost_idle_u_1.png);
+	animation: ghost_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes ghost_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_ghost_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_ghost_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_ghost_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_ghost_idle_u_2.png);
+		}
+
+	}
+.gobmage_d_atk { 
+	background-image:url(monsters/wee_mons_gobmage_atk_d_1.png);
+	animation: gobmage_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes gobmage_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_gobmage_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_gobmage_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_gobmage_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_gobmage_atk_d_2.png);
+		}
+
+	}
+.gobmage_l_atk { 
+	background-image:url(monsters/wee_mons_gobmage_atk_l_1.png);
+	animation: gobmage_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes gobmage_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_gobmage_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_gobmage_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_gobmage_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_gobmage_atk_l_2.png);
+		}
+
+	}
+.gobmage_r_atk { 
+	background-image:url(monsters/wee_mons_gobmage_atk_r_1.png);
+	animation: gobmage_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes gobmage_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_gobmage_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_gobmage_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_gobmage_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_gobmage_atk_r_2.png);
+		}
+
+	}
+.gobmage_u_atk { 
+	background-image:url(monsters/wee_mons_gobmage_atk_u_1.png);
+	animation: gobmage_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes gobmage_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_gobmage_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_gobmage_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_gobmage_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_gobmage_atk_u_2.png);
+		}
+
+	}
+.gobmage_d_idle { 
+	background-image:url(monsters/wee_mons_gobmage_idle_d_1.png);
+	animation: gobmage_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes gobmage_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_gobmage_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_gobmage_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_gobmage_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_gobmage_idle_d_2.png);
+		}
+
+	}
+.gobmage_l_idle { 
+	background-image:url(monsters/wee_mons_gobmage_idle_l_1.png);
+	animation: gobmage_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes gobmage_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_gobmage_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_gobmage_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_gobmage_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_gobmage_idle_l_2.png);
+		}
+
+	}
+.gobmage_r_idle { 
+	background-image:url(monsters/wee_mons_gobmage_idle_r_1.png);
+	animation: gobmage_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes gobmage_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_gobmage_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_gobmage_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_gobmage_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_gobmage_idle_r_2.png);
+		}
+
+	}
+.gobmage_u_idle { 
+	background-image:url(monsters/wee_mons_gobmage_idle_u_1.png);
+	animation: gobmage_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes gobmage_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_gobmage_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_gobmage_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_gobmage_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_gobmage_idle_u_2.png);
+		}
+
+	}
+.gobwar_d_atk { 
+	background-image:url(monsters/wee_mons_gobwar_atk_d_1.png);
+	animation: gobwar_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes gobwar_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_gobwar_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_gobwar_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_gobwar_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_gobwar_atk_d_2.png);
+		}
+
+	}
+.gobwar_l_atk { 
+	background-image:url(monsters/wee_mons_gobwar_atk_l_1.png);
+	animation: gobwar_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes gobwar_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_gobwar_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_gobwar_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_gobwar_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_gobwar_atk_l_2.png);
+		}
+
+	}
+.gobwar_r_atk { 
+	background-image:url(monsters/wee_mons_gobwar_atk_r_1.png);
+	animation: gobwar_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes gobwar_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_gobwar_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_gobwar_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_gobwar_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_gobwar_atk_r_2.png);
+		}
+
+	}
+.gobwar_u_atk { 
+	background-image:url(monsters/wee_mons_gobwar_atk_u_1.png);
+	animation: gobwar_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes gobwar_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_gobwar_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_gobwar_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_gobwar_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_gobwar_atk_u_2.png);
+		}
+
+	}
+.gobwar_d_idle { 
+	background-image:url(monsters/wee_mons_gobwar_idle_d_1.png);
+	animation: gobwar_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes gobwar_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_gobwar_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_gobwar_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_gobwar_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_gobwar_idle_d_2.png);
+		}
+
+	}
+.gobwar_l_idle { 
+	background-image:url(monsters/wee_mons_gobwar_idle_l_1.png);
+	animation: gobwar_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes gobwar_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_gobwar_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_gobwar_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_gobwar_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_gobwar_idle_l_2.png);
+		}
+
+	}
+.gobwar_r_idle { 
+	background-image:url(monsters/wee_mons_gobwar_idle_r_1.png);
+	animation: gobwar_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes gobwar_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_gobwar_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_gobwar_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_gobwar_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_gobwar_idle_r_2.png);
+		}
+
+	}
+.gobwar_u_idle { 
+	background-image:url(monsters/wee_mons_gobwar_idle_u_1.png);
+	animation: gobwar_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes gobwar_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_gobwar_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_gobwar_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_gobwar_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_gobwar_idle_u_2.png);
+		}
+
+	}
+.knight_d_atk { 
+	background-image:url(monsters/wee_mons_knight_atk_d_1.png);
+	animation: knight_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes knight_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_knight_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_knight_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_knight_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_knight_atk_d_2.png);
+		}
+
+	}
+.knight_l_atk { 
+	background-image:url(monsters/wee_mons_knight_atk_l_1.png);
+	animation: knight_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes knight_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_knight_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_knight_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_knight_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_knight_atk_l_2.png);
+		}
+
+	}
+.knight_r_atk { 
+	background-image:url(monsters/wee_mons_knight_atk_r_1.png);
+	animation: knight_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes knight_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_knight_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_knight_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_knight_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_knight_atk_r_2.png);
+		}
+
+	}
+.knight_u_atk { 
+	background-image:url(monsters/wee_mons_knight_atk_u_1.png);
+	animation: knight_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes knight_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_knight_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_knight_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_knight_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_knight_atk_u_2.png);
+		}
+
+	}
+.knight_d_idle { 
+	background-image:url(monsters/wee_mons_knight_idle_d_1.png);
+	animation: knight_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes knight_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_knight_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_knight_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_knight_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_knight_idle_d_2.png);
+		}
+
+	}
+.knight_l_idle { 
+	background-image:url(monsters/wee_mons_knight_idle_l_1.png);
+	animation: knight_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes knight_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_knight_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_knight_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_knight_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_knight_idle_l_2.png);
+		}
+
+	}
+.knight_r_idle { 
+	background-image:url(monsters/wee_mons_knight_idle_r_1.png);
+	animation: knight_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes knight_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_knight_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_knight_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_knight_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_knight_idle_r_2.png);
+		}
+
+	}
+.knight_u_idle { 
+	background-image:url(monsters/wee_mons_knight_idle_u_1.png);
+	animation: knight_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes knight_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_knight_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_knight_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_knight_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_knight_idle_u_2.png);
+		}
+
+	}
+.mage_d_atk { 
+	background-image:url(monsters/wee_mons_mage_atk_d_1.png);
+	animation: mage_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes mage_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_mage_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_mage_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_mage_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_mage_atk_d_2.png);
+		}
+
+	}
+.mage_l_atk { 
+	background-image:url(monsters/wee_mons_mage_atk_l_1.png);
+	animation: mage_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes mage_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_mage_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_mage_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_mage_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_mage_atk_l_2.png);
+		}
+
+	}
+.mage_r_atk { 
+	background-image:url(monsters/wee_mons_mage_atk_r_1.png);
+	animation: mage_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes mage_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_mage_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_mage_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_mage_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_mage_atk_r_2.png);
+		}
+
+	}
+.mage_u_atk { 
+	background-image:url(monsters/wee_mons_mage_atk_u_1.png);
+	animation: mage_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes mage_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_mage_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_mage_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_mage_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_mage_atk_u_2.png);
+		}
+
+	}
+.mage_d_idle { 
+	background-image:url(monsters/wee_mons_mage_idle_d_1.png);
+	animation: mage_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes mage_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_mage_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_mage_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_mage_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_mage_idle_d_2.png);
+		}
+
+	}
+.mage_l_idle { 
+	background-image:url(monsters/wee_mons_mage_idle_l_1.png);
+	animation: mage_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes mage_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_mage_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_mage_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_mage_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_mage_idle_l_2.png);
+		}
+
+	}
+.mage_r_idle { 
+	background-image:url(monsters/wee_mons_mage_idle_r_1.png);
+	animation: mage_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes mage_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_mage_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_mage_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_mage_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_mage_idle_r_2.png);
+		}
+
+	}
+.mage_u_idle { 
+	background-image:url(monsters/wee_mons_mage_idle_u_1.png);
+	animation: mage_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes mage_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_mage_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_mage_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_mage_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_mage_idle_u_2.png);
+		}
+
+	}
+.mino_d_atk { 
+	background-image:url(monsters/wee_mons_mino_atk_d_1.png);
+	animation: mino_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes mino_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_mino_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_mino_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_mino_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_mino_atk_d_2.png);
+		}
+
+	}
+.mino_l_atk { 
+	background-image:url(monsters/wee_mons_mino_atk_l_1.png);
+	animation: mino_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes mino_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_mino_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_mino_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_mino_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_mino_atk_l_2.png);
+		}
+
+	}
+.mino_r_atk { 
+	background-image:url(monsters/wee_mons_mino_atk_r_1.png);
+	animation: mino_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes mino_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_mino_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_mino_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_mino_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_mino_atk_r_2.png);
+		}
+
+	}
+.mino_u_atk { 
+	background-image:url(monsters/wee_mons_mino_atk_u_1.png);
+	animation: mino_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes mino_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_mino_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_mino_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_mino_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_mino_atk_u_2.png);
+		}
+
+	}
+.mino_d_idle { 
+	background-image:url(monsters/wee_mons_mino_idle_d_1.png);
+	animation: mino_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes mino_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_mino_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_mino_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_mino_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_mino_idle_d_2.png);
+		}
+
+	}
+.mino_l_idle { 
+	background-image:url(monsters/wee_mons_mino_idle_l_1.png);
+	animation: mino_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes mino_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_mino_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_mino_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_mino_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_mino_idle_l_2.png);
+		}
+
+	}
+.mino_r_idle { 
+	background-image:url(monsters/wee_mons_mino_idle_r_1.png);
+	animation: mino_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes mino_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_mino_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_mino_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_mino_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_mino_idle_r_2.png);
+		}
+
+	}
+.mino_u_idle { 
+	background-image:url(monsters/wee_mons_mino_idle_u_1.png);
+	animation: mino_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes mino_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_mino_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_mino_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_mino_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_mino_idle_u_2.png);
+		}
+
+	}
+.necro_d_atk { 
+	background-image:url(monsters/wee_mons_necro_atk_d_1.png);
+	animation: necro_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes necro_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_necro_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_necro_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_necro_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_necro_atk_d_2.png);
+		}
+
+	}
+.necro_l_atk { 
+	background-image:url(monsters/wee_mons_necro_atk_l_1.png);
+	animation: necro_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes necro_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_necro_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_necro_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_necro_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_necro_atk_l_2.png);
+		}
+
+	}
+.necro_r_atk { 
+	background-image:url(monsters/wee_mons_necro_atk_r_1.png);
+	animation: necro_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes necro_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_necro_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_necro_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_necro_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_necro_atk_r_2.png);
+		}
+
+	}
+.necro_u_atk { 
+	background-image:url(monsters/wee_mons_necro_atk_u_1.png);
+	animation: necro_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes necro_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_necro_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_necro_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_necro_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_necro_atk_u_2.png);
+		}
+
+	}
+.necro_d_idle { 
+	background-image:url(monsters/wee_mons_necro_idle_d_1.png);
+	animation: necro_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes necro_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_necro_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_necro_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_necro_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_necro_idle_d_2.png);
+		}
+
+	}
+.necro_l_idle { 
+	background-image:url(monsters/wee_mons_necro_idle_l_1.png);
+	animation: necro_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes necro_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_necro_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_necro_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_necro_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_necro_idle_l_2.png);
+		}
+
+	}
+.necro_r_idle { 
+	background-image:url(monsters/wee_mons_necro_idle_r_1.png);
+	animation: necro_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes necro_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_necro_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_necro_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_necro_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_necro_idle_r_2.png);
+		}
+
+	}
+.necro_u_idle { 
+	background-image:url(monsters/wee_mons_necro_idle_u_1.png);
+	animation: necro_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes necro_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_necro_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_necro_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_necro_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_necro_idle_u_2.png);
+		}
+
+	}
+.orc_d_atk { 
+	background-image:url(monsters/wee_mons_orc_atk_d_1.png);
+	animation: orc_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes orc_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_orc_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_orc_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_orc_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_orc_atk_d_2.png);
+		}
+
+	}
+.orc_l_atk { 
+	background-image:url(monsters/wee_mons_orc_atk_l_1.png);
+	animation: orc_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes orc_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_orc_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_orc_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_orc_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_orc_atk_l_2.png);
+		}
+
+	}
+.orc_r_atk { 
+	background-image:url(monsters/wee_mons_orc_atk_r_1.png);
+	animation: orc_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes orc_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_orc_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_orc_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_orc_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_orc_atk_r_2.png);
+		}
+
+	}
+.orc_u_atk { 
+	background-image:url(monsters/wee_mons_orc_atk_u_1.png);
+	animation: orc_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes orc_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_orc_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_orc_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_orc_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_orc_atk_u_2.png);
+		}
+
+	}
+.orc_d_idle { 
+	background-image:url(monsters/wee_mons_orc_idle_d_1.png);
+	animation: orc_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes orc_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_orc_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_orc_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_orc_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_orc_idle_d_2.png);
+		}
+
+	}
+.orc_l_idle { 
+	background-image:url(monsters/wee_mons_orc_idle_l_1.png);
+	animation: orc_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes orc_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_orc_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_orc_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_orc_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_orc_idle_l_2.png);
+		}
+
+	}
+.orc_r_idle { 
+	background-image:url(monsters/wee_mons_orc_idle_r_1.png);
+	animation: orc_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes orc_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_orc_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_orc_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_orc_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_orc_idle_r_2.png);
+		}
+
+	}
+.orc_u_idle { 
+	background-image:url(monsters/wee_mons_orc_idle_u_1.png);
+	animation: orc_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes orc_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_orc_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_orc_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_orc_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_orc_idle_u_2.png);
+		}
+
+	}
+.paladin_d_atk { 
+	background-image:url(monsters/wee_mons_paladin_atk_d_1.png);
+	animation: paladin_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes paladin_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_paladin_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_paladin_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_paladin_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_paladin_atk_d_2.png);
+		}
+
+	}
+.paladin_l_atk { 
+	background-image:url(monsters/wee_mons_paladin_atk_l_1.png);
+	animation: paladin_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes paladin_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_paladin_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_paladin_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_paladin_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_paladin_atk_l_2.png);
+		}
+
+	}
+.paladin_r_atk { 
+	background-image:url(monsters/wee_mons_paladin_atk_r_1.png);
+	animation: paladin_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes paladin_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_paladin_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_paladin_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_paladin_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_paladin_atk_r_2.png);
+		}
+
+	}
+.paladin_u_atk { 
+	background-image:url(monsters/wee_mons_paladin_atk_u_1.png);
+	animation: paladin_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes paladin_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_paladin_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_paladin_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_paladin_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_paladin_atk_u_2.png);
+		}
+
+	}
+.paladin_d_idle { 
+	background-image:url(monsters/wee_mons_paladin_idle_d_1.png);
+	animation: paladin_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes paladin_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_paladin_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_paladin_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_paladin_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_paladin_idle_d_2.png);
+		}
+
+	}
+.paladin_l_idle { 
+	background-image:url(monsters/wee_mons_paladin_idle_l_1.png);
+	animation: paladin_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes paladin_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_paladin_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_paladin_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_paladin_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_paladin_idle_l_2.png);
+		}
+
+	}
+.paladin_r_idle { 
+	background-image:url(monsters/wee_mons_paladin_idle_r_1.png);
+	animation: paladin_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes paladin_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_paladin_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_paladin_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_paladin_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_paladin_idle_r_2.png);
+		}
+
+	}
+.paladin_u_idle { 
+	background-image:url(monsters/wee_mons_paladin_idle_u_1.png);
+	animation: paladin_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes paladin_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_paladin_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_paladin_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_paladin_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_paladin_idle_u_2.png);
+		}
+
+	}
+.peasant_d_atk { 
+	background-image:url(monsters/wee_mons_peasant_atk_d_1.png);
+	animation: peasant_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes peasant_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_peasant_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_peasant_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_peasant_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_peasant_atk_d_2.png);
+		}
+
+	}
+.peasant_l_atk { 
+	background-image:url(monsters/wee_mons_peasant_atk_l_1.png);
+	animation: peasant_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes peasant_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_peasant_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_peasant_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_peasant_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_peasant_atk_l_2.png);
+		}
+
+	}
+.peasant_r_atk { 
+	background-image:url(monsters/wee_mons_peasant_atk_r_1.png);
+	animation: peasant_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes peasant_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_peasant_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_peasant_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_peasant_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_peasant_atk_r_2.png);
+		}
+
+	}
+.peasant_u_atk { 
+	background-image:url(monsters/wee_mons_peasant_atk_u_1.png);
+	animation: peasant_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes peasant_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_peasant_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_peasant_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_peasant_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_peasant_atk_u_2.png);
+		}
+
+	}
+.peasant_d_idle { 
+	background-image:url(monsters/wee_mons_peasant_idle_d_1.png);
+	animation: peasant_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes peasant_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_peasant_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_peasant_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_peasant_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_peasant_idle_d_2.png);
+		}
+
+	}
+.peasant_l_idle { 
+	background-image:url(monsters/wee_mons_peasant_idle_l_1.png);
+	animation: peasant_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes peasant_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_peasant_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_peasant_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_peasant_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_peasant_idle_l_2.png);
+		}
+
+	}
+.peasant_r_idle { 
+	background-image:url(monsters/wee_mons_peasant_idle_r_1.png);
+	animation: peasant_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes peasant_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_peasant_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_peasant_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_peasant_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_peasant_idle_r_2.png);
+		}
+
+	}
+.peasant_u_idle { 
+	background-image:url(monsters/wee_mons_peasant_idle_u_1.png);
+	animation: peasant_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes peasant_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_peasant_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_peasant_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_peasant_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_peasant_idle_u_2.png);
+		}
+
+	}
+.priest_d_atk { 
+	background-image:url(monsters/wee_mons_priest_atk_d_1.png);
+	animation: priest_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes priest_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_priest_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_priest_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_priest_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_priest_atk_d_2.png);
+		}
+
+	}
+.priest_l_atk { 
+	background-image:url(monsters/wee_mons_priest_atk_l_1.png);
+	animation: priest_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes priest_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_priest_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_priest_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_priest_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_priest_atk_l_2.png);
+		}
+
+	}
+.priest_r_atk { 
+	background-image:url(monsters/wee_mons_priest_atk_r_1.png);
+	animation: priest_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes priest_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_priest_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_priest_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_priest_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_priest_atk_r_2.png);
+		}
+
+	}
+.priest_u_atk { 
+	background-image:url(monsters/wee_mons_priest_atk_u_1.png);
+	animation: priest_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes priest_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_priest_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_priest_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_priest_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_priest_atk_u_2.png);
+		}
+
+	}
+.priest_d_idle { 
+	background-image:url(monsters/wee_mons_priest_idle_d_1.png);
+	animation: priest_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes priest_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_priest_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_priest_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_priest_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_priest_idle_d_2.png);
+		}
+
+	}
+.priest_l_idle { 
+	background-image:url(monsters/wee_mons_priest_idle_l_1.png);
+	animation: priest_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes priest_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_priest_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_priest_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_priest_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_priest_idle_l_2.png);
+		}
+
+	}
+.priest_r_idle { 
+	background-image:url(monsters/wee_mons_priest_idle_r_1.png);
+	animation: priest_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes priest_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_priest_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_priest_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_priest_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_priest_idle_r_2.png);
+		}
+
+	}
+.priest_u_idle { 
+	background-image:url(monsters/wee_mons_priest_idle_u_1.png);
+	animation: priest_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes priest_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_priest_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_priest_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_priest_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_priest_idle_u_2.png);
+		}
+
+	}
+.rat_d_atk { 
+	background-image:url(monsters/wee_mons_rat_atk_d_1.png);
+	animation: rat_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes rat_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_rat_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_rat_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_rat_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_rat_atk_d_2.png);
+		}
+
+	}
+.rat_l_atk { 
+	background-image:url(monsters/wee_mons_rat_atk_l_1.png);
+	animation: rat_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes rat_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_rat_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_rat_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_rat_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_rat_atk_l_2.png);
+		}
+
+	}
+.rat_r_atk { 
+	background-image:url(monsters/wee_mons_rat_atk_r_1.png);
+	animation: rat_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes rat_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_rat_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_rat_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_rat_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_rat_atk_r_2.png);
+		}
+
+	}
+.rat_u_atk { 
+	background-image:url(monsters/wee_mons_rat_atk_u_1.png);
+	animation: rat_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes rat_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_rat_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_rat_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_rat_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_rat_atk_u_2.png);
+		}
+
+	}
+.rat_d_idle { 
+	background-image:url(monsters/wee_mons_rat_idle_d_1.png);
+	animation: rat_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes rat_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_rat_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_rat_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_rat_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_rat_idle_d_2.png);
+		}
+
+	}
+.rat_l_idle { 
+	background-image:url(monsters/wee_mons_rat_idle_l_1.png);
+	animation: rat_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes rat_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_rat_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_rat_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_rat_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_rat_idle_l_2.png);
+		}
+
+	}
+.rat_r_idle { 
+	background-image:url(monsters/wee_mons_rat_idle_r_1.png);
+	animation: rat_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes rat_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_rat_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_rat_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_rat_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_rat_idle_r_2.png);
+		}
+
+	}
+.rat_u_idle { 
+	background-image:url(monsters/wee_mons_rat_idle_u_1.png);
+	animation: rat_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes rat_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_rat_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_rat_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_rat_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_rat_idle_u_2.png);
+		}
+
+	}
+.reaper_d_atk { 
+	background-image:url(monsters/wee_mons_reaper_atk_d_1.png);
+	animation: reaper_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes reaper_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_reaper_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_reaper_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_reaper_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_reaper_atk_d_2.png);
+		}
+
+	}
+.reaper_l_atk { 
+	background-image:url(monsters/wee_mons_reaper_atk_l_1.png);
+	animation: reaper_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes reaper_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_reaper_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_reaper_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_reaper_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_reaper_atk_l_2.png);
+		}
+
+	}
+.reaper_r_atk { 
+	background-image:url(monsters/wee_mons_reaper_atk_r_1.png);
+	animation: reaper_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes reaper_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_reaper_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_reaper_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_reaper_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_reaper_atk_r_2.png);
+		}
+
+	}
+.reaper_u_atk { 
+	background-image:url(monsters/wee_mons_reaper_atk_u_1.png);
+	animation: reaper_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes reaper_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_reaper_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_reaper_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_reaper_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_reaper_atk_u_2.png);
+		}
+
+	}
+.reaper_d_idle { 
+	background-image:url(monsters/wee_mons_reaper_idle_d_1.png);
+	animation: reaper_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes reaper_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_reaper_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_reaper_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_reaper_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_reaper_idle_d_2.png);
+		}
+
+	}
+.reaper_l_idle { 
+	background-image:url(monsters/wee_mons_reaper_idle_l_1.png);
+	animation: reaper_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes reaper_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_reaper_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_reaper_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_reaper_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_reaper_idle_l_2.png);
+		}
+
+	}
+.reaper_r_idle { 
+	background-image:url(monsters/wee_mons_reaper_idle_r_1.png);
+	animation: reaper_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes reaper_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_reaper_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_reaper_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_reaper_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_reaper_idle_r_2.png);
+		}
+
+	}
+.reaper_u_idle { 
+	background-image:url(monsters/wee_mons_reaper_idle_u_1.png);
+	animation: reaper_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes reaper_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_reaper_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_reaper_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_reaper_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_reaper_idle_u_2.png);
+		}
+
+	}
+.skelmage_d_atk { 
+	background-image:url(monsters/wee_mons_skelmage_atk_d_1.png);
+	animation: skelmage_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes skelmage_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelmage_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelmage_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelmage_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelmage_atk_d_2.png);
+		}
+
+	}
+.skelmage_l_atk { 
+	background-image:url(monsters/wee_mons_skelmage_atk_l_1.png);
+	animation: skelmage_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes skelmage_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelmage_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelmage_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelmage_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelmage_atk_l_2.png);
+		}
+
+	}
+.skelmage_r_atk { 
+	background-image:url(monsters/wee_mons_skelmage_atk_r_1.png);
+	animation: skelmage_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes skelmage_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelmage_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelmage_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelmage_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelmage_atk_r_2.png);
+		}
+
+	}
+.skelmage_u_atk { 
+	background-image:url(monsters/wee_mons_skelmage_atk_u_1.png);
+	animation: skelmage_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes skelmage_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelmage_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelmage_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelmage_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelmage_atk_u_2.png);
+		}
+
+	}
+.skelmage_d_idle { 
+	background-image:url(monsters/wee_mons_skelmage_idle_d_1.png);
+	animation: skelmage_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes skelmage_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelmage_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelmage_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelmage_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelmage_idle_d_2.png);
+		}
+
+	}
+.skelmage_l_idle { 
+	background-image:url(monsters/wee_mons_skelmage_idle_l_1.png);
+	animation: skelmage_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes skelmage_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelmage_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelmage_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelmage_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelmage_idle_l_2.png);
+		}
+
+	}
+.skelmage_r_idle { 
+	background-image:url(monsters/wee_mons_skelmage_idle_r_1.png);
+	animation: skelmage_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes skelmage_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelmage_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelmage_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelmage_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelmage_idle_r_2.png);
+		}
+
+	}
+.skelmage_u_idle { 
+	background-image:url(monsters/wee_mons_skelmage_idle_u_1.png);
+	animation: skelmage_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes skelmage_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelmage_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelmage_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelmage_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelmage_idle_u_2.png);
+		}
+
+	}
+.skelshield_d_atk { 
+	background-image:url(monsters/wee_mons_skelshield_atk_d_1.png);
+	animation: skelshield_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes skelshield_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelshield_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelshield_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelshield_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelshield_atk_d_2.png);
+		}
+
+	}
+.skelshield_l_atk { 
+	background-image:url(monsters/wee_mons_skelshield_atk_l_1.png);
+	animation: skelshield_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes skelshield_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelshield_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelshield_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelshield_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelshield_atk_l_2.png);
+		}
+
+	}
+.skelshield_r_atk { 
+	background-image:url(monsters/wee_mons_skelshield_atk_r_1.png);
+	animation: skelshield_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes skelshield_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelshield_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelshield_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelshield_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelshield_atk_r_2.png);
+		}
+
+	}
+.skelshield_u_atk { 
+	background-image:url(monsters/wee_mons_skelshield_atk_u_1.png);
+	animation: skelshield_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes skelshield_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelshield_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelshield_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelshield_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelshield_atk_u_2.png);
+		}
+
+	}
+.skelshield_d_idle { 
+	background-image:url(monsters/wee_mons_skelshield_idle_d_1.png);
+	animation: skelshield_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes skelshield_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelshield_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelshield_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelshield_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelshield_idle_d_2.png);
+		}
+
+	}
+.skelshield_l_idle { 
+	background-image:url(monsters/wee_mons_skelshield_idle_l_1.png);
+	animation: skelshield_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes skelshield_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelshield_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelshield_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelshield_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelshield_idle_l_2.png);
+		}
+
+	}
+.skelshield_r_idle { 
+	background-image:url(monsters/wee_mons_skelshield_idle_r_1.png);
+	animation: skelshield_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes skelshield_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelshield_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelshield_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelshield_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelshield_idle_r_2.png);
+		}
+
+	}
+.skelshield_u_idle { 
+	background-image:url(monsters/wee_mons_skelshield_idle_u_1.png);
+	animation: skelshield_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes skelshield_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelshield_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelshield_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelshield_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelshield_idle_u_2.png);
+		}
+
+	}
+.skelwar_d_atk { 
+	background-image:url(monsters/wee_mons_skelwar_atk_d_1.png);
+	animation: skelwar_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes skelwar_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelwar_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelwar_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelwar_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelwar_atk_d_2.png);
+		}
+
+	}
+.skelwar_l_atk { 
+	background-image:url(monsters/wee_mons_skelwar_atk_l_1.png);
+	animation: skelwar_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes skelwar_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelwar_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelwar_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelwar_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelwar_atk_l_2.png);
+		}
+
+	}
+.skelwar_r_atk { 
+	background-image:url(monsters/wee_mons_skelwar_atk_r_1.png);
+	animation: skelwar_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes skelwar_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelwar_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelwar_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelwar_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelwar_atk_r_2.png);
+		}
+
+	}
+.skelwar_u_atk { 
+	background-image:url(monsters/wee_mons_skelwar_atk_u_1.png);
+	animation: skelwar_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes skelwar_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelwar_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelwar_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelwar_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelwar_atk_u_2.png);
+		}
+
+	}
+.skelwar_d_idle { 
+	background-image:url(monsters/wee_mons_skelwar_idle_d_1.png);
+	animation: skelwar_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes skelwar_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelwar_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelwar_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelwar_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelwar_idle_d_2.png);
+		}
+
+	}
+.skelwar_l_idle { 
+	background-image:url(monsters/wee_mons_skelwar_idle_l_1.png);
+	animation: skelwar_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes skelwar_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelwar_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelwar_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelwar_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelwar_idle_l_2.png);
+		}
+
+	}
+.skelwar_r_idle { 
+	background-image:url(monsters/wee_mons_skelwar_idle_r_1.png);
+	animation: skelwar_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes skelwar_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelwar_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelwar_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelwar_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelwar_idle_r_2.png);
+		}
+
+	}
+.skelwar_u_idle { 
+	background-image:url(monsters/wee_mons_skelwar_idle_u_1.png);
+	animation: skelwar_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes skelwar_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_skelwar_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_skelwar_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_skelwar_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_skelwar_idle_u_2.png);
+		}
+
+	}
+.slime_d_atk { 
+	background-image:url(monsters/wee_mons_slime_atk_d_1.png);
+	animation: slime_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes slime_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_slime_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_slime_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_slime_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_slime_atk_d_2.png);
+		}
+
+	}
+.slime_l_atk { 
+	background-image:url(monsters/wee_mons_slime_atk_l_1.png);
+	animation: slime_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes slime_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_slime_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_slime_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_slime_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_slime_atk_l_2.png);
+		}
+
+	}
+.slime_r_atk { 
+	background-image:url(monsters/wee_mons_slime_atk_r_1.png);
+	animation: slime_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes slime_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_slime_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_slime_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_slime_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_slime_atk_r_2.png);
+		}
+
+	}
+.slime_u_atk { 
+	background-image:url(monsters/wee_mons_slime_atk_u_1.png);
+	animation: slime_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes slime_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_slime_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_slime_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_slime_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_slime_atk_u_2.png);
+		}
+
+	}
+.slime_d_idle { 
+	background-image:url(monsters/wee_mons_slime_idle_d_1.png);
+	animation: slime_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes slime_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_slime_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_slime_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_slime_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_slime_idle_d_2.png);
+		}
+
+	}
+.slime_l_idle { 
+	background-image:url(monsters/wee_mons_slime_idle_l_1.png);
+	animation: slime_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes slime_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_slime_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_slime_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_slime_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_slime_idle_l_2.png);
+		}
+
+	}
+.slime_r_idle { 
+	background-image:url(monsters/wee_mons_slime_idle_r_1.png);
+	animation: slime_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes slime_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_slime_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_slime_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_slime_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_slime_idle_r_2.png);
+		}
+
+	}
+.slime_u_idle { 
+	background-image:url(monsters/wee_mons_slime_idle_u_1.png);
+	animation: slime_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes slime_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_slime_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_slime_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_slime_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_slime_idle_u_2.png);
+		}
+
+	}
+.snake_d_atk { 
+	background-image:url(monsters/wee_mons_snake_atk_d_1.png);
+	animation: snake_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes snake_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_snake_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_snake_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_snake_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_snake_atk_d_2.png);
+		}
+
+	}
+.snake_l_atk { 
+	background-image:url(monsters/wee_mons_snake_atk_l_1.png);
+	animation: snake_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes snake_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_snake_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_snake_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_snake_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_snake_atk_l_2.png);
+		}
+
+	}
+.snake_r_atk { 
+	background-image:url(monsters/wee_mons_snake_atk_r_1.png);
+	animation: snake_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes snake_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_snake_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_snake_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_snake_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_snake_atk_r_2.png);
+		}
+
+	}
+.snake_u_atk { 
+	background-image:url(monsters/wee_mons_snake_atk_u_1.png);
+	animation: snake_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes snake_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_snake_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_snake_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_snake_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_snake_atk_u_2.png);
+		}
+
+	}
+.snake_d_idle { 
+	background-image:url(monsters/wee_mons_snake_idle_d_1.png);
+	animation: snake_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes snake_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_snake_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_snake_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_snake_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_snake_idle_d_2.png);
+		}
+
+	}
+.snake_l_idle { 
+	background-image:url(monsters/wee_mons_snake_idle_l_1.png);
+	animation: snake_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes snake_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_snake_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_snake_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_snake_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_snake_idle_l_2.png);
+		}
+
+	}
+.snake_r_idle { 
+	background-image:url(monsters/wee_mons_snake_idle_r_1.png);
+	animation: snake_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes snake_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_snake_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_snake_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_snake_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_snake_idle_r_2.png);
+		}
+
+	}
+.snake_u_idle { 
+	background-image:url(monsters/wee_mons_snake_idle_u_1.png);
+	animation: snake_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes snake_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_snake_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_snake_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_snake_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_snake_idle_u_2.png);
+		}
+
+	}
+.spider_d_atk { 
+	background-image:url(monsters/wee_mons_spider_atk_d_1.png);
+	animation: spider_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes spider_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_spider_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_spider_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_spider_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_spider_atk_d_2.png);
+		}
+
+	}
+.spider_l_atk { 
+	background-image:url(monsters/wee_mons_spider_atk_l_1.png);
+	animation: spider_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes spider_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_spider_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_spider_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_spider_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_spider_atk_l_2.png);
+		}
+
+	}
+.spider_r_atk { 
+	background-image:url(monsters/wee_mons_spider_atk_r_1.png);
+	animation: spider_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes spider_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_spider_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_spider_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_spider_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_spider_atk_r_2.png);
+		}
+
+	}
+.spider_u_atk { 
+	background-image:url(monsters/wee_mons_spider_atk_u_1.png);
+	animation: spider_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes spider_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_spider_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_spider_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_spider_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_spider_atk_u_2.png);
+		}
+
+	}
+.spider_d_idle { 
+	background-image:url(monsters/wee_mons_spider_idle_d_1.png);
+	animation: spider_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes spider_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_spider_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_spider_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_spider_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_spider_idle_d_2.png);
+		}
+
+	}
+.spider_l_idle { 
+	background-image:url(monsters/wee_mons_spider_idle_l_1.png);
+	animation: spider_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes spider_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_spider_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_spider_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_spider_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_spider_idle_l_2.png);
+		}
+
+	}
+.spider_r_idle { 
+	background-image:url(monsters/wee_mons_spider_idle_r_1.png);
+	animation: spider_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes spider_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_spider_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_spider_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_spider_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_spider_idle_r_2.png);
+		}
+
+	}
+.spider_u_idle { 
+	background-image:url(monsters/wee_mons_spider_idle_u_1.png);
+	animation: spider_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes spider_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_spider_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_spider_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_spider_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_spider_idle_u_2.png);
+		}
+
+	}
+.wolf_d_atk { 
+	background-image:url(monsters/wee_mons_wolf_atk_d_1.png);
+	animation: wolf_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes wolf_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_wolf_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_wolf_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_wolf_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_wolf_atk_d_2.png);
+		}
+
+	}
+.wolf_l_atk { 
+	background-image:url(monsters/wee_mons_wolf_atk_l_1.png);
+	animation: wolf_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes wolf_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_wolf_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_wolf_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_wolf_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_wolf_atk_l_2.png);
+		}
+
+	}
+.wolf_r_atk { 
+	background-image:url(monsters/wee_mons_wolf_atk_r_1.png);
+	animation: wolf_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes wolf_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_wolf_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_wolf_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_wolf_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_wolf_atk_r_2.png);
+		}
+
+	}
+.wolf_u_atk { 
+	background-image:url(monsters/wee_mons_wolf_atk_u_1.png);
+	animation: wolf_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes wolf_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_wolf_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_wolf_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_wolf_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_wolf_atk_u_2.png);
+		}
+
+	}
+.wolf_d_idle { 
+	background-image:url(monsters/wee_mons_wolf_idle_d_1.png);
+	animation: wolf_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes wolf_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_wolf_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_wolf_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_wolf_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_wolf_idle_d_2.png);
+		}
+
+	}
+.wolf_l_idle { 
+	background-image:url(monsters/wee_mons_wolf_idle_l_1.png);
+	animation: wolf_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes wolf_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_wolf_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_wolf_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_wolf_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_wolf_idle_l_2.png);
+		}
+
+	}
+.wolf_r_idle { 
+	background-image:url(monsters/wee_mons_wolf_idle_r_1.png);
+	animation: wolf_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes wolf_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_wolf_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_wolf_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_wolf_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_wolf_idle_r_2.png);
+		}
+
+	}
+.wolf_u_idle { 
+	background-image:url(monsters/wee_mons_wolf_idle_u_1.png);
+	animation: wolf_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes wolf_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_wolf_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_wolf_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_wolf_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_wolf_idle_u_2.png);
+		}
+
+	}
+.zombie_d_atk { 
+	background-image:url(monsters/wee_mons_zombie_atk_d_1.png);
+	animation: zombie_d_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes zombie_d_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_zombie_atk_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_zombie_atk_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_zombie_atk_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_zombie_atk_d_2.png);
+		}
+
+	}
+.zombie_l_atk { 
+	background-image:url(monsters/wee_mons_zombie_atk_l_1.png);
+	animation: zombie_l_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes zombie_l_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_zombie_atk_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_zombie_atk_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_zombie_atk_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_zombie_atk_l_2.png);
+		}
+
+	}
+.zombie_r_atk { 
+	background-image:url(monsters/wee_mons_zombie_atk_r_1.png);
+	animation: zombie_r_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes zombie_r_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_zombie_atk_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_zombie_atk_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_zombie_atk_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_zombie_atk_r_2.png);
+		}
+
+	}
+.zombie_u_atk { 
+	background-image:url(monsters/wee_mons_zombie_atk_u_1.png);
+	animation: zombie_u_atk 0.35s linear 0s infinite normal backwards, enemyAttack .5s linear 0s normal forwards;
+}
+
+@keyframes zombie_u_atk {
+
+		0% {
+			background-image:url(monsters/wee_mons_zombie_atk_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_zombie_atk_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_zombie_atk_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_zombie_atk_u_2.png);
+		}
+
+	}
+.zombie_d_idle { 
+	background-image:url(monsters/wee_mons_zombie_idle_d_1.png);
+	animation: zombie_d_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes zombie_d_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_zombie_idle_d_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_zombie_idle_d_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_zombie_idle_d_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_zombie_idle_d_2.png);
+		}
+
+	}
+.zombie_l_idle { 
+	background-image:url(monsters/wee_mons_zombie_idle_l_1.png);
+	animation: zombie_l_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes zombie_l_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_zombie_idle_l_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_zombie_idle_l_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_zombie_idle_l_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_zombie_idle_l_2.png);
+		}
+
+	}
+.zombie_r_idle { 
+	background-image:url(monsters/wee_mons_zombie_idle_r_1.png);
+	animation: zombie_r_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes zombie_r_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_zombie_idle_r_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_zombie_idle_r_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_zombie_idle_r_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_zombie_idle_r_2.png);
+		}
+
+	}
+.zombie_u_idle { 
+	background-image:url(monsters/wee_mons_zombie_idle_u_1.png);
+	animation: zombie_u_idle 1s linear 0s infinite normal forwards;
+}
+
+@keyframes zombie_u_idle {
+
+		0% {
+			background-image:url(monsters/wee_mons_zombie_idle_u_1.png);
+		}
+		49% {
+			background-image:url(monsters/wee_mons_zombie_idle_u_1.png);
+		}
+
+	
+
+		50% {
+			background-image:url(monsters/wee_mons_zombie_idle_u_2.png);
+		}
+		99% {
+			background-image:url(monsters/wee_mons_zombie_idle_u_2.png);
+		}
+
+	}

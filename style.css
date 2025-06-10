@@ -22,7 +22,7 @@ body {
 	overflow-x: hidden;
 }
 
-* {font-family: unifont; image-rendering: pixelated}
+* {font-family: unifont, monospace; image-rendering: pixelated}
 
 #main-ui { 
 	transition: opacity 3s;
@@ -131,7 +131,23 @@ button:hover:not(button:disabled) {
 	background: url(dungeon/wee_dung_brick_grey.png);
 }
 
-.monster { display:none;  background: url('monsters/wee_mons_slime_idle_d_1.png'); background-position: center top; background-size:130%; width:60px; height:60px; animation: combatIdle 2s ease 0s infinite normal forwards; }
+.monster-container button { 
+	display:none;  
+	background-color: transparent;
+	background-position: center top; 
+	background-size:130%; 
+	width:60px; 
+	height:60px; 
+    transition-property: none !important; /* Disables all transitions */
+    transition-duration: 0s !important; 
+	transition: none !important; 
+}
+
+#preload {
+	position: absolute;
+	top: -9999999999999999px;
+	left: -999999999999999px;
+}
 
 
 button.item {
@@ -346,16 +362,20 @@ details { display:none; }
 	transition:left 2.3s ease-in;
 }
 
+.shake { animation: shake .5s ease 0s 1 normal forwards !important; }
+
 @keyframes combatIdle {
 	0%,
 	50%,
 	100% {
 		background-size: 130%;
+		background-image: url(monsters/wee_mons_druid_atk_d_1.png);
 	}
 
 	25%,
 	75% {
 		background-size: 140%;
+		background-image: url(monsters/wee_mons_druid_atk_d_2.png);
 	}
 }
 
@@ -447,3 +467,4 @@ details { display:none; }
 	from { background-position-y: 0px; }
 	to { background-position-y: -192px; }
 }
+

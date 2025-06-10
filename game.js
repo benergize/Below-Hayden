@@ -3,6 +3,17 @@ setTimeout(fn=>{
 	document.body.style.opacity = 1;
 }, 500);
 
+
+let preload = document.querySelector("#preload");
+let preloadInner = "";
+fetch("/assets/sprites/").then(el=>{return el.json();}).then(el=>{
+    el.forEach(spr=>{
+        preloadInner += `<img src = "${spr}">`;
+    });
+    preload.innerHTML = preloadInner;
+});
+
+
 if(typeof localStorage.highScore == "undefined") { localStorage.highScore = 10; }
 document.querySelector("#high-score").innerText = Number.parseInt(localStorage.highScore);
 window.id = 0;
@@ -13,7 +24,7 @@ db.findItem = function(itemName) {
 	else { return false; }
 }
 
-fetch("data/data.json").then(dat=>{return dat.json();}).then(dat=>{
+fetch("data/data.json?11").then(dat=>{return dat.json();}).then(dat=>{
 	console.log(dat);
 	window.gear = dat.gear;
 	db.gear = dat.gear
@@ -30,200 +41,7 @@ fetch("data/data.json").then(dat=>{return dat.json();}).then(dat=>{
 
 
 
-let player = { 
-	hp: 20, 
-	maxHp: 20, 
-	gold: 0, 
-	dgold:0,
-	dmg: 1,
-	level: 1,
-	inventory: [], 
-	slots: {},
-	xp:0,
-	dhp: 20,
-	dxp: 0,
-	maxItems:6,
-
-	getXPToNextLevel: fn=>{ return 100 * (player.level ** 3); },
-	handleLeveling: function() {
-
-
-		let xpToNextLevel = player.getXPToNextLevel();
-
-		//XPToLevel(n) = XPBase * (n ^ LevelCurve)
-
-		//document.querySelector("#xpbar div").style.width = ((player.xp / xpToNextLevel) * 100) + "%"
-
-		if(player.xp > xpToNextLevel) {
-
-			document.querySelector("#level-up").classList.toggle("level-up-slide");
-
-			sou_level_up.play();
-
-			player.level++;
-			player.maxHp += 10;
-			player.dmg++;
-			player.hp = player.getMaxHp();
-			player.xp = 0;
-
-		}
-	},
-	getDmg: function(){ 
-		let d = this.dmg + (player.level / 4);
-		let damageSources = {};
-
-		for(let slot in player.slots) {
-			let i = this.getItemInSlot(slot);
-
-			
-			if(i) { 
-				
-				if(slot != "ring") {
-
-					damageSources[i.effectType] += i.getDmg();
-				}
-			}
-		}
-
-		let ring = player.getItemInSlot("ring");
-
-		if(ring) {
-			for(let d in damageSources) {
-
-				if(typeof damageSources[ring.effectType] == "number") {
-
-					d += damageSources[ring.effectType] * ring.dmg; 
-				}
-			}
-		}
-		
-		return d; 
-	},
-	getItemInSlot: slot=> {
-		
-		if(typeof player.slots[slot] != "undefined" && player.slots[slot] != -1 && player.slots[slot] != "") {
-			return player.inventory.filter(i=>{ return player.slots[slot] == i.id; })[0];
-		}
-
-		return false;
-	},
-	getMaxHp: function(){
-		let d = this.maxHp; 
-
-		for(let v in player.slots) {
-			let i = player.getItemInSlot(v);
-			if(i) { d += i.hp; }
-		}
-		
-		return d; 
-	},
-	attack: function(targets, item=false) {
-		
-		if(!Array.isArray(targets)) { targets = [targets]; }
-
-		let critDelay = 0;
-
-		let playerWeapon = item || player.getItemInSlot("weapon");
-
-		//Run through each of our targets and deal damage/play sound/animation
-		targets.forEach((monster,ind)=>{
-
-			if(typeof monster == "number") { monster = monsters.filter(m=>{return m.id == monster; })[0]; }
-
-			setTimeout(fn=>{
-
-				let logText = "";
-				let bonuses = "";
-
-				let crit = false;
-				let playerDmg = item ? item.getDmg() : Math.floor(player.getDmg() + dice(1,6));
-
-				if(playerWeapon && typeof monster.weakTo != "undefined") {
-					if(monster.weakTo.indexOf(playerWeapon.effectType) != -1) {
-						bonuses += (` <span style = 'color:lightgreen;'>&nbsp;+ ${Math.abs(playerDmg - (playerDmg * 1.5))}</span>`); playerDmg *= 1.5; 
-					}
-
-				}
-				if(playerWeapon && typeof monster.strongTo != "undefined") {
-					if(monster.strongTo.indexOf(playerWeapon.effectType) != -1 ) { 
-						bonuses += (` <span style = 'color:red;'>&nbsp;- ${Math.abs(playerDmg - (playerDmg / 1.5))}</span>`); playerDmg /= 1.5; 
-					}
-				}
-
-
-				if(dice(1,20) > 18) {
-					logText += "<span class = 'critText'>CRITICAL HIT!</span>&nbsp;";
-					playerDmg *= 2;
-					crit = true;
-					critDelay += 500;
-
-					sou_crit.play();
-				}
-
-				if(item) {
-					if(typeof item.sound == "string") { window[item.sound].play() }
-					else { item.sound.play(); }
-				}
-				else {
-					sou_punch[Math.floor(Math.random() * sou_punch.length)].play();
-				}
-
-				monster.takeDamage(playerDmg, false);
-				
-				setTimeout(fn=>{
-					let d = document.querySelector(`[data-monster-id="${monster.id}"]`);
-					if(d != null) {
-						document.querySelector(`[data-monster-id="${monster.id}"]`).style.animation = "shake .5s ease 0s 1 normal forwards";
-					}
-				},1, monster);
-
-				log(`${logText} Hit ${monster.name} for ${playerDmg}${bonuses}.`);
-
-				if(crit) { bindCritAnimation(); }
-
-				updateUI();
-				lockMonsters();
-
-			}, 500 * ind);
-		});
-
-
-		//After we've hit all our targets, check if anyone/everyone is dead and remove them.
-		setTimeout(fn=>{
-
-			updateUI();
-
-			let delay = 1;
-
-			monsters.forEach((monster,ind)=>{
-
-				if(monster.hp <= 0) {
-
-
-					setTimeout(fnz=>{
-
-							
-						defeatEnemy(monster);
-
-					},delay);
-
-					delay += 350;
-				}
-
-			});
-
-			setTimeout(fn=>{
-				monsterTurn();
-			}, delay);
-
-			//unlockMonsters();
-
-		}, (targets.length * 500) + 250 + critDelay);
-
-	}
-};
-
-
+let player = {};
 
 
 let floor = 1
@@ -317,9 +135,9 @@ function monsterUIInit() {
 					<div class = 'hearts' style = "visibility:visible;">${monsterHearts}</div>
 					<button 
 						data-monster-id="${monster.id}" 
-						class = 'monster' 
+						class = 'monster ${monster.sprite}' 
 						onclick="player.attack(${monster.id})"
-						style = "background-image: url(${monster.sprite});display:inline-block;"
+						style = "display:inline-block;"
 					>${monster.name}</button>
 				</div>
 			`;
@@ -386,9 +204,9 @@ function Monster(name, sprite="", hp=5, dmg=1, strongTo=[], weakTo=[]) {
 		for(let p in name) {
 			this[p] = JSON.parse(JSON.stringify(name[p]));
 		}
-		this.maxHp = (hp +  Math.floor(floor / 3)) * (thisRoomDifficulty+1);
 	}
 	else {
+		this.hp = hp;
 		this.name = name;
 		this.sprite = sprite;
 		this.maxHp = (hp +  Math.floor(floor / 3)) * (thisRoomDifficulty+1);
@@ -396,6 +214,11 @@ function Monster(name, sprite="", hp=5, dmg=1, strongTo=[], weakTo=[]) {
 		this.strongTo = strongTo;
 		this.weakTo = weakTo;
 	}
+
+	this.hp = Number.parseFloat(this.hp);
+	this.dmg = Number.parseFloat(this.dmg);
+
+	this.maxHp = (this.hp + Math.floor(floor / 3)) * (thisRoomDifficulty+1);
 
 	this.hp = this.maxHp;
 
@@ -428,8 +251,13 @@ function Monster(name, sprite="", hp=5, dmg=1, strongTo=[], weakTo=[]) {
 		updateUI();
 		lockMonsters();
 
-		document.querySelector(`[data-monster-id="${ this.id }"]`).style.animation = "enemyAttack .5s ease 0s 1 normal forwards";
-		setTimeout(fn=>{document.querySelector(`[data-monster-id="${ this.id }"]`).style.animation = "combatIdle 2s ease 0s infinite normal forwards";}, 512);
+		let mnstr = this;
+
+		document.querySelector(`[data-monster-id="${ this.id }"]`).classList = this.sprite.replace("idle","atk");// .style.animation = document.querySelector(`[data-monster-id="${ this.id }"]`).style.animation.replace("idle","atk");
+		setTimeout(fn=>{
+			document.querySelector(`[data-monster-id="${ this.id }"]`).classList = mnstr.sprite;
+			//document.querySelector(`[data-monster-id="${ this.id }"]`).style.animation = document.querySelector(`[data-monster-id="${ this.id }"]`).style.animation.replace("atk","idle");
+		}, 512, mnstr);
 
 		checkIsDefeated();
 	};
@@ -545,28 +373,33 @@ function Item(name, desc="", sprite="dungeon/wee_dung_potion_red.png", sound=sou
 	this.getDamageRange = function() {
 		if(this.dmg == 0) { return ""; }
 
-		let dmgBonus = "";
+		
+		let low = (this.dmg + this.numberOfDice);
+		let high = (this.dmg + (this.numberOfDice * this.numberOfSides));
+		let dmgBonusLow = "";
+		let dmgBonusHigh = "";
 		
 		if(this.slot != "ring") { 
 		let ring = player.getItemInSlot("ring");
 			if(ring) {
 				if(ring.effectType == this.effectType) {
 
-					dmgBonus = greenText(" + " + ((this.dmg+this.numberOfDice) * ring.dmg));
+					dmgBonusLow = greenText(" + " + (low * ring.dmg));
+					dmgBonusLow = greenText(" + " + (high * ring.dmg));
 				}
 			}
 		}
 
-		let low = (this.dmg + this.numberOfDice);
-		let high = (this.dmg + (this.numberOfDice * this.numberOfSides));
-		return high==low ? (`${high} ${dmgBonus}`) : `${low} ${dmgBonus} - ${high} ${dmgBonus}`
+		return high==low ? (`${high} ${dmgBonusHigh}`) : `${low} ${dmgBonusLow} - ${high} ${dmgBonusHigh}`
 	}
 
 	this.getHPRange = function() {
+
 		if(this.hp == 0) { return ""; }
-		let low = this.hp + this.numberOfDice;
-		let high = this.hp + (this.numberOfDice * this.numberOfSides);
-		return high==low ? high : ((this.hp + this.numberOfDice) + "-" + (this.hp + (this.numberOfDice * this.numberOfSides)));
+		let low = (this.slot ==  "shield"?0:this.hp) + this.numberOfDice;
+		let high = (this.slot == "shield"?0:this.hp) + (this.numberOfDice * this.numberOfSides);
+		
+		return high==low ? high : ((low) + "-" + (high));
 	}
 
 
@@ -789,7 +622,8 @@ Array.prototype.chooseRandom = function() {
 function generateEnemy(difficultyLevel=0) {
 	
 	
-	let enemy = monsterList[floor-1].chooseRandom();
+	//let enemy = monsterList[floor-1].chooseRandom();
+	let enemy = db.monsterList.flat().filter(m=>{return m.minimumDropFloor == floor }).chooseRandom();
 
 	enemy = Array.isArray(enemy) ? new Monster(...enemy) : new Monster(enemy);
 	enemy.level = thisRoomDifficulty;
@@ -797,6 +631,39 @@ function generateEnemy(difficultyLevel=0) {
 	log(`A wild ${enemy.name} appears!`)
 
 	return enemy;
+}
+
+function makeCSSAnimations() {
+	fetch('/assets/spriteObjects').then(el=>{return el.json();}).then(el=>{
+		console.log(el);
+		let animations = ``;
+	
+		for(let monster in el) {
+			for(let anim in el[monster]) {
+				for(let dir in el[monster][anim]) {
+					animations += `\n.${monster}_${dir}_${anim} { 
+						background-image:url(${el[monster][anim][dir][0]});
+						animation: ${monster}_${dir}_${anim} ${anim == "atk" ? .35 : 1 }s linear 0s infinite normal ${anim == "atk" ? "backwards, enemyAttack .5s linear .25s normal forwards" : "forwards"};
+					}\n`;
+					animations += `\n@keyframes ${monster}_${dir}_${anim} {`;
+					el[monster][anim][dir].forEach((frame,ind)=>{
+						animations += `
+
+							${100-(100/(ind+1))}% {
+								background-image:url(${frame});
+							}
+							${(100-(100/(ind+1)))+49}% {
+								background-image:url(${frame});
+							}
+
+						`;
+					});
+					animations += `}`;
+				}
+			}
+		}
+		console.log(animations)
+	})
 }
 
 function defeatEnemy(enemy) {
@@ -876,7 +743,7 @@ function useChest() {
 	if(chestButton.classList.contains("closed")) {
 		log("You open the chest...");
 		sou_door.play();
-		return chestButton.classList.remove("closed");
+		chestButton.classList.remove("closed");
 	}
 
 	if(!chestButton.classList.contains("empty") && currentChestContents == null) {
@@ -1070,12 +937,6 @@ function enableDoors() {
 		door.disabled = false; 
 	});
 }
-
-game = {
-	roomType: "dungeon",
-	itemShopItems: []
-};
-
 function showDialog(port, text) {
 
 	if(itemInfo.classList.contains("open")) {
@@ -1185,7 +1046,210 @@ function sellItem(el) {
 	updateBars();
 }
 
+
+game = {};
+
 function restart() {
+
+	game = {
+		roomType: "dungeon",
+		itemShopItems: []
+	};
+
+	player = { 
+		hp: 20, 
+		maxHp: 20, 
+		gold: 0, 
+		dgold:0,
+		dmg: 1,
+		level: 1,
+		inventory: [], 
+		slots: {},
+		xp:0,
+		dhp: 20,
+		dxp: 0,
+		maxItems:6,
+	
+		getXPToNextLevel: fn=>{ return 100 * (player.level ** 3); },
+		handleLeveling: function() {
+	
+	
+			let xpToNextLevel = player.getXPToNextLevel();
+	
+			//XPToLevel(n) = XPBase * (n ^ LevelCurve)
+	
+			//document.querySelector("#xpbar div").style.width = ((player.xp / xpToNextLevel) * 100) + "%"
+	
+			if(player.xp > xpToNextLevel) {
+	
+				document.querySelector("#level-up").classList.toggle("level-up-slide");
+	
+				sou_level_up.play();
+	
+				player.level++;
+				player.maxHp += 10;
+				player.dmg++;
+				player.hp = player.getMaxHp();
+				player.xp = 0;
+	
+			}
+		},
+		getDmg: function(){ 
+			let d = this.dmg + (player.level / 4);
+			let damageSources = {};
+	
+			for(let slot in player.slots) {
+				let i = this.getItemInSlot(slot);
+	
+				
+				if(i) { 
+					
+					if(slot != "ring") {
+	
+						damageSources[i.effectType] += i.getDmg();
+					}
+				}
+			}
+	
+			let ring = player.getItemInSlot("ring");
+	
+			if(ring) {
+				for(let d in damageSources) {
+	
+					if(typeof damageSources[ring.effectType] == "number") {
+	
+						d += damageSources[ring.effectType] * ring.dmg; 
+					}
+				}
+			}
+			
+			return d; 
+		},
+		getItemInSlot: slot=> {
+			
+			if(typeof player.slots[slot] != "undefined" && player.slots[slot] != -1 && player.slots[slot] != "") {
+				return player.inventory.filter(i=>{ return player.slots[slot] == i.id; })[0];
+			}
+	
+			return false;
+		},
+		getMaxHp: function(){
+			let d = this.maxHp; 
+	
+			for(let v in player.slots) {
+				let i = player.getItemInSlot(v);
+				if(i) { d += i.hp; }
+			}
+			
+			return d; 
+		},
+		attack: function(targets, item=false) {
+			
+			if(!Array.isArray(targets)) { targets = [targets]; }
+	
+			let critDelay = 0;
+	
+			let playerWeapon = item || player.getItemInSlot("weapon");
+	
+			//Run through each of our targets and deal damage/play sound/animation
+			targets.forEach((monster,ind)=>{
+	
+				if(typeof monster == "number") { monster = monsters.filter(m=>{return m.id == monster; })[0]; }
+	
+				setTimeout(fn=>{
+	
+					let logText = "";
+					let bonuses = "";
+	
+					let crit = false;
+					let playerDmg = item ? item.getDmg() : Math.floor(player.getDmg() + dice(1,6));
+	
+					if(playerWeapon && typeof monster.weakTo != "undefined") {
+						if(monster.weakTo.indexOf(playerWeapon.effectType) != -1) {
+							bonuses += (` <span style = 'color:lightgreen;'>&nbsp;+ ${Math.abs(playerDmg - (playerDmg * 1.5))}</span>`); playerDmg *= 1.5; 
+						}
+	
+					}
+					if(playerWeapon && typeof monster.strongTo != "undefined") {
+						if(monster.strongTo.indexOf(playerWeapon.effectType) != -1 ) { 
+							bonuses += (` <span style = 'color:red;'>&nbsp;- ${Math.abs(playerDmg - (playerDmg / 1.5))}</span>`); playerDmg /= 1.5; 
+						}
+					}
+	
+	
+					if(dice(1,20) > 18) {
+						logText += "<span class = 'critText'>CRITICAL HIT!</span>&nbsp;";
+						playerDmg *= 2;
+						crit = true;
+						critDelay += 500;
+	
+						sou_crit.play();
+					}
+	
+					if(item) {
+						if(typeof item.sound == "string") { soundRegistry[item.sound].play() }
+						else { item.sound.play(); }
+					}
+					else {
+						sou_punch[Math.floor(Math.random() * sou_punch.length)].play();
+					}
+	
+					monster.takeDamage(playerDmg, false);
+					
+					setTimeout(fn=>{
+						let d = document.querySelector(`[data-monster-id="${monster.id}"]`);
+						if(d != null) {
+							document.querySelector(`[data-monster-id="${monster.id}"]`).classList.add("shake");
+							setTimeout(()=>{document.querySelector(`[data-monster-id="${monster.id}"]`).classList.remove("shake");},500 );
+	
+						}
+					},1, monster);
+	
+					log(`${logText} Hit ${monster.name} for ${playerDmg}${bonuses}.`);
+	
+					if(crit) { bindCritAnimation(); }
+	
+					updateUI();
+					lockMonsters();
+	
+				}, 500 * ind);
+			});
+	
+	
+			//After we've hit all our targets, check if anyone/everyone is dead and remove them.
+			setTimeout(fn=>{
+	
+				updateUI();
+	
+				let delay = 1;
+	
+				monsters.forEach((monster,ind)=>{
+	
+					if(monster.hp <= 0) {
+	
+	
+						setTimeout(fnz=>{
+	
+								
+							defeatEnemy(monster);
+	
+						},delay);
+	
+						delay += 350;
+					}
+	
+				});
+	
+				setTimeout(fn=>{
+					monsterTurn();
+				}, delay);
+	
+				//unlockMonsters();
+	
+			}, (targets.length * 500) + 250 + critDelay);
+	
+		}
+	};
 
 	player.hp = 20
 	floor = 1
