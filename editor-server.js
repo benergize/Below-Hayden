@@ -77,6 +77,9 @@ app.get('/data', (req, res) => {
 		if(item.consumable == "false") { item.consumable = false; }
 		else if(item.consumable == "true") { item.consumable = true; }
 
+		item.minimumDropPlayerLevel = Number.parseInt(item.minimumDropPlayerLevel);
+		item.minimumDropFloor = Number.parseInt(item.minimumDropFloor);
+
 		return i;
 	});
 	res.json(parsed);
@@ -108,6 +111,30 @@ function walkDir(dir, fileCallback, extensions) {
 	}, ['.png']);
 	results = results.map(r=>{ return r.replace("\\", "/"); });
 	res.json(results);
+  });
+  
+  app.get('/assets/spriteObjects', (req, res) => {
+	var results = [];
+	walkDir(__dirname, (file) => {
+	  results.push(path.relative(__dirname, file));
+	}, ['.png']);
+	results = results.map(r=>{ return r.replace("\\", "/"); });
+	let ms = {};
+		let el = results.filter(m=>{return m.indexOf('monsters/') != -1; }).map(m=>{return m.replace('monsters/wee_mons_','')});
+		
+		el.forEach(m=>{
+			let s = m.split("_");
+			if(s.length == 4) {
+				ms[s[0]] = ms[s[0]] || {};
+	
+				ms[s[0]][s[1]] = ms[s[0]][s[1]] || {};
+				
+				ms[s[0]][s[1]][s[2]] = ms[s[0]][s[1]][s[2]] || [];
+	
+				ms[s[0]][s[1]][s[2]].push('monsters/wee_mons_' + m);
+			}
+		});
+		res.json(ms);
   });
   
   app.get('/assets/sounds', (req, res) => {

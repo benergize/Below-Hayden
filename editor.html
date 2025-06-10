@@ -1,230 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Game Data Editor</title>
-  <style>
-    body { font-family: sans-serif; margin: 0; background: #1e1e1e; color: #eee; }
-    .tabs { display: flex; background: #333; }
-    .tab { padding: 1em; cursor: pointer; border-bottom: 3px solid transparent; }
-    .tab.active { border-color: #09f; background: #222; }
-    .editor { display: flex; height: calc(100vh - 3em); }
-    .list-panel { width: 30%; background: #2a2a2a; padding: 1em; overflow-y: auto; }
-    .props-panel { flex: 1; background: #252525; padding: 1em; overflow-y: auto; }
-    .object-item { margin-bottom: 0.5em; cursor: pointer; }
-    .object-item.selected { background: #444; }
-    .input-group { margin-bottom: 0.5em; }
-    label { display: block; margin-bottom: 0.2em; }
-    input, select, textarea { width: 100%; padding: 0.4em; background: #111; color: #fff; border: 1px solid #555; }
-    button { background: #09f; color: #fff; padding: 0.5em 1em; border: none; cursor: pointer; margin-top: 1em; }
-    .preview { display: block; margin-top: 0.5em; max-width: 100px; }
-  </style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel = 'stylesheet' href = 'animations.css?111111111111111111111' />
+	<title>Dungeon Editor</title>
+	<style>
+		body {
+			font-family: sans-serif;
+			margin: 0;
+			background: #1e1e1e;
+			color: #eee;
+		}
+
+		.tabs {
+			display: flex;
+			background: #333;
+		}
+
+		.tab {
+			padding: 1em;
+			cursor: pointer;
+			border-bottom: 3px solid transparent;
+		}
+
+		.tab.active {
+			border-color: #09f;
+			background: #222;
+		}
+
+		.editor {
+			display: flex;
+			height: calc(100vh - 3em);
+		}
+
+		.list-panel {
+			width: 30%;
+			background: #2a2a2a;
+			padding: 1em;
+			overflow-y: auto;
+		}
+
+		.props-panel {
+			flex: 1;
+			background: #252525;
+			padding: 1em;
+			overflow-y: auto;
+		}
+
+		.object-item {
+			margin-bottom: 0.5em;
+			cursor: pointer;
+		}
+
+		.object-item.selected {
+			background: #444;
+		}
+
+		.input-group {
+			margin-bottom: 0.5em;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 0.2em;
+		}
+
+		input,
+		select,
+		textarea {
+			width: 100%;
+			padding: 0.4em;
+			background: #111;
+			color: #fff;
+			border: 1px solid #555;
+		}
+
+		button {
+			background: #09f;
+			color: #fff;
+			padding: 0.5em 1em;
+			border: none;
+			cursor: pointer;
+			margin-top: 1em;
+		}
+
+		.preview {
+			display: block;
+			margin-top: 0.5em;
+			max-width: 100px;
+		}
+
+		hr {
+			margin-top: 1rem;
+		}
+
+		h3 {
+			margin-bottom: .75rem;
+		}
+
+		h1 {
+			margin: 1rem;
+		}
+	</style>
 </head>
+
 <body>
-  <div class="tabs">
-    <div class="tab active" data-tab="items">Items/Gear</div>
-    <div class="tab" data-tab="monsters">Monsters</div>
-  </div>
-  <div class="editor">
-    <div class="list-panel">
-      <button id="add-button">+ Add</button>
-      <div id="object-list"></div>
-    </div>
-    <div class="props-panel" id="props-panel"></div>
-  </div>
+	<h1>Dungeon Editor</h1>
+	<div class="tabs">
+		<div class="tab active" data-tab="items">Items/Gear</div>
+		<div class="tab" data-tab="monsters">Monsters</div>
+	</div>
+	<div class="editor">
+		<div class="list-panel">
+			<div id="object-list"></div>
+			<button id="add-button">+ Add</button>
+		</div>
+		<div class="props-panel" id="props-panel"></div>
+	</div>
 
-  <script>
-    let data = { items: [], gear: [], monsterList: [] };
-    let currentTab = 'items';
-    let selectedIndex = -1;
-    let spriteFiles = [];
-    let soundFiles = [];
+	<script>
+		let data = { items: [], gear: [], monsterList: [] };
+		let currentTab = 'items';
+		let selectedIndex = -1;
+		let spriteFiles = [];
+		let soundFiles = [];
 
-    async function loadAssets() {
-      spriteFiles = await fetch('/assets/sprites').then(res => res.json());
-      soundFiles = await fetch('/assets/sounds').then(res => res.json());
-    }
+		async function loadAssets() {
+			spriteFiles = await fetch('/assets/sprites').then(res => res.json());
+			animations = await fetch('/assets/spriteObjects').then(res => res.json());
+			soundFiles = await fetch('/assets/sounds').then(res => res.json());
+		}
 
-    async function loadData() {
-      await loadAssets();
-      const res = await fetch('/data');
-      data = await res.json();
-	  console.log(data);
-      renderList();
-    }
+		async function loadData() {
+			await loadAssets();
+			const res = await fetch('/data');
+			data = await res.json();
+			console.log(data);
+			renderList();
+		}
 
-    async function saveData() {
-      await fetch('/save', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-    }
+		async function saveData() {
+			await fetch('/save', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(data)
+			});
+		}
 
-    function renderList() {
-      const list = document.getElementById('object-list');
-      list.innerHTML = '';
-      const items = currentTab === 'monsters' ? data.monsterList.flat() : [...data.items, ...data.gear];
-      items.forEach((item, i) => {
-        const div = document.createElement('div');
-        div.textContent = item.name || `Unnamed ${i}`;
-        div.className = 'object-item' + (i === selectedIndex ? ' selected' : '');
-        div.onclick = () => {
-          selectedIndex = i;
-          renderList();
-          renderProperties(item);
-        };
-        list.appendChild(div);
-      });
-    }
+		function renderList() {
+			let lastRenderedFloor = 0;
+			const list = document.getElementById('object-list');
+			list.innerHTML = '';
+			let items = currentTab === 'monsters' ? data.monsterList.flat() : [...data.items, ...data.gear];
+			items = items.sort((a, b) => { return Number.parseInt(a.minimumDropFloor) - Number.parseInt(b.minimumDropFloor); });
+			items.forEach((item, i) => {
 
-    function renderProperties(obj) {
+				if (item.minimumDropFloor != lastRenderedFloor) {
+					let di = document.createElement("div");
+					di.innerHTML = `<hr/><h2>Floor ${item.minimumDropFloor}</h2>`;
+					list.appendChild(di);
+					lastRenderedFloor = item.minimumDropFloor;
+				}
 
-		if(typeof obj.value == "undefined") {obj.value=10;}
-		if(typeof obj.rarity == "undefined") {obj.rarity = "normal";}
-		if(typeof obj.minimumDropFloor == "undefined") {obj.minimumDropFloor = 0;}
-		if(typeof obj.minimumDropPlayerLevel == "undefined") {obj.minimumDropPlayerLevel = 0;}
- 
-      const panel = document.getElementById('props-panel');
-      panel.innerHTML = '';
-      Object.entries(obj).forEach(([key, val]) => {
-        const group = document.createElement('div');
-        group.className = 'input-group';
-        const label = document.createElement('label');
-        label.textContent = key;
-        let input;
+				const div = document.createElement('div');
+				div.textContent = item.name || `Unnamed ${i}`;
+				div.className = 'object-item' + (i === selectedIndex ? ' selected' : '');
+				div.onclick = () => {
+					selectedIndex = i;
+					renderList();
+					renderProperties(item);
+				};
+				list.appendChild(div);
+			});
+		}
 
-        if (key === 'sprite' && spriteFiles.length) {
-          input = document.createElement('select');
-          spriteFiles.forEach(file => {
-            const option = document.createElement('option');
-            option.value = file;
-            option.textContent = file;
-            if (file === val) option.selected = true;
-            input.appendChild(option);
-          });
-          const img = document.createElement('img');
-          img.className = 'preview';
-          img.src = val;
-		  img.width = 80;
-		  img.height = 80;
-		  img.style.imageRendering = "pixelated";
-          input.onchange = () => {
-            obj[key] = input.value;
-            img.src = input.value;
-            saveData();
-          };
-          group.appendChild(label);
-          group.appendChild(input);
-          group.appendChild(img);
-          panel.appendChild(group);
-          return;
-        } 
-		else if (key === 'rarity') {
-          input = document.createElement('select');
-          ["junk","normal","rare","epic","legendary"].forEach(rarity => {
-            const option = document.createElement('option');
-            option.value = rarity;
-            option.textContent = rarity;
-            if (rarity === val) option.selected = true;
-            input.appendChild(option);
-          });
-          input.onchange = () => {
-            obj[key] = input.value;
-            img.src = input.value;
-            saveData();
-          };
-          group.appendChild(label);
-          group.appendChild(input);
-          panel.appendChild(group);
-          return;
-        }
-		else if (key === 'consumable') {
-          input = document.createElement('select');
-          ["false","true"].forEach(rarity => {
-            const option = document.createElement('option');
-            option.value = rarity;
-            option.textContent = rarity;
-            if (rarity === val) option.selected = true;
-            input.appendChild(option);
-          });
-          input.onchange = () => {
-            obj[key] = input.value;
-            saveData();
-          };
-          group.appendChild(label);
-          group.appendChild(input);
-          panel.appendChild(group);
-          return;
-        }
-		else if (key === 'sound' && soundFiles.length) {
-          input = document.createElement('select');
-          soundFiles.forEach(file => {
-            const option = document.createElement('option');
-            option.value = file;
-            option.textContent = file;
-            if (file === val) option.selected = true;
-            input.appendChild(option);
-          });
-          const audio = document.createElement('audio');
-          audio.controls = true;
-          audio.src = val;
-          input.onchange = () => {
-            obj[key] = input.value;
-            audio.src = input.value;
-            saveData();
-          };
-          group.appendChild(label);
-          group.appendChild(input);
-          group.appendChild(audio);
-          panel.appendChild(group);
-          return;
-        }
+		function renderProperties(obj) {
 
-        input = document.createElement(key === 'desc' || Array.isArray(val) ? 'textarea' : 'input');
-        input.value = Array.isArray(val) ? val.join(',') : val;
-        input.onchange = () => {
-          obj[key] = input.value.includes(',') ? input.value.split(',').map(x => x.trim()) : input.value;
-          saveData();
-        };
-        group.appendChild(label);
-        group.appendChild(input);
-        panel.appendChild(group);
-      });
-    }
+			if (typeof obj.value == "undefined") { obj.value = 10; }
+			if (typeof obj.rarity == "undefined") { obj.rarity = "normal"; }
+			if (typeof obj.minimumDropFloor == "undefined") { obj.minimumDropFloor = 0; }
+			if (typeof obj.minimumDropPlayerLevel == "undefined") { obj.minimumDropPlayerLevel = 0; }
 
-    document.querySelectorAll('.tab').forEach(tab => {
-      tab.onclick = () => {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        currentTab = tab.dataset.tab;
-        selectedIndex = -1;
-        renderList();
-        document.getElementById('props-panel').innerHTML = '';
-      };
-    });
+			const panel = document.getElementById('props-panel');
+			panel.innerHTML = '';
+			Object.entries(obj).forEach(([key, val]) => {
+				const group = document.createElement('div');
+				group.className = 'input-group';
+				const label = document.createElement('label');
+				label.textContent = key;
+				let input;
 
-    document.getElementById('add-button').onclick = () => {
-      const newObj = currentTab === 'monsters' ? {
-        name: '', sprite: '', hp: 5, dmg: 1, strongTo: [], weakTo: []
-      } : {
-        name: '', desc: '', sprite: '', sound: '', hp: 0, dmg: 0, numberOfDice: 0, numberOfSides: 0,
-        consumable: true, uses: 1, slot: -1, effectType: '', value:0, minimumDropFloor:0, minimumDropPlayerLevel:0
-      };
-      if (currentTab === 'monsters') {
-        if (!data.monsterList[0]) data.monsterList[0] = [];
-        data.monsterList[0].push(newObj);
-      } else {
-        data.items.push(newObj);
-      }
-      selectedIndex = (currentTab === 'monsters' ? data.monsterList[0].length : data.items.length) - 1;
-      renderList();
-      renderProperties(newObj);
-      saveData();
-    };
+				if (key === 'sprite' && spriteFiles.length) {
 
-    loadData();
-  </script>
+
+					var img;
+					input = document.createElement('select');
+
+					if(currentTab == "items") {
+						spriteFiles.forEach(file => {
+							const option = document.createElement('option');
+							option.value = file;
+							option.textContent = file;
+							if (file === val) option.selected = true;
+							input.appendChild(option);
+						});
+
+						img = document.createElement('img');
+
+						img.className = 'preview';
+						img.src = val;
+						img.width = 80;
+						img.height = 80;
+						img.style.imageRendering = "pixelated";
+						input.onchange = () => {
+							obj[key] = input.value;
+							img.src = input.value;
+							saveData();
+						};
+					}
+					else {
+
+
+						for(let monster in animations) {
+							for(let animation in animations[monster]) {
+								for(let dir in animations[monster][animation]) {
+									let de = document.createElement("option");
+									de.value = `${monster}_${dir}_${animation}`;
+									de.innerText = `${monster}_${dir}_${animation}`;
+									if(de.value == val) { de.selected = true; }
+									input.appendChild(de);
+								}
+							}
+						}
+
+						img = document.createElement('div');
+						img.className = 'preview';
+						img.classList = val;
+						img.style.width = '80px';
+						img.style.height = '80px';
+						img.style.backgroundSize = "contain";
+						img.style.imageRendering = "pixelated";
+					
+						input.onchange = () => {
+							obj[key] = input.value;
+							img.classList = input.value;
+							saveData();
+						};
+					}
+					group.appendChild(label);
+					group.appendChild(input);
+					group.appendChild(img);
+					panel.appendChild(group);
+					return;
+				}
+				else if (key === 'rarity') {
+					input = document.createElement('select');
+					["junk", "normal", "rare", "epic", "legendary"].forEach(rarity => {
+						const option = document.createElement('option');
+						option.value = rarity;
+						option.textContent = rarity;
+						if (rarity === val) option.selected = true;
+						input.appendChild(option);
+					});
+					input.onchange = () => {
+						obj[key] = input.value;
+						img.src = input.value;
+						saveData();
+					};
+					group.appendChild(label);
+					group.appendChild(input);
+					panel.appendChild(group);
+					return;
+				}
+				else if (key === 'consumable') {
+					input = document.createElement('select');
+					["false", "true"].forEach(rarity => {
+						const option = document.createElement('option');
+						option.value = rarity;
+						option.textContent = rarity;
+						if (rarity === val) option.selected = true;
+						input.appendChild(option);
+					});
+					input.onchange = () => {
+						obj[key] = input.value;
+						saveData();
+					};
+					group.appendChild(label);
+					group.appendChild(input);
+					panel.appendChild(group);
+					return;
+				}
+				else if (key === 'sound' && soundFiles.length) {
+					input = document.createElement('select');
+					soundFiles.forEach(file => {
+						const option = document.createElement('option');
+						option.value = file;
+						option.textContent = file;
+						if (file === val) option.selected = true;
+						input.appendChild(option);
+					});
+					const audio = document.createElement('audio');
+					audio.controls = true;
+					audio.src = val;
+					input.onchange = () => {
+						obj[key] = input.value;
+						audio.src = input.value;
+						saveData();
+					};
+					group.appendChild(label);
+					group.appendChild(input);
+					group.appendChild(audio);
+					panel.appendChild(group);
+					return;
+				}
+
+				input = document.createElement(key === 'desc' || Array.isArray(val) ? 'textarea' : 'input');
+				input.value = Array.isArray(val) ? val.join(',') : val;
+				input.onchange = () => {
+					obj[key] = input.value.includes(',') ? input.value.split(',').map(x => x.trim()) : input.value;
+					saveData();
+				};
+				group.appendChild(label);
+				group.appendChild(input);
+				panel.appendChild(group);
+			});
+		}
+
+		document.querySelectorAll('.tab').forEach(tab => {
+			tab.onclick = () => {
+				document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+				tab.classList.add('active');
+				currentTab = tab.dataset.tab;
+				selectedIndex = -1;
+				renderList();
+				document.getElementById('props-panel').innerHTML = '';
+			};
+		});
+
+		document.getElementById('add-button').onclick = () => {
+			const newObj = currentTab === 'monsters' ? {
+				name: '', sprite: '', hp: 5, dmg: 1, strongTo: [], weakTo: []
+			} : {
+				name: '', desc: '', sprite: '', sound: '', hp: 0, dmg: 0, numberOfDice: 0, numberOfSides: 0,
+				consumable: true, uses: 1, slot: -1, effectType: '', value: 0, minimumDropFloor: 0, minimumDropPlayerLevel: 0
+			};
+			if (currentTab === 'monsters') {
+				if (!data.monsterList[0]) data.monsterList[0] = [];
+				data.monsterList[0].push(newObj);
+			} else {
+				data.items.push(newObj);
+			}
+			selectedIndex = (currentTab === 'monsters' ? data.monsterList[0].length : data.items.length) - 1;
+			renderList();
+			renderProperties(newObj);
+			saveData();
+		};
+
+		loadData();
+	</script>
 </body>
+
 </html>
