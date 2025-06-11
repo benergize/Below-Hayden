@@ -240,8 +240,11 @@ div#inventory {
 }
 #item-info img { 
 	margin-left: .25rem;
-	filter: contrast(0) brightness(10) drop-shadow(0px 0px 1px black);
+	/*filter: contrast(0) brightness(10) drop-shadow(0px 0px 1px black);*/
 }
+#item-info img.magic { filter: hue-rotate(87deg); }
+#item-info img.magic { filter: hue-rotate(87deg); }
+
 #item-info button, #death-text button {
 	
     font-size: 20px;
