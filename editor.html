@@ -266,7 +266,42 @@
 					});
 					input.onchange = () => {
 						obj[key] = input.value;
-						img.src = input.value;
+						saveData();
+					};
+					group.appendChild(label);
+					group.appendChild(input);
+					panel.appendChild(group);
+					return;
+				}
+				else if (key === 'giveStatusEffectTo') {
+					input = document.createElement('select');
+					["self", "all-foes", "single-foe"].forEach(rarity => {
+						const option = document.createElement('option');
+						option.value = rarity;
+						option.textContent = rarity;
+						if (rarity === val) option.selected = true;
+						input.appendChild(option);
+					});
+					input.onchange = () => {
+						obj[key] = input.value;
+						saveData();
+					};
+					group.appendChild(label);
+					group.appendChild(input);
+					panel.appendChild(group);
+					return;
+				}
+				else if (key === 'effectType' || key == 'armorType') {
+					input = document.createElement('select');
+					["physical", "magic", "curse", "chaos", "poison"].forEach(rarity => {
+						const option = document.createElement('option');
+						option.value = rarity;
+						option.textContent = rarity;
+						if (rarity === val) option.selected = true;
+						input.appendChild(option);
+					});
+					input.onchange = () => {
+						obj[key] = input.value;
 						saveData();
 					};
 					group.appendChild(label);
