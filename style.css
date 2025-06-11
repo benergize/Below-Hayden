@@ -8,7 +8,7 @@ html,body {
 	margin:0px;
 }
 body {
-	font-family: monospace;
+	font-family: Tiny5, monospace;
 	background: #111;
 	color: #eee;
 	-webkit-user-select: none; /* Safari */
