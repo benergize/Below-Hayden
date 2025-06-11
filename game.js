@@ -45,7 +45,7 @@ db.findItem = function(itemName) {
 	else { return false; }
 }
 
-fetch("./data/data.json?111").then(dat=>{return dat.json();}).then(dat=>{
+fetch("./data/data.json?1111").then(dat=>{return dat.json();}).then(dat=>{
 
 	console.log(dat);
 	window.gear = dat.gear;
