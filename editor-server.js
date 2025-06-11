@@ -67,6 +67,7 @@ app.get('/data', (req, res) => {
 			numberOfDice:0,
 			numberOfSides:0,
 			consumable: false,
+			itemTarget: "self",
 			uses:-1,
 			slot:"",
 			effectType:"",

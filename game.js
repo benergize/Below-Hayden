@@ -21,7 +21,7 @@ fetch("/assets/sprites/").then(el=>{return el.json();}).then(el=>{
 })
 .catch(fn=>{
 	
-	fetch("/data/sprites.cache.json").then(el=>{return el.json();}).then(el=>{
+	fetch("./data/sprites.cache.json").then(el=>{return el.json();}).then(el=>{
 
 
 		el.forEach(spr=>{
@@ -45,7 +45,7 @@ db.findItem = function(itemName) {
 	else { return false; }
 }
 
-fetch("data/data.json?111").then(dat=>{return dat.json();}).then(dat=>{
+fetch("./data/data.json?111").then(dat=>{return dat.json();}).then(dat=>{
 
 	console.log(dat);
 	window.gear = dat.gear;
@@ -63,13 +63,14 @@ fetch("data/data.json?111").then(dat=>{return dat.json();}).then(dat=>{
 
 
 
-let player = {};
+game = {};
+player = {};
 
 
-floor = 1
+
 enemy = null
 monsters = [];
-thisRoomDifficulty = 0;
+
 
 const playerHPSpan = document.getElementById('playerHP');
 const playerXPSpan = document.getElementById('playerXP');
@@ -237,7 +238,7 @@ function Monster(name, sprite="", hp=5, dmg=1, strongTo=[], weakTo=[]) {
 		this.hp = hp;
 		this.name = name;
 		this.sprite = sprite;
-		this.maxHp = (hp +  Math.floor(game.floor / 3)) * (thisRoomDifficulty+1);
+		this.maxHp = (hp +  Math.floor(game.floor / 3)) * (game.thisRoomDifficulty+1);
 		this.dmg = dmg;
 		this.strongTo = strongTo;
 		this.weakTo = weakTo;
@@ -246,7 +247,7 @@ function Monster(name, sprite="", hp=5, dmg=1, strongTo=[], weakTo=[]) {
 	this.hp = Number.parseFloat(this.hp);
 	this.dmg = Number.parseFloat(this.dmg);
 
-	this.maxHp = (this.hp + Math.floor(game.floor / 3)) * (thisRoomDifficulty+1);
+	this.maxHp = (this.hp + Math.floor(game.floor / 3)) * (game.thisRoomDifficulty+1);
 
 	this.hp = this.maxHp;
 
@@ -378,6 +379,8 @@ function Item(name, desc="", sprite="dungeon/wee_dung_potion_red.png", sound=sou
 	this.giveStatusEffect = "";
 	this.giveStatusEffectTurns = 0;
 	this.giveStatusEffectTo = "self";
+
+	this.itemTarget = "foe";
 
 	if(typeof name == "object") {
 		for(let p in name) {
@@ -690,7 +693,7 @@ function generateEnemy(difficultyLevel=0) {
 	let enemy = db.monsterList.flat().filter(m=>{return m.minimumDropFloor == game.floor }).chooseRandom();
 
 	enemy = Array.isArray(enemy) ? new Monster(...enemy) : new Monster(enemy);
-	enemy.level = thisRoomDifficulty;
+	enemy.level = game.thisRoomDifficulty;
 
 	log(`A wild ${enemy.name} appears!`)
 
@@ -745,7 +748,7 @@ function defeatEnemy(enemy) {
 
 	//XP = BaseXP * (EnemyLevel ^ EnemyPowerCurve)
 	
-	player.xp += 10 * (enemy.maxHp ** 1.3) * (thisRoomDifficulty+1);
+	player.xp += 10 * (enemy.maxHp ** 1.3) * (game.thisRoomDifficulty+1);
 	player.handleLeveling();
 	
 
@@ -817,7 +820,7 @@ function useChest() {
 		//Give gold
 		if(roll < 7) {
 			sou_foundSomethingSm.play();
-			let gold = (thisRoomDifficulty+1) * (dice(1,20) + 5);
+			let gold = (game.thisRoomDifficulty+1) * (dice(1,20) + 5);
 
 			log(`FOUND ${gold} GOLD`);
 			player.gold += gold;
@@ -928,7 +931,7 @@ function enterPath(difficultyLevel) {
 	let isShop = game.roomType == "shop";
 
 	difficultyLevel = Math.min(monsterList.length - 1, (Number.parseInt(difficultyLevel)||0) );
-	thisRoomDifficulty = difficultyLevel;
+	game.thisRoomDifficulty = difficultyLevel;
 	randomizeDoors();
 	
 	
@@ -947,7 +950,8 @@ function enterPath(difficultyLevel) {
 		
 		for(let v = 0; v < 1 + Math.floor(Math.random() * (2 + game.floor + difficultyLevel)); v++) {
 			
-			enemy = generateEnemy(difficultyLevel);
+			
+			let enemy = generateEnemy(difficultyLevel);
 			monsters.push(enemy);
 		}
 
@@ -1111,15 +1115,14 @@ function sellItem(el) {
 }
 
 
-game = {};
 
 function restart() {
 
 	
-	floor = 1
+	
 	enemy = null
 	monsters = [];
-	thisRoomDifficulty = 0;
+	
 
 	game = {
 		roomType: "dungeon",
@@ -1240,11 +1243,17 @@ function restart() {
 		},
 		attack: function(targets, item=false) {
 			
-			if(!Array.isArray(targets)) { targets = [targets]; }
 	
 			let critDelay = 0;
 	
 			let playerWeapon = item || player.getItemInSlot("weapon");
+
+
+			console.log(playerWeapon);
+			if(playerWeapon && playerWeapon.itemTarget == "all-foes") { targets = monsters; console.log('all foes');}
+			
+			if(!Array.isArray(targets)) { targets = [targets]; }
+			
 	
 			//Run through each of our targets and deal damage/play sound/animation
 			targets.forEach((monster,ind)=>{

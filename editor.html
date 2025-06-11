@@ -273,7 +273,7 @@
 					panel.appendChild(group);
 					return;
 				}
-				else if (key === 'giveStatusEffectTo') {
+				else if (key === 'giveStatusEffectTo' || key == 'itemTarget') {
 					input = document.createElement('select');
 					["self", "all-foes", "single-foe"].forEach(rarity => {
 						const option = document.createElement('option');
