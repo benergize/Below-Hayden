@@ -1032,14 +1032,14 @@ function showShop() {
 	sou_shop_music.play();
 
 	log('"BUY SOMETHING, WILL YOU?"');
-	
-	let i1 = window.items[Math.round(Math.random() * (window.items.length-1))];
+
+	let i1 = db.items.filter(item=>{return game.floor >= item.minimumDropFloor && player.level >= item.minimumDropPlayerLevel; }).chooseRandom();
 	i1 = Array.isArray(i1) ? new Item(...i1) : new Item(i1);
 
-	let i2 = window.items[Math.round(Math.random() * (window.items.length-1))];
+	let i2 = db.items.filter(item=>{return game.floor >= item.minimumDropFloor && player.level >= item.minimumDropPlayerLevel; }).chooseRandom();
 	i2 = Array.isArray(i2) ? new Item(...i2) : new Item(i2);
 
-	let i3 = window.items[Math.round(Math.random() * (window.items.length-1))];
+	let i3 = db.items.filter(item=>{return game.floor >= item.minimumDropFloor && player.level >= item.minimumDropPlayerLevel; }).chooseRandom();
 	i3 = Array.isArray(i3) ? new Item(...i3) : new Item(i3);
 
 	game.itemShopItems = [
@@ -1388,7 +1388,9 @@ function restart() {
 	monsters = [];
 	monsterDOM.innerHTML = "";
 
-	updateUI()
+	updateUI();
+
+	document.body.classList.remove("dead");
 }
 
 
