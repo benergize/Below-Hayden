@@ -24,19 +24,26 @@ app.get('/data', (req, res) => {
 
 	parsed.monsterList.forEach((floor,ind)=>{
 		parsed.monsterList[ind] = floor.map(monster=>{
-			let m = monster;
-			if(Array.isArray(monster)) {
-				m = {
-					name:monster[0],
-					sprite:monster[1],
-					hp:monster[2],
-					dmg:monster[3],
-					strongTo:monster[4],
-					weakTo:monster[5],
-					value:monster[6]||10,
-					rarity:monster[7]||"normal"
-				};
+
+			
+			let m = {
+				name: "",
+				sprite:"",
+				hp:0,
+				dmg:0,
+				numberOfDice:0,
+				numberOfSides:0,
+				effectType: "physical",
+				minimumDropFloor: 0,
+				minimumDropPlayerLevel:0,
+				rarity:"normal"
 			}
+	
+			//Overwrite existing properties.
+			for(let p in monster) {
+				m[p] = monster[p];
+			}
+			
 			if(typeof m.weakTo == "undefined") { m.weakTo = []; }
 			else if(typeof m.weakTo == "string") { m.weakTo = m.weakTo.split(","); }
 			if(typeof m.strongTo == "undefined") { m.strongTo = []; }
@@ -46,7 +53,7 @@ app.get('/data', (req, res) => {
 		});
 	});
 
-	parsed.items = parsed.items.map((item)=>{
+	parsed.items = parsed.gear.concat(parsed.items).map((item)=>{
 
 		//Item schema defined here.
 		//We do this weird define->overwrite so that everything has all the schema, even if we added the new fields after the item was initially entered into the system.
@@ -66,6 +73,11 @@ app.get('/data', (req, res) => {
 			minimumDropFloor: 0,
 			minimumDropPlayerLevel:0,
 			rarity:"normal",
+			armor:0,
+			armorType:"",
+			giveStatusEffect:"",
+			giveStatusEffectTurns:"",
+			giveStatusEffectTo:"self"
 		}
 
 		//Overwrite existing properties.
@@ -82,6 +94,8 @@ app.get('/data', (req, res) => {
 
 		return i;
 	});
+
+	parsed.gear = [];
 	res.json(parsed);
 });
 
@@ -109,7 +123,17 @@ function walkDir(dir, fileCallback, extensions) {
 	walkDir(__dirname, (file) => {
 	  results.push(path.relative(__dirname, file));
 	}, ['.png']);
+
 	results = results.map(r=>{ return r.replace("\\", "/"); });
+	
+	fs.writeFile("./data/sprites.cache.json", JSON.stringify(results), (err) => {
+		if (err) {
+			console.error('Error writing to file:', err);
+		} else {
+			console.log('Data written to cache file successfully.');
+		}
+	});
+	
 	res.json(results);
   });
   

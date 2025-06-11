@@ -1,3 +1,6 @@
+window.id = 0;
+window.db = {};
+
 
 setTimeout(fn=>{
 	document.body.style.opacity = 1;
@@ -7,24 +10,43 @@ setTimeout(fn=>{
 let preload = document.querySelector("#preload");
 let preloadInner = "";
 fetch("/assets/sprites/").then(el=>{return el.json();}).then(el=>{
+
+
     el.forEach(spr=>{
-        preloadInner += `<img src = "${spr}">`;
+        preloadInner += `<img src = "./${spr}">`;
     });
     preload.innerHTML = preloadInner;
+	
+	document.querySelector("#annoying-splash p").innerText = `Tap anywhere to enter.`;
+})
+.catch(fn=>{
+	
+	fetch("/data/sprites.cache.json").then(el=>{return el.json();}).then(el=>{
+
+
+		el.forEach(spr=>{
+			preloadInner += `<img src = "./${spr}">`;
+		});
+		preload.innerHTML = preloadInner;
+		
+		document.querySelector("#annoying-splash p").innerText = `Tap anywhere to enter.`;
+	}).catch(fn=>{
+		
+		document.querySelector("#annoying-splash p").innerText = `Tap anywhere to enter.`;
+	});
 });
 
 
 if(typeof localStorage.highScore == "undefined") { localStorage.highScore = 10; }
 document.querySelector("#high-score").innerText = Number.parseInt(localStorage.highScore);
-window.id = 0;
-window.db = {};
 db.findItem = function(itemName) {
 	let i = db.items.filter(item=>{ return item.name == itemName; });
 	if(i.length > 0) { return i[0]; }
 	else { return false; }
 }
 
-fetch("data/data.json?11").then(dat=>{return dat.json();}).then(dat=>{
+fetch("data/data.json?111").then(dat=>{return dat.json();}).then(dat=>{
+
 	console.log(dat);
 	window.gear = dat.gear;
 	db.gear = dat.gear
@@ -34,9 +56,9 @@ fetch("data/data.json?11").then(dat=>{return dat.json();}).then(dat=>{
 	db.monsterList = dat.monsterList;
 	console.log(dat);
 
-		
-	giveItem(new Item(db.findItem("Healing Potion")));
-	giveItem(new Item(db.findItem("Pyro Scroll")));
+
+	// Start game
+	restart();
 });
 
 
@@ -44,17 +66,17 @@ fetch("data/data.json?11").then(dat=>{return dat.json();}).then(dat=>{
 let player = {};
 
 
-let floor = 1
-let enemy = null
-let monsters = [];
-let thisRoomDifficulty = 0;
+floor = 1
+enemy = null
+monsters = [];
+thisRoomDifficulty = 0;
 
-const playerHPSpan = document.getElementById('playerHP')
-const playerXPSpan = document.getElementById('playerXP')
-const floorSpan = document.getElementById('floor')
-const goldSpan = document.getElementById('gold')
-const logDiv = document.getElementById('log')
-const enemyDiv = document.getElementById('enemyInfo')
+const playerHPSpan = document.getElementById('playerHP');
+const playerXPSpan = document.getElementById('playerXP');
+const floorSpan = document.getElementById('floor');
+const goldSpan = document.getElementById('gold');
+const logDiv = document.getElementById('log');
+const enemyDiv = document.getElementById('enemyInfo');
 const enemyHearts = document.querySelector("#hearts");
 const monsterButton = document.querySelector(".monster");
 const chestButton = document.querySelector(".chest");
@@ -113,7 +135,7 @@ function updateUI() {
 
 	if(player.level > localStorage.highScore) {
 		localStorage.highScore = player.level;
-		document.querySelector("#high-score").innerText = floor;
+		document.querySelector("#high-score").innerText = game.floor;
 	}
 
 	updateMonsters();
@@ -199,6 +221,12 @@ function Monster(name, sprite="", hp=5, dmg=1, strongTo=[], weakTo=[]) {
 
 	this.id = window.id;
 	window.id++;
+
+	this.numberOfDice = 0;
+	this.numberOfSides = 0;
+	this.effectType = "physical";
+
+
 	
 	if(typeof name == "object") {
 		for(let p in name) {
@@ -209,7 +237,7 @@ function Monster(name, sprite="", hp=5, dmg=1, strongTo=[], weakTo=[]) {
 		this.hp = hp;
 		this.name = name;
 		this.sprite = sprite;
-		this.maxHp = (hp +  Math.floor(floor / 3)) * (thisRoomDifficulty+1);
+		this.maxHp = (hp +  Math.floor(game.floor / 3)) * (thisRoomDifficulty+1);
 		this.dmg = dmg;
 		this.strongTo = strongTo;
 		this.weakTo = weakTo;
@@ -218,18 +246,18 @@ function Monster(name, sprite="", hp=5, dmg=1, strongTo=[], weakTo=[]) {
 	this.hp = Number.parseFloat(this.hp);
 	this.dmg = Number.parseFloat(this.dmg);
 
-	this.maxHp = (this.hp + Math.floor(floor / 3)) * (thisRoomDifficulty+1);
+	this.maxHp = (this.hp + Math.floor(game.floor / 3)) * (thisRoomDifficulty+1);
 
 	this.hp = this.maxHp;
 
 	this.getName = fn=>{ return this.name; }
 
-	this.attack = fn=>{ 
+	this.attack = fn=>{
 
 		
 		sou_punch[Math.floor(Math.random() * sou_punch.length)].play();
 
-		let dmg = this.dmg + (Math.floor(floor / 3)) + Math.floor(Math.random() * 6);
+		let dmg = this.dmg + (Math.floor(game.floor / 3)) + Math.floor(Math.random() * 6);
 		let finalDmg = dmg;
 
 		let shieldText = "";
@@ -241,6 +269,22 @@ function Monster(name, sprite="", hp=5, dmg=1, strongTo=[], weakTo=[]) {
 
 			finalDmg = Math.max(0, dmg - roll);
 
+		}
+
+		for(let s in player.slots) {
+			let i = player.getItemInSlot(s);
+
+			if(i) {
+				if(i.armor > 0) {
+					if(this.effectType == i.armorType) {
+						
+						finalDmg = Math.max(0, finalDmg - i.armor);
+					}
+				}
+			}
+		}
+
+		if(finalDmg != dmg) {
 			shieldText = ` <span style = 'color:lightgreen;'>&nbsp;- ${(dmg - finalDmg)}`;
 		}
 
@@ -306,6 +350,8 @@ function monsterTurn() {
 			log("YOUR TURN.");
 
 			unlockMonsters();
+
+			player.manageStatusEffects();
 		}
 	}, (500 * monsters.length));
 }
@@ -325,6 +371,13 @@ function Item(name, desc="", sprite="dungeon/wee_dung_potion_red.png", sound=sou
 
 	this.id = window.id;
 	window.id++;
+
+	this.armor = 0;
+	this.armorType = "";
+
+	this.giveStatusEffect = "";
+	this.giveStatusEffectTurns = 0;
+	this.giveStatusEffectTo = "self";
 
 	if(typeof name == "object") {
 		for(let p in name) {
@@ -354,6 +407,8 @@ function Item(name, desc="", sprite="dungeon/wee_dung_potion_red.png", sound=sou
 
 	this.minimumDropFloor = Number.parseInt(this.minimumDropFloor);
 	this.minimumDropPlayerLevel = Number.parseInt(this.minimumDropPlayerLevel);
+
+	this.armor = Number.parseFloat(this.armor)||0;
 
 	console.log(this);
 
@@ -414,7 +469,7 @@ function Item(name, desc="", sprite="dungeon/wee_dung_potion_red.png", sound=sou
 				log(`Used ${this.name}...`);
 				console.log(this);
 
-				if(monsters.length > 0 && this.dmg > 0) {
+				if(monsters.length > 0 && this.dmg != 0) {
 
 					lockMonsters();
 
@@ -424,7 +479,10 @@ function Item(name, desc="", sprite="dungeon/wee_dung_potion_red.png", sound=sou
 				else {
 
 					if(typeof this.sound == "string") {
-						soundRegistry[this.sound].play();
+						try {
+							soundRegistry[this.sound].play();
+						}
+						catch(e){}
 						//window[this.sound].play();
 					}
 					else {
@@ -439,6 +497,10 @@ function Item(name, desc="", sprite="dungeon/wee_dung_potion_red.png", sound=sou
 					}
 
 					if(player.hp >= player.maxHp) { player.hp = player.maxHp; }
+
+					if(this.giveStatusEffect.trim() != "") {
+						player.giveStatusEffect(this.giveStatusEffect, this.giveStatusEffectTurns);
+					}
 
 					updateUI();
 				}
@@ -558,32 +620,34 @@ function showItemInfo(el,ignoreOpen=false, initiator="inventory") {
 			<table><tbody><tr>
 				${  (dmgRange != "" ? `<td>${dmgRange}<img width=10 height=10 src="ui/sword_mini.png" alt="sword"></td>` : "") }
 				${  (hpRange != "" ? `<td>${hpRange}<img width=10 height=10 src="ui/${item.slot!='shield'?'wee_ui_heart.png':'wee_dung_shield.png'}" alt="heart"></td>` : "") }
+				${  (item.armor != 0 ? `<td>${item.armor}<img width=10 height=10 src="ui/wee_dung_shield.png" alt="armor"></td>` : "") }
 				<td>${ item.consumable ? (item.uses + " uses") : item.slot }</td>
 				<td>${ item.effectType||"" }</td>
 			</tr></tbody></table>
 
+			${ isShopItem || initiator=="chest" ? "" :
+				item.consumable ? 
+					`<button onclick = "useItem(this);updateUI();" data-id="${itemId}">USE</button>` :
+					((typeof item.slot != "undefined" && item.slot != -1 && item.slot != "") ? (
+						player.slots[item.slot] != item.id ? 
+						`<button onclick = "equipItem(this);showItemInfo(this,true);" data-id="${itemId}">EQUIP</button>` :
+						`<button onclick = "unequipItem(this);sou_unequip.play();showItemInfo(this,true);" data-id="${itemId}">UNEQUIP</button>`
+					) : "")
+			}
 			${
 				initiator == "chest" ? (
 					`<button onclick = "takeItemFromChest()" data-id="${itemId}">TAKE</button>`
 				) :
-				!isShop ?
-					`${
-						item.consumable ? 
-							`<button onclick = "useItem(this);updateUI();" data-id="${itemId}">USE</button>` :
-							((typeof item.slot != "undefined" && item.slot != -1 && item.slot != "") ? (
-								player.slots[item.slot] != item.id ? 
-								`<button onclick = "equipItem(this);showItemInfo(this,true);" data-id="${itemId}">EQUIP</button>` :
-								`<button onclick = "unequipItem(this);sou_unequip.play();showItemInfo(this,true);" data-id="${itemId}">UNEQUIP</button>`
-			 				) : "")
-					}
-					<button onclick = "removeItem(this);sou_item_drop.play();updateUI();" data-id="${itemId}">DROP</button>`
-				:
+				(isShop ?
 				(
 					isShopItem ?
 						`<button onclick = "buyItem(this);" data-id="${item.id}">BUY FOR ${item.value}</button>` :
 						`<button onclick = "sellItem(this);" data-id="${item.id}">SELL FOR FOR ${Math.ceil(item.value * .75)}</button>`
-				)
+				) : "")
 			}
+			${!isShop?`<button onclick = "removeItem(this);sou_item_drop.play();updateUI();" data-id="${itemId}">DROP</button>`:""}
+				
+			
 		`;
 	}
 	else {
@@ -623,7 +687,7 @@ function generateEnemy(difficultyLevel=0) {
 	
 	
 	//let enemy = monsterList[floor-1].chooseRandom();
-	let enemy = db.monsterList.flat().filter(m=>{return m.minimumDropFloor == floor }).chooseRandom();
+	let enemy = db.monsterList.flat().filter(m=>{return m.minimumDropFloor == game.floor }).chooseRandom();
 
 	enemy = Array.isArray(enemy) ? new Monster(...enemy) : new Monster(enemy);
 	enemy.level = thisRoomDifficulty;
@@ -764,7 +828,7 @@ function useChest() {
 		else if(roll >= 7) {
 			sou_foundSomethingMd.play();
 
-			let i = gear.concat(items).filter(item=>{return floor >= item.minimumDropFloor && player.level >= item.minimumDropPlayerLevel; }).chooseRandom();
+			let i = gear.concat(items).filter(item=>{return game.floor >= item.minimumDropFloor && player.level >= item.minimumDropPlayerLevel; }).chooseRandom();
 			let item = Array.isArray(i) ? new Item(...i) : new Item(i);
 			console.log(item);
 
@@ -832,7 +896,7 @@ function pickDoor(el) {
 	el.classList.add("open");
 	sou_door.play();
 
-	if(el.classList.contains("stairs")) { floor += 1; }
+	if(el.classList.contains("stairs")) { game.floor += 1; }
 
 	setTimeout(fn=>{
 		el.classList.add("chosen");
@@ -881,7 +945,7 @@ function enterPath(difficultyLevel) {
 	if(!isShop) {
 		disableDoors();
 		
-		for(let v = 0; v < 1 + Math.floor(Math.random() * (2 + floor + difficultyLevel)); v++) {
+		for(let v = 0; v < 1 + Math.floor(Math.random() * (2 + game.floor + difficultyLevel)); v++) {
 			
 			enemy = generateEnemy(difficultyLevel);
 			monsters.push(enemy);
@@ -907,7 +971,7 @@ function randomizeDoors() {
 
 		let dice = Math.random() * 20;
 
-		let dlvl = dice < 16 + (floor / 5) ? 0 : Math.floor(20-dice);
+		let dlvl = dice < 16 + (game.floor / 5) ? 0 : Math.floor(20-dice);
 
 		if(Math.random() * 100 > 90) { dlvl = "_shop"; }
 
@@ -1051,9 +1115,19 @@ game = {};
 
 function restart() {
 
+	
+	floor = 1
+	enemy = null
+	monsters = [];
+	thisRoomDifficulty = 0;
+
 	game = {
 		roomType: "dungeon",
-		itemShopItems: []
+		itemShopItems: [],
+		floor:1,
+		enemy: null,
+		monsters: [],
+		thisRoomDifficulty: 0
 	};
 
 	player = { 
@@ -1069,6 +1143,27 @@ function restart() {
 		dhp: 20,
 		dxp: 0,
 		maxItems:6,
+
+		statusEffects: [],
+
+		giveStatusEffect: function(effect,turns) {
+			let efx = player.statusEffects.filter(fx=>{return fx.name == effect;});
+			if(efx.length > 0) { efx[0].turns += turns; }
+			else {
+				player.statusEffects.push({name: effect, turns: Number.parseInt(turns) });
+			}
+		},
+
+		hasStatusEffect: function(effect) {
+			
+			let efx = player.statusEffects.filter(fx=>{return fx.name == effect;});
+			return efx.length > 0;
+		},
+
+		manageStatusEffects: function() {
+			player.statusEffects.forEach(el=>{el.turns--;});
+			player.statusEffects = player.statusEffects.filter(el=>{ return el.turns > 0; });
+		},
 	
 		getXPToNextLevel: fn=>{ return 100 * (player.level ** 3); },
 		handleLeveling: function() {
@@ -1166,18 +1261,21 @@ function restart() {
 	
 					if(playerWeapon && typeof monster.weakTo != "undefined") {
 						if(monster.weakTo.indexOf(playerWeapon.effectType) != -1) {
-							bonuses += (` <span style = 'color:lightgreen;'>&nbsp;+ ${Math.abs(playerDmg - (playerDmg * 1.5))}</span>`); playerDmg *= 1.5; 
+							bonuses += (` <span style = 'color:lightgreen;'>&nbsp;+ ${Math.abs(playerDmg - (playerDmg * 1.5))}</span>`); 
+							playerDmg = Math.abs(playerDmg);
+							playerDmg *= 1.5; 
 						}
 	
 					}
 					if(playerWeapon && typeof monster.strongTo != "undefined") {
 						if(monster.strongTo.indexOf(playerWeapon.effectType) != -1 ) { 
-							bonuses += (` <span style = 'color:red;'>&nbsp;- ${Math.abs(playerDmg - (playerDmg / 1.5))}</span>`); playerDmg /= 1.5; 
+							bonuses += (` <span style = 'color:red;'>&nbsp;- ${Math.abs(playerDmg - (playerDmg / 1.5))}</span>`); 
+							playerDmg /= 1.5; 
 						}
 					}
 	
 	
-					if(dice(1,20) > 18) {
+					if(dice(1,20) > 18 || (player.hasStatusEffect("crit"))) {
 						logText += "<span class = 'critText'>CRITICAL HIT!</span>&nbsp;";
 						playerDmg *= 2;
 						crit = true;
@@ -1240,9 +1338,19 @@ function restart() {
 	
 				});
 	
-				setTimeout(fn=>{
-					monsterTurn();
-				}, delay);
+				if(!player.hasStatusEffect("haste")) {
+					setTimeout(fn=>{
+						monsterTurn();
+					}, delay);
+				}
+				else {
+					player.manageStatusEffects();
+					setTimeout(fn=>{
+						unlockMonsters();
+						log("YOUR TURN.");
+					},500);
+				}
+
 	
 				//unlockMonsters();
 	
@@ -1250,19 +1358,29 @@ function restart() {
 	
 		}
 	};
+	
+
+		
+	giveItem(new Item(db.findItem("Healing Potion")));
+	giveItem(new Item(db.findItem("Pyro Scroll")));
 
 	player.hp = 20
-	floor = 1
+	game.floor = 1
 	logDiv.innerText = '';
 	
 	log("YOU HAVE FOUND YOURSELF BELOW.<br/>Choose a door to explore.")
 
+	document.querySelector("#doors").innerHTML=`
+	<button onclick="pickDoor(this)" class = 'door'>Door 1</button>
+	<button onclick="pickDoor(this)" class = 'door'>Door 2</button>
+	<button onclick="pickDoor(this)" class = 'door'>Door 3</button>
+	<button onclick="pickDoor(this)" class = 'door'>Door 4</button>`;
+
+	monsters = [];
+	monsterDOM.innerHTML = "";
+
 	updateUI()
 }
-
-
-// Start game
-restart();
 
 
 //https://codepen.io/zachkrall/pen/MWWGMPx
