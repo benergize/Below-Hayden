@@ -2,7 +2,6 @@
 
 html,body {
 
-	width:100vw;
 	overflow:hidden;
 	overflow-x: hidden;
 	margin:0px;
@@ -20,6 +19,7 @@ body {
 	opacity:0;
 	transition: opacity 1s;
 	overflow-x: hidden;
+	width:100%;
 }
 
 * {font-family: Tiny5, monospace; image-rendering: pixelated}
@@ -471,3 +471,69 @@ details { display:none; }
 	to { background-position-y: -192px; }
 }
 
+.pick-upgrade button {
+    background-image: url(dungeon/wee_dung_sword.png);
+    background-size: cover;
+    border: 2px outset lightgray;
+    padding: 22px;
+    position:relative;
+    background-size: 75%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    margin: .5rem;
+}
+.pick-upgrade button:before {
+    content:"+";
+    position:absolute;
+    top:-5px;
+    left:3px;
+    text-shadow: 2px 2px 1px black;
+    color:white;
+    font-size:24px;
+}
+
+.pick-upgrade {
+    text-align: center;
+    background: rgba(0,0,0,.75);
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    height: 100%;
+    z-index: 12;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+
+	opacity:0;
+	pointer-events: none;
+	transition: opacity .5s ease-in-out;
+}
+
+.pick-upgrade.show {
+	opacity: 1;
+	pointer-events: all;
+}
+
+.pick-upgrade h2 {
+    margin-bottom: 8px;
+	
+    margin: 0px;
+	text-shadow: 2px 2px 2px black;
+	color: palegoldenrod;
+}
+
+.pick-upgrade button[data-stat="hp"] {
+    background-image: url(ui/wee_ui_heart.png);
+	background-size: 50;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.upgrade-buttons {
+    border: 1px solid palegoldenrod;
+    padding: 1px 24px;
+    border-style: dashed;
+    background: black;
+}
