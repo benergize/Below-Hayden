@@ -70,6 +70,8 @@
 
 		</div>
 
+		<div style="padding: 1rem;background: #282828;box-shadow: 0px 3px 3px black inset;border: 3px groove silver;" id="player-stat-area"></div>
+
 		<div class = 'inventory-and-info'>
 			<p id = 'item-info'></p>
 			<div id = 'inventory'>
@@ -89,6 +91,14 @@
 		</div>
 
 		<div id="level-up"><h2>LEVEL UP!</h2></div>
+		<div class="pick-upgrade">
+			<h2>LEVEL UP!</h2>
+			<p>Select an upgrade:</p>
+			<div class="upgrade-buttons">
+				<button data-stat="damage" onclick="player.upgradeStat('dmg')">+ Damage</button>
+				<button data-stat="hp" onclick="player.upgradeStat('hp')">+ Health</button>
+			</div>
+		</div>
 
 		<br/>
 		<details>
