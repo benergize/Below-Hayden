@@ -36,6 +36,23 @@ fetch("/assets/sprites/").then(el=>{return el.json();}).then(el=>{
 	});
 });
 
+window.addEventListener("mouseup", ev=>{
+
+    if(!itemInfo.classList.contains("open")) { return; }
+    let foc = ev.target;
+    let inInventory = false;
+    while(foc.parentElement != null && foc.parentElement.tagName != "HTML") {
+        if(foc.classList.contains("inventory-and-info") || foc.classList.contains("chest") || foc.classList.contains("itbtn")) {
+            inInventory = true;
+            break;
+        }
+        else {
+            foc = foc.parentElement;
+        }
+    }
+    if(!inInventory) { showItemInfo(-1,"close") }
+});
+
 
 if(typeof localStorage.highScore == "undefined") { localStorage.highScore = 10; }
 document.querySelector("#high-score").innerText = Number.parseInt(localStorage.highScore);
@@ -142,6 +159,8 @@ function updateUI() {
 	updateMonsters();
 
 	updateInventoryUI();
+
+	renderPlayerStats();
 	
 }
 
@@ -561,6 +580,8 @@ function equipItem(el) {
 
 	document.querySelector(`button.item[data-id="${item.id}"]`).classList.add("equipped");
 	player.slots[item.slot] = item.id;
+
+	renderPlayerStats();
 	
 }
 function unequipItem(el) {
@@ -570,6 +591,8 @@ function unequipItem(el) {
 	let item = player.inventory.filter(i=>{ return i.id == id; })[0];
 	document.querySelector(`button.item[data-id="${item.id}"]`).classList.remove("equipped");
 	player.slots[item.slot] = -1;
+
+	renderPlayerStats();
 }
 
 function showItemInfo(el,ignoreOpen=false, initiator="inventory") {
@@ -630,22 +653,22 @@ function showItemInfo(el,ignoreOpen=false, initiator="inventory") {
 
 			${ isShopItem || initiator=="chest" ? "" :
 				item.consumable ? 
-					`<button onclick = "useItem(this);updateUI();" data-id="${itemId}">USE</button>` :
+					`<button class = 'itbtn' onclick = "useItem(this);updateUI();" data-id="${itemId}">USE</button>` :
 					((typeof item.slot != "undefined" && item.slot != -1 && item.slot != "") ? (
 						player.slots[item.slot] != item.id ? 
-						`<button onclick = "equipItem(this);showItemInfo(this,true);" data-id="${itemId}">EQUIP</button>` :
-						`<button onclick = "unequipItem(this);sou_unequip.play();showItemInfo(this,true);" data-id="${itemId}">UNEQUIP</button>`
+						`<button class = 'itbtn'  onclick = "equipItem(this);showItemInfo(this,true);" data-id="${itemId}">EQUIP</button>` :
+						`<button class = 'itbtn'  onclick = "unequipItem(this);sou_unequip.play();showItemInfo(this,true);" data-id="${itemId}">UNEQUIP</button>`
 					) : "")
 			}
 			${
 				initiator == "chest" ? (
-					`<button onclick = "takeItemFromChest()" data-id="${itemId}">TAKE</button>`
+					`<button class = 'itbtn' onclick = "takeItemFromChest()" data-id="${itemId}">TAKE</button>`
 				) :
 				(isShop ?
 				(
 					isShopItem ?
-						`<button onclick = "buyItem(this);" data-id="${item.id}">BUY FOR ${item.value}</button>` :
-						`<button onclick = "sellItem(this);" data-id="${item.id}">SELL FOR FOR ${Math.ceil(item.value * .75)}</button>`
+						`<button class = 'itbtn'  onclick = "buyItem(this);" data-id="${item.id}">BUY FOR ${item.value}</button>` :
+						`<button class = 'itbtn'  onclick = "sellItem(this);" data-id="${item.id}">SELL FOR FOR ${Math.ceil(item.value * .75)}</button>`
 				) : "")
 			}
 			${!isShop?`<button onclick = "removeItem(this);sou_item_drop.play();updateUI();" data-id="${itemId}">DROP</button>`:""}
@@ -1179,21 +1202,39 @@ function restart() {
 			//document.querySelector("#xpbar div").style.width = ((player.xp / xpToNextLevel) * 100) + "%"
 	
 			if(player.xp > xpToNextLevel) {
+				
 	
 				document.querySelector("#level-up").classList.toggle("level-up-slide");
 	
 				sou_level_up.play();
+
+				document.querySelector(".pick-upgrade").classList.add("show");
 	
-				player.level++;
-				player.maxHp += 10;
-				player.dmg++;
 				player.hp = player.getMaxHp();
+				player.level++;
 				player.xp = 0;
 	
 			}
 		},
+		upgradeStat:function(stat) {
+
+			if(stat == "hp") {
+				player.maxHp += 10;
+				sou_hp_upgrade.play();
+			}
+			
+			if(stat == "dmg") {
+				player.dmg++;
+				sou_dmg_upgrade.play();
+			}
+			
+			player.hp = player.getMaxHp();
+			updateBars();
+			renderPlayerStats();
+			document.querySelector(".pick-upgrade").classList.remove("show")
+		},
 		getDmg: function(){ 
-			let d = this.dmg + (player.level / 4);
+			let d = this.dmg;
 			let damageSources = {};
 	
 			for(let slot in player.slots) {
@@ -1393,6 +1434,53 @@ function restart() {
 	document.body.classList.remove("dead");
 }
 
+function renderPlayerStats() {
+
+	let dmgTypes = {};
+	for(let v in player.slots) {
+		let i = player.getItemInSlot(v);
+		console.log(i);
+		if(i) {
+			dmgTypes[i.effectType] = dmgTypes[i.effectType] || 0;
+			dmgTypes[i.effectType] += i.dmg;
+		}
+	}
+
+	console.log(dmgTypes)
+	let el = `
+		<h3 style="margin: 0px;margin-bottom: 1rem;">Johan Stats</h3>
+		<div style="height: 102px;overflow: auto;">
+			<table style="border-spacing: 0px;width: 100%;">
+				<thead>
+					<tr>
+						<td></td>
+						<td>Phy</td>
+						<td>Mag</td>
+						<td>Cha</td>
+						<td>Poi</td>
+						<td>Cur</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Dmg</td>
+						<td>${player.dmg + (dmgTypes.physical||0)}</td>
+						<td>${dmgTypes.magic||0}</td>
+						<td>${dmgTypes.chaos||0}</td>
+						<td>${dmgTypes.poison||0}</td>
+						<td>${dmgTypes.curse||0}</td>
+					</tr>
+					<tr>
+						<td>Arm</td>
+						<td>24</td>
+					</tr>
+				</tbody>
+			</table>
+			<br><br>
+		</div>`;
+
+	document.querySelector("#player-stat-area").innerHTML = el;
+}
 
 //https://codepen.io/zachkrall/pen/MWWGMPx
 function bindCritAnimation(){
