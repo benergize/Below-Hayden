@@ -40,6 +40,9 @@ var sou_unequip = new Sound("x", "sounds/unequip.wav",.2);
 
 var sou_error = new Sound("x", "sounds/sfx_sounds_damage1.wav",.2);
 
+var sou_dmg_upgrade  = new Sound("x",'sounds/sfx_wpn_laser3.wav',.2);
+var sou_hp_upgrade  = new Sound("x",'sounds/sfx_coin_cluster1.wav',.2);
+
 
 var sou_menu_close = new Sound("x", "sounds/sfx_sounds_error14.wav",.2);
 var sou_menu_open = new Sound("x", "sounds/sfx_menu_move2.wav",.2);
