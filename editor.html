@@ -293,7 +293,7 @@
 				}
 				else if (key === 'effectType' || key == 'armorType') {
 					input = document.createElement('select');
-					["physical", "magic", "curse", "chaos", "poison"].forEach(rarity => {
+					["physical", "magic", "curse", "chaos", "poison", "holy"].forEach(rarity => {
 						const option = document.createElement('option');
 						option.value = rarity;
 						option.textContent = rarity;
