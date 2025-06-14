@@ -697,6 +697,7 @@ function takeItemFromChest() {
 	}
 	else {
 		log("INVENTORY IS FULL.");
+		sou_error.play(); 
 	}
 }
 
@@ -990,17 +991,21 @@ function enterPath(difficultyLevel) {
 
 }
 
+//generateDoors, createDoors
 function randomizeDoors() {
 
+	let numberOfDoors = 1 + Math.round(Math.random() * 3);
+	let haveStairs = false;
+	let haveShop = false;
 
-	for(let v = 0; v < 1 + Math.round(Math.random() * 3); v++) {
+	for(let v = 0; v < numberOfDoors; v++) {
 		
 
 		let dice = Math.random() * 20;
 
 		let dlvl = dice < 16 + (game.floor / 5) ? 0 : Math.floor(20-dice);
 
-		if(Math.random() * 100 > 90) { dlvl = "_shop"; }
+		if(!haveShop && game.roomType != "shop" && Math.random() * 100 > 90) { dlvl = "_shop"; haveShop = true; }
 
 		document.querySelector("#doors").innerHTML += `
 			<button onclick="pickDoor(this)" style = 'background-image:url(dungeon/door${dlvl}.png);' class = 'door' data-level="${
@@ -1014,7 +1019,11 @@ function randomizeDoors() {
 
 		let dice = Math.floor(Math.random() * 20) + 1;
 
-		if(dice == 6) { door.style.backgroundImage = `url("dungeon/wee_dung_stair_blue_down.png")`; door.classList.add("stairs"); }
+		if(!haveStairs && dice == 6 && numberOfDoors > 1) { 
+			door.style.backgroundImage = `url("dungeon/wee_dung_stair_blue_down.png")`; 
+			door.classList.add("stairs"); 
+			haveStairs = true;
+		}
 	});
 }
 function disableDoors() {
@@ -1172,6 +1181,9 @@ function restart() {
 
 		statusEffects: [],
 
+		numberOfDice:1,
+		numberOfSides:3,
+
 		giveStatusEffect: function(effect,turns) {
 			let efx = player.statusEffects.filter(fx=>{return fx.name == effect;});
 			if(efx.length > 0) { efx[0].turns += turns; }
@@ -1289,9 +1301,20 @@ function restart() {
 	
 			let playerWeapon = item || player.getItemInSlot("weapon");
 
+			console.log(targets);
+			let initialtarget = typeof targets == "number" ? targets : (Array.isArray(targets) ? targets[0]?.id : targets.id);
+			console.log(initialtarget);
 
-			console.log(playerWeapon);
-			if(playerWeapon && playerWeapon.itemTarget == "all-foes") { targets = monsters; console.log('all foes');}
+
+			if(playerWeapon && playerWeapon.itemTarget == "all-foes") { 
+				
+				targets = monsters.sort((a,b)=>{ return Math.abs(a.id-initialtarget) < Math.abs(b.id-initialtarget) ? -1 : 1; });
+				
+
+				console.log(targets);
+				
+				console.log('all foes');
+			}
 			
 			if(!Array.isArray(targets)) { targets = [targets]; }
 			
@@ -1307,7 +1330,7 @@ function restart() {
 					let bonuses = "";
 	
 					let crit = false;
-					let playerDmg = item ? item.getDmg() : Math.floor(player.getDmg() + dice(1,6));
+					let playerDmg = item ? item.getDmg() : Math.floor(player.getDmg() + dice(player.numberOfDice, player.numberOfSides));
 	
 					if(playerWeapon && typeof monster.weakTo != "undefined") {
 						if(monster.weakTo.indexOf(playerWeapon.effectType) != -1) {
@@ -1436,47 +1459,68 @@ function restart() {
 
 function renderPlayerStats() {
 
-	let dmgTypes = {};
+	let dmgTypes = {"physical-low": player.dmg + player.numberOfDice, "physical-high":player.dmg + (player.numberOfDice * player.numberOfSides)};
+	let armTypes = {};
+
 	for(let v in player.slots) {
 		let i = player.getItemInSlot(v);
 		console.log(i);
 		if(i) {
-			dmgTypes[i.effectType] = dmgTypes[i.effectType] || 0;
-			dmgTypes[i.effectType] += i.dmg;
+
+			if(i.dmg != 0) {
+				dmgTypes[i.effectType + "-low"] = dmgTypes[i.effectType + "-low"] || 0;
+				dmgTypes[i.effectType + "-low"] += i.dmg + i.numberOfDice;
+
+				dmgTypes[i.effectType + "-high"] = dmgTypes[i.effectType + "-high"] || 0;
+				dmgTypes[i.effectType + "-high"] += i.dmg + (i.numberOfDice * i.numberOfSides);
+			}
+
+			if(i.armor != 0) {
+				armTypes[i.armorType] = dmgTypes[i.armorType] || 0;
+				armTypes[i.armorType] += i.armor;
+
+				armTypes[i.armorType + "-low"] = dmgTypes[i.armorType + "-low"] || 0;
+				armTypes[i.armorType + "-low"] += i.armor + i.numberOfDice;
+
+				armTypes[i.armorType + "-high"] = armTypes[i.armorType + "-high"] || 0;
+				armTypes[i.armorType + "-high"] += i.armor + (i.numberOfDice * i.numberOfSides);
+			}
 		}
 	}
 
 	console.log(dmgTypes)
 	let el = `
-		<h3 style="margin: 0px;margin-bottom: 1rem;">Johan Stats</h3>
-		<div style="height: 102px;overflow: auto;">
+		<div style="height: 60px;overflow: auto;">
 			<table style="border-spacing: 0px;width: 100%;">
 				<thead>
 					<tr>
 						<td></td>
 						<td>Phy</td>
 						<td>Mag</td>
-						<td>Cha</td>
+						<td>Hol</td>
 						<td>Poi</td>
-						<td>Cur</td>
+						<td>Crs</td>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td>Dmg</td>
-						<td>${player.dmg + (dmgTypes.physical||0)}</td>
-						<td>${dmgTypes.magic||0}</td>
-						<td>${dmgTypes.chaos||0}</td>
-						<td>${dmgTypes.poison||0}</td>
-						<td>${dmgTypes.curse||0}</td>
+						<td>${dmgTypes["physical-low"]||0}-${dmgTypes["physical-high"]||0}</td>
+						<td>${dmgTypes["magic-low"]||0}-${dmgTypes["magic-high"]||0}</td>
+						<td>${dmgTypes["holy-low"]||0}-${dmgTypes["holy-high"]||0}</td>
+						<td>${dmgTypes["poison-low"]||0}-${dmgTypes["poison-high"]||0}</td>
+						<td>${dmgTypes["curse-low"]||0}-${dmgTypes["curse-high"]||0}</td>
 					</tr>
 					<tr>
 						<td>Arm</td>
-						<td>24</td>
+						<td>${armTypes.physical||0}</td>
+						<td>${armTypes.magic||0}</td>
+						<td>${armTypes.holy||0}</td>
+						<td>${armTypes.poison||0}</td>
+						<td>${armTypes.curse||0}</td>
 					</tr>
 				</tbody>
 			</table>
-			<br><br>
 		</div>`;
 
 	document.querySelector("#player-stat-area").innerHTML = el;
