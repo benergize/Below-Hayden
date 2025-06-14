@@ -8,7 +8,7 @@ html,body {
 }
 body {
 	font-family: Tiny5, monospace;
-	background: #111;
+	background: url("dungeon/wee_dung_floor.png");
 	color: #eee;
 	-webkit-user-select: none; /* Safari */
 	-ms-user-select: none; /* IE 10 and IE 11 */
@@ -27,6 +27,7 @@ body {
 #main-ui { 
 	transition: opacity 3s;
 	opacity:1;
+	background:black;
 }
 .dead #main-ui {
 	opacity:0;
@@ -34,7 +35,6 @@ body {
 
 #main-ui>div {
     padding: 5px;
-	margin-bottom:6px;
 }
 #level-label {
     margin-left: 5px;
@@ -280,7 +280,7 @@ div#inventory {
 	text-align:center;
 	background:url(dungeon/wee_dung_floor.png);
 	position: relative;
-    padding-bottom: 2rem;
+    padding-bottom: 6rem;
 }
 .dead #game-frame {
 	
