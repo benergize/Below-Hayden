@@ -9,6 +9,31 @@ const sandbox = { window: {} };
 app.use(express.static('.'));
 app.use(express.json());
 
+const itemSchema = {
+
+	name: "",
+	desc: "",
+	sprite:"",
+	sound:"",
+	hp:0,
+	dmg:0,
+	numberOfDice:0,
+	numberOfSides:0,
+	consumable: false,
+	itemTarget: "self",
+	uses:-1,
+	slot:"",
+	effectType:"",
+	minimumDropFloor: 0,
+	minimumDropPlayerLevel:0,
+	rarity:"normal",
+	armor:0,
+	armorType:"",
+	giveStatusEffect:"",
+	giveStatusEffectTurns:"",
+	giveStatusEffectTo:"self"
+};
+
 
 function serializeGameData(data) {
 	let o = {};
@@ -17,6 +42,10 @@ function serializeGameData(data) {
 	o.monsterList = data.monsterList;
 	return JSON.stringify(o);
 }
+
+app.get('/itemSchema', (req, res) => {
+	res.json(itemSchema);
+});
 
 app.get('/data', (req, res) => {
 	const raw = fs.readFileSync(DATA_FILE, 'utf-8');
@@ -57,35 +86,14 @@ app.get('/data', (req, res) => {
 
 		//Item schema defined here.
 		//We do this weird define->overwrite so that everything has all the schema, even if we added the new fields after the item was initially entered into the system.
-		let i = {
-			name: "",
-			desc: "",
-			sprite:"",
-			sound:"",
-			hp:0,
-			dmg:0,
-			numberOfDice:0,
-			numberOfSides:0,
-			consumable: false,
-			itemTarget: "self",
-			uses:-1,
-			slot:"",
-			effectType:"",
-			minimumDropFloor: 0,
-			minimumDropPlayerLevel:0,
-			rarity:"normal",
-			armor:0,
-			armorType:"",
-			giveStatusEffect:"",
-			giveStatusEffectTurns:"",
-			giveStatusEffectTo:"self"
-		}
+		let i = JSON.parse(JSON.stringify(itemSchema));
 
 		//Overwrite existing properties.
 		for(let p in item) {
 			i[p] = item[p];
 		}
 
+		console.log(item);
 		
 		if(item.consumable == "false") { item.consumable = false; }
 		else if(item.consumable == "true") { item.consumable = true; }

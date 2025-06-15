@@ -133,11 +133,13 @@
 		let selectedIndex = -1;
 		let spriteFiles = [];
 		let soundFiles = [];
+		let itemSchema = {};
 
 		async function loadAssets() {
 			spriteFiles = await fetch('/assets/sprites').then(res => res.json());
 			animations = await fetch('/assets/spriteObjects').then(res => res.json());
 			soundFiles = await fetch('/assets/sounds').then(res => res.json());
+			itemSchema = await fetch('/itemSchema').then(res => res.json());
 		}
 
 		async function loadData() {
@@ -311,6 +313,7 @@
 						obj[key] = input.value;
 						saveData();
 					};
+					input.value = val;
 					group.appendChild(label);
 					group.appendChild(input);
 					panel.appendChild(group);
@@ -318,13 +321,15 @@
 				}
 				else if (key === 'consumable') {
 					input = document.createElement('select');
-					["false", "true"].forEach(rarity => {
+					["false", "true"].forEach(consumableTrueFalse => {
 						const option = document.createElement('option');
-						option.value = rarity;
-						option.textContent = rarity;
-						if (rarity === val) option.selected = true;
+						option.value = consumableTrueFalse;
+						option.textContent = consumableTrueFalse;
+						if (String(consumableTrueFalse) == val) { option.selected = true; }
+						
 						input.appendChild(option);
 					});
+					input.value = val;
 					input.onchange = () => {
 						obj[key] = input.value;
 						saveData();
@@ -384,10 +389,7 @@
 		document.getElementById('add-button').onclick = () => {
 			const newObj = currentTab === 'monsters' ? {
 				name: '', sprite: '', hp: 5, dmg: 1, strongTo: [], weakTo: []
-			} : {
-				name: '', desc: '', sprite: '', sound: '', hp: 0, dmg: 0, numberOfDice: 0, numberOfSides: 0,
-				consumable: true, uses: 1, slot: -1, effectType: '', value: 0, minimumDropFloor: 0, minimumDropPlayerLevel: 0
-			};
+			} : itemSchema;
 			if (currentTab === 'monsters') {
 				if (!data.monsterList[0]) data.monsterList[0] = [];
 				data.monsterList[0].push(newObj);
