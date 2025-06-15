@@ -273,6 +273,29 @@ function Monster(name, sprite="", hp=5, dmg=1, strongTo=[], weakTo=[]) {
 
 	this.getName = fn=>{ return this.name; }
 
+	this.statusEffects = [];
+
+	
+	this.giveStatusEffect = function(effect,turns) {
+		let efx = this.statusEffects.filter(fx=>{return fx.name == effect;});
+		if(efx.length > 0) { efx[0].turns += turns; }
+		else {
+			this.statusEffects.push({name: effect, turns: Number.parseInt(turns) });
+		}
+	}
+
+	this.hasStatusEffect = function(effect) {
+		
+		let efx = this.statusEffects.filter(fx=>{return fx.name == effect;});
+		return efx.length > 0;
+	}
+
+	this.manageStatusEffects = function() {
+		this.statusEffects.forEach(el=>{el.turns--;});
+		this.statusEffects = this.statusEffects.filter(el=>{ return el.turns > 0; });
+	}
+
+
 	this.attack = fn=>{
 
 		
@@ -305,15 +328,24 @@ function Monster(name, sprite="", hp=5, dmg=1, strongTo=[], weakTo=[]) {
 			}
 		}
 
+		let statusEffectText = "";
+		if(this.hasStatusEffect("dazed")) { 
+			statusEffectText += `${this.name} is DAZED!`; 
+			finalDmg -= Math.round(finalDmg * (Math.random() * .65));
+		}
+
 		if(finalDmg != dmg) {
-			shieldText = ` <span style = 'color:lightgreen;'>&nbsp;- ${(dmg - finalDmg)}`;
+			shieldText = ` <span style = 'color:lightgreen;'>&nbsp;- ${dmg - finalDmg}`;
 		}
 
 
 		player.hp -= finalDmg;
-		log(`The ${this.name} hits you for ${dmg} ${shieldText} damage. `)
+		log(`The ${this.name} hits you for ${dmg} ${shieldText} damage. ${statusEffectText}`)
 
+		this.manageStatusEffects()
 		updateUI();
+
+		//Re-lock monsters because of updateUI re-creating them. Whatever.
 		lockMonsters();
 
 		let mnstr = this;
@@ -859,8 +891,11 @@ function useChest() {
 			let i = gear.concat(items).filter(item=>{ 
 				return game.floor >= item.minimumDropFloor && 
 				player.level >= item.minimumDropPlayerLevel &&
-				rarityScale.indexOf(item.rarity) >= (game.thisRoomDifficulty+1) &&
-				(game.thisRoomDifficulty+1) >= rarityScale.indexOf(item.rarity)
+
+				/* Only show items rarer than this room? */
+				(
+					rarityScale.indexOf(item.rarity) >= (game.thisRoomDifficulty == 0 ? game.thisRoomDifficulty + (dice(1,2)-1) : game.thisRoomDifficulty)
+				)
 			}).chooseRandom();
 
 			let item = Array.isArray(i) ? new Item(...i) : new Item(i);
@@ -1245,7 +1280,7 @@ function restart() {
 			}
 			
 			if(stat == "dmg") {
-				player.dmg++;
+				player.dmg += 2;
 				sou_dmg_upgrade.play();
 			}
 			
@@ -1267,14 +1302,10 @@ function restart() {
 			let d = 0;//this.dmg;
 			let damageSources = {};
 
-			
-			
-			if(player.class == "adventurer") { damageSources['physical'] = this.dmg; }
-			if(player.class == "mage") { damageSources['magic'] = this.dmg; }
-			if(player.class == "paladin") { damageSources['holy'] = this.dmg; }
-			if(player.class == "rogue") { damageSources['poison'] = this.dmg; }
-			if(player.class == "warlock") { damageSources['curse'] = this.dmg; }
-	
+			let primaryDamage =player.getPrimaryDamageType();
+
+			damageSources[primaryDamage] = this.dmg;
+
 			for(let slot in player.slots) {
 				let i = this.getItemInSlot(slot);
 	
@@ -1299,8 +1330,14 @@ function restart() {
 					}
 				}
 			}
+
+			for(let ds in damageSources) { d += damageSources[ds]; }
 			
 			return d; 
+		},
+		rollDamage: fn=>{
+
+			return player.getDmg() + dice(player.numberOfDice, player.numberOfSides);
 		},
 		getItemInSlot: slot=> {
 			
@@ -1356,7 +1393,7 @@ function restart() {
 					let bonuses = "";
 	
 					let crit = false;
-					let playerDmg = item ? item.getDmg() : Math.floor(player.getDmg() + dice(player.numberOfDice, player.numberOfSides));
+					let playerDmg = item ? item.getDmg() : Math.floor(player.rollDamage());
 	
 					if(playerWeapon && typeof monster.weakTo != "undefined") {
 						if(monster.weakTo.indexOf(playerWeapon.effectType) != -1) {
@@ -1401,8 +1438,14 @@ function restart() {
 	
 						}
 					},1, monster);
+
+					let statusEffectText = "";
+					if(typeof playerWeapon.giveStatusEffect != "undefined" && playerWeapon.giveStatusEffect.trim() != "") {
+						monster.giveStatusEffect(playerWeapon.giveStatusEffect, playerWeapon.statusEffectTurns);
+						statusEffectText = `${monster.name} is ${playerWeapon.giveStatusEffect}`;
+					}
 	
-					log(`${logText} Hit ${monster.name} for ${playerDmg}${bonuses}.`);
+					log(`${logText} Hit ${monster.name} for ${playerDmg}${bonuses}. ${statusEffectText}`);
 	
 					if(crit) { bindCritAnimation(); }
 	
@@ -1594,16 +1637,29 @@ function enterDungeon() {
 	player.name = document.querySelector(".name-input").value;
 	player.class = document.querySelector(".class-select").value.toLowerCase();
 
+	if(player.class == "mage") {
+		giveItem(new Item(db.findItem("Apprentice's Tome")));
+	}
+	if(player.class == "adventurer") {
+		giveItem(new Item(db.findItem("Rusted Sword")));
+	}
+	if(player.class == "paladin") {
+		giveItem(new Item(db.findItem("Rusted Hammer")));
+	}
+
 	if(player.name != "") {
 		clearSplash();
 	}
 }
 
 function clearSplash() {
+	
+	updateUI();
+
 	//document.querySelector("#annoying-splash").style.left='100%';
 	document.querySelector("#annoying-splash").classList.add("enter");
-	document.querySelector("#annoying-splash").style.transition="scale 2s ease-in, opacity 2s";
-	document.querySelector("#annoying-splash").style.scale='36 36';
+
+	document.querySelector("#player-name").innerText = player.name.toUpperCase() + " the " + player.class.toUpperCase();
 
 	setTimeout(fn=>{ document.querySelector("#annoying-splash").style.opacity='0'; },500);
 	sou_slide.play();
