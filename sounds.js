@@ -67,7 +67,7 @@ var sou_foundSomethingMd = new Sound("x","sounds/sfx_coin_cluster3.wav",.1);
 var sou_foundSomethingLg = new Sound("x","sounds/sfx_menu_select4.wav",.1);
 var sou_plant = new Sound("x","sounds/sfx_sounds_interaction22.wav",.1);
 	
-var sou_emptyChest = new Sound("x","https://benergize.com/like_a_rogue/sound/hit2.wav",.1);
+var sou_emptyChest = new Sound("x","sounds/hit2.wav",.1);
 var sou_chest_fadeIn = new Sound("x", "sounds/sfx_sounds_interaction20.wav",.2);
 
 var sou_fire = new Sound("x","sounds/sfx_sounds_interaction26.wav",.1);
