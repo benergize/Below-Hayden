@@ -390,9 +390,9 @@ details { display:none; }
     height: 300px;
     padding: 12px;
     padding-top: 80px;
-    border-top-left-radius: 95px;
-    border-top-right-radius: 95px;
-    border: 4px solid #3a3a3ab8;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border: 1px solid #3a3a3ab8;
 
 }
 
@@ -483,8 +483,21 @@ details { display:none; }
 		transform: translateY(0px);
 	}
 }
-#annoying-splash.enter .haydens-door * { transition:opacity .5s; opacity:0;}
 
+#player-name {margin:1px;}
+#annoying-splash.enter { 
+	pointer-events: none; 
+	transition: scale 2s ease-in, opacity 2s;
+	scale: 36 36;
+}
+#annoying-splash.enter .haydens-door * { transition:opacity .5s; opacity:0;}
+.enter-dungeon-button {
+	width: auto;
+	color: white;
+	font-size: .8rem;
+	border: 3px groove gray;
+	text-align: center;
+}
 .explosion {
     width: 64px;
     height: 64px;
