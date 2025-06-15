@@ -385,13 +385,11 @@ details { display:none; }
 
 .haydens-door {
 	
-    background: #000000;
-    box-shadow: 0px 2px 24px #00000094 inset;
+	background: #282828;
+    box-shadow: 0px 2px 99px black inset;
     height: 300px;
     padding: 12px;
     padding-top: 80px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
     border: 1px solid #3a3a3ab8;
 
 }
@@ -484,6 +482,9 @@ details { display:none; }
 	}
 }
 
+.haydens-door h2 {
+	text-shadow: 0px 0px 3px white;
+}
 #player-name {margin:1px;}
 #annoying-splash.enter { 
 	pointer-events: none; 
