@@ -35,13 +35,7 @@
 					
 					<br><br>
 					
-					<button onmousedown="enterDungeon()" style="
-						width: auto;
-						color: white;
-						font-size: .8rem;
-						border: 3px groove gray;
-						text-align: center;
-					">ENTER DUNGEON</button>
+					<button onclick="enterDungeon()" class = 'enter-dungeon-button'>ENTER DUNGEON</button>
 				</div>
 			</div>
 			<div style="
@@ -54,8 +48,9 @@
 		<h1 class = 'game-title'>Below Hayden</h1>
 
 		<div id = 'main-ui'>
-			<marquee>High Score: <span id = 'high-score'></span></marquee>
+			<marquee style = 'display:none;'>High Score: <span id = 'high-score'></span></marquee>
 			<div>
+				<div id = 'player-name'></div>
 				<div id = 'hpbar' class = 'bar'>
 					<strong>HP: <span id="playerHP"></span></strong> 
 					<div></div>
