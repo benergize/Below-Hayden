@@ -1313,8 +1313,11 @@ function restart() {
 				if(i) { 
 					
 					if(slot != "ring") {
+
+						if(typeof i.dmg == "number" && i.dmg != 0) {
 	
-						damageSources[i.effectType] += i.getDmg();
+							damageSources[i.effectType] = (damageSources[i.effectType] || 0) + i.getDmg();
+						}
 					}
 				}
 			}
@@ -1510,7 +1513,7 @@ function restart() {
 	game.floor = 1
 	logDiv.innerText = '';
 	
-	log("YOU HAVE FOUND YOURSELF BELOW.<br/>Choose a door to explore.")
+	log("YOU HAVE VENTURED TO THE<br/>DARK PLACES BELOW HAYDEN.<br/><br/>Choose a door to explore.")
 
 	document.querySelector("#doors").innerHTML=`
 	<button onclick="pickDoor(this)" class = 'door'>Door 1</button>
@@ -1637,17 +1640,19 @@ function enterDungeon() {
 	player.name = document.querySelector(".name-input").value;
 	player.class = document.querySelector(".class-select").value.toLowerCase();
 
-	if(player.class == "mage") {
-		giveItem(new Item(db.findItem("Apprentice's Tome")));
-	}
-	if(player.class == "adventurer") {
-		giveItem(new Item(db.findItem("Rusted Sword")));
-	}
-	if(player.class == "paladin") {
-		giveItem(new Item(db.findItem("Rusted Hammer")));
-	}
-
 	if(player.name != "") {
+		
+		if(player.class == "mage") {
+			giveItem(new Item(db.findItem("Apprentice's Tome")));
+		}
+		if(player.class == "adventurer") {
+			giveItem(new Item(db.findItem("Rusted Sword")));
+		}
+		if(player.class == "paladin") {
+			giveItem(new Item(db.findItem("Rusted Hammer")));
+		}
+
+		
 		clearSplash();
 	}
 }
