@@ -17,7 +17,7 @@ fetch("/assets/sprites/").then(el=>{return el.json();}).then(el=>{
     });
     preload.innerHTML = preloadInner;
 	
-	document.querySelector("#annoying-splash p").innerText = `Tap anywhere to enter.`;
+	document.querySelector("#annoying-splash p").innerText = `Tap anywhere to start.`;
 })
 .catch(fn=>{
 	
@@ -29,10 +29,10 @@ fetch("/assets/sprites/").then(el=>{return el.json();}).then(el=>{
 		});
 		preload.innerHTML = preloadInner;
 		
-		document.querySelector("#annoying-splash p").innerText = `Tap anywhere to enter.`;
+		document.querySelector("#annoying-splash p").innerText = `Tap anywhere to start.`;
 	}).catch(fn=>{
 		
-		document.querySelector("#annoying-splash p").innerText = `Tap anywhere to enter.`;
+		document.querySelector("#annoying-splash p").innerText = `Tap anywhere to start.`;
 	});
 });
 
@@ -83,7 +83,8 @@ fetch("./data/data.json?1111").then(dat=>{return dat.json();}).then(dat=>{
 game = {};
 player = {};
 
-
+const rarityScale = ["junk", "normal", "rare", "epic", "legendary"];
+const classes = ["adventurer", "mage", "paladin", "rogue", "warlock"];
 
 enemy = null
 monsters = [];
@@ -472,7 +473,7 @@ function Item(name, desc="", sprite="dungeon/wee_dung_potion_red.png", sound=sou
 
 	this.getHPRange = function() {
 
-		if(this.hp == 0) { return ""; }
+		if(this.hp == 0 && this.slot != "shield") { return ""; }
 		let low = (this.slot ==  "shield"?0:this.hp) + this.numberOfDice;
 		let high = (this.slot == "shield"?0:this.hp) + (this.numberOfDice * this.numberOfSides);
 		
@@ -640,7 +641,7 @@ function showItemInfo(el,ignoreOpen=false, initiator="inventory") {
 
 		console.log(initiator);
 		itemInfo.innerHTML = `
-			${ item.getName() }<br/>
+			<span class = 'name' data-rarity="${item.rarity}">${ item.getName() }</span><br/>
 			<div><small>${item.desc}</small></div>
 
 			<table><tbody><tr>
@@ -684,14 +685,14 @@ function showItemInfo(el,ignoreOpen=false, initiator="inventory") {
 function takeItemFromChest() {
 	
 	//this should work we hope
-	let item = currentChestContents;
+	let item = game.currentChestContents;
 
 	let isDuplicate = item.consumable && player.inventory.filter(i=>{ return i.getName() == item.getName(); }).length > 0;
 
 	if(player.inventory.length < player.maxItems || isDuplicate) {
-		giveItem(currentChestContents);
+		giveItem(game.currentChestContents);
 		showItemInfo(-1);
-		currentChestContents = null;
+		game.currentChestContents = null;
 		chestButton.classList.add("empty");
 		updateUI();
 	}
@@ -821,9 +822,9 @@ function checkIsDefeated() {
 	return false;
 }
 
-currentChestContents = null
+game.currentChestContents = null
 
-
+//generateChest, createChest
 //openChest
 function useChest() {
 
@@ -837,7 +838,7 @@ function useChest() {
 		chestButton.classList.remove("closed");
 	}
 
-	if(!chestButton.classList.contains("empty") && currentChestContents == null) {
+	if(!chestButton.classList.contains("empty") && game.currentChestContents == null) {
 	
 		let roll = dice(1,20);
 
@@ -855,12 +856,18 @@ function useChest() {
 		else if(roll >= 7) {
 			sou_foundSomethingMd.play();
 
-			let i = gear.concat(items).filter(item=>{return game.floor >= item.minimumDropFloor && player.level >= item.minimumDropPlayerLevel; }).chooseRandom();
+			let i = gear.concat(items).filter(item=>{ 
+				return game.floor >= item.minimumDropFloor && 
+				player.level >= item.minimumDropPlayerLevel &&
+				rarityScale.indexOf(item.rarity) >= (game.thisRoomDifficulty+1) &&
+				(game.thisRoomDifficulty+1) >= rarityScale.indexOf(item.rarity)
+			}).chooseRandom();
+
 			let item = Array.isArray(i) ? new Item(...i) : new Item(i);
 			console.log(item);
 
 			log("FOUND " + item.getName());
-			currentChestContents = item;
+			game.currentChestContents = item;
 			showItemInfo(item,false,"chest");	
 			return;		
 		}
@@ -869,34 +876,34 @@ function useChest() {
 		updateUI();
 	}
 
-	else if(currentChestContents != null) {
+	else if(game.currentChestContents != null) {
 		
-		let slotIsEmpty = true;//(currentChestContents.slot == -1 || player.inventory.filter(i=>{ return i.slot == currentChestContents.slot;}).length == 0);
+		let slotIsEmpty = true;//(game.currentChestContents.slot == -1 || player.inventory.filter(i=>{ return i.slot == game.currentChestContents.slot;}).length == 0);
 		
 		if(!slotIsEmpty) {
 				
-			//currentChestContents = item;
+			//game.currentChestContents = item;
 			sou_error.play(); 
-			log("FOUND " + currentChestContents.getName() + ". Can only have one " + currentChestContents.slot + " at a time!");
+			log("FOUND " + game.currentChestContents.getName() + ". Can only have one " + game.currentChestContents.slot + " at a time!");
 		}
 		else if(player.inventory.length < player.maxItems) {
-			showItemInfo(currentChestContents, false, "chest");
+			showItemInfo(game.currentChestContents, false, "chest");
 		/*	
-			log("FOUND " + currentChestContents.getName());
-			giveItem(currentChestContents);
+			log("FOUND " + game.currentChestContents.getName());
+			giveItem(game.currentChestContents);
 			chestButton.classList.add("empty");
-			currentChestContents = null;*/
+			game.currentChestContents = null;*/
 		}
 		else {
 			sou_error.play(); 
-			log("FOUND " + currentChestContents.getName() + ". Inventory full!");
+			log("FOUND " + game.currentChestContents.getName() + ". Inventory full!");
 		}
 	}
 }
 
 function giveItem(item) {
 
-	currentChestContents = null;
+	game.currentChestContents = null;
 
 	for(let i = 0; i < player.inventory.length; i++) {
 
@@ -962,7 +969,7 @@ function enterPath(difficultyLevel) {
 	chestButton.style.visibility = "hidden";
 	chestButton.style.opacity = 0;
 	chestButton.classList.remove("empty");
-	currentChestContents = null;
+	game.currentChestContents = null;
 
 	if (player.hp <= 0) return
 
@@ -1162,7 +1169,8 @@ function restart() {
 		floor:1,
 		enemy: null,
 		monsters: [],
-		thisRoomDifficulty: 0
+		thisRoomDifficulty: 0,
+		currentChestContents: null
 	};
 
 	player = { 
@@ -1178,6 +1186,7 @@ function restart() {
 		dhp: 20,
 		dxp: 0,
 		maxItems:6,
+		class: "adventurer",
 
 		statusEffects: [],
 
@@ -1245,9 +1254,26 @@ function restart() {
 			renderPlayerStats();
 			document.querySelector(".pick-upgrade").classList.remove("show")
 		},
+		getPrimaryDamageType: function() {
+			
+			let primaryDamage = "physical";
+			if(player.class == "mage") { primaryDamage = 'magic'; }
+			if(player.class == "paladin") {primaryDamage = 'holy'; }
+			if(player.class == "rogue") { primaryDamage = 'poison'; }
+			if(player.class == "warlock") { primaryDamage = 'curse'; }
+			return primaryDamage;
+		},
 		getDmg: function(){ 
-			let d = this.dmg;
+			let d = 0;//this.dmg;
 			let damageSources = {};
+
+			
+			
+			if(player.class == "adventurer") { damageSources['physical'] = this.dmg; }
+			if(player.class == "mage") { damageSources['magic'] = this.dmg; }
+			if(player.class == "paladin") { damageSources['holy'] = this.dmg; }
+			if(player.class == "rogue") { damageSources['poison'] = this.dmg; }
+			if(player.class == "warlock") { damageSources['curse'] = this.dmg; }
 	
 			for(let slot in player.slots) {
 				let i = this.getItemInSlot(slot);
@@ -1458,14 +1484,21 @@ function restart() {
 }
 
 function renderPlayerStats() {
+	
+	let primaryDamage = player.getPrimaryDamageType();
 
-	let dmgTypes = {"physical-low": player.dmg + player.numberOfDice, "physical-high":player.dmg + (player.numberOfDice * player.numberOfSides)};
+	let dmgTypes = {};
 	let armTypes = {};
 
+	dmgTypes[primaryDamage+"-low"] = player.dmg + player.numberOfDice;
+	dmgTypes[primaryDamage+"-high"] = player.dmg + (player.numberOfDice * player.numberOfSides);
+	
 	for(let v in player.slots) {
 		let i = player.getItemInSlot(v);
 		console.log(i);
 		if(i) {
+
+			
 
 			if(i.dmg != 0) {
 				dmgTypes[i.effectType + "-low"] = dmgTypes[i.effectType + "-low"] || 0;
@@ -1476,10 +1509,10 @@ function renderPlayerStats() {
 			}
 
 			if(i.armor != 0) {
-				armTypes[i.armorType] = dmgTypes[i.armorType] || 0;
+				armTypes[i.armorType] = armTypes[i.armorType] || 0;
 				armTypes[i.armorType] += i.armor;
 
-				armTypes[i.armorType + "-low"] = dmgTypes[i.armorType + "-low"] || 0;
+				armTypes[i.armorType + "-low"] = armTypes[i.armorType + "-low"] || 0;
 				armTypes[i.armorType + "-low"] += i.armor + i.numberOfDice;
 
 				armTypes[i.armorType + "-high"] = armTypes[i.armorType + "-high"] || 0;
@@ -1547,10 +1580,32 @@ function bindCritAnimation(){
 
 }
 
-document.querySelector("#annoying-splash").onclick = fn=>{
+document.querySelector("#annoying-splash").onmouseup = fn=>{
 	actx.resume();
 	
-	sou_slide.play();
 	sou_mainMenu.play();
-	document.querySelector("#annoying-splash").style.left='100%';
+	document.querySelector("#annoying-splash p").innerText = "Who are you?";
+	document.querySelector("#character-creation").style.opacity = 1;
+
+	/*document.querySelector("#annoying-splash").style.left='100%';*/
 };
+
+function enterDungeon() {
+	player.name = document.querySelector(".name-input").value;
+	player.class = document.querySelector(".class-select").value.toLowerCase();
+
+	if(player.name != "") {
+		clearSplash();
+	}
+}
+
+function clearSplash() {
+	//document.querySelector("#annoying-splash").style.left='100%';
+	document.querySelector("#annoying-splash").classList.add("enter");
+	document.querySelector("#annoying-splash").style.transition="scale 2s ease-in, opacity 2s";
+	document.querySelector("#annoying-splash").style.scale='36 36';
+
+	setTimeout(fn=>{ document.querySelector("#annoying-splash").style.opacity='0'; },500);
+	sou_slide.play();
+	sou_mainMenu.sound.pause();
+}

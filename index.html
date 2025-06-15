@@ -7,27 +7,48 @@
 
 		<title>Below Hayden</title>
 
-		<script src = 'sounds.js?11111111111111111111111111'></script>
-		<link rel = 'stylesheet' href = 'style.css?11111111111111111111111111111' />
-		<link rel = 'stylesheet' href = 'animations.css?1111111111111111111111111111' />
-
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap" rel="stylesheet">
-
-		<!--<link href="https://cdn.jsdelivr.net/npm/@fontsource/unifont@5.2.5/index.min.css" rel="stylesheet" />-->
+		<script src = 'sounds.js?1111111111111111111111111111'></script>
+		<link rel = 'stylesheet' href = 'style.css?1111111111111111111111111111111' />
+		<link rel = 'stylesheet' href = 'animations.css?111111111111111111111111111111' />
 
 	</head>
 	<body>
 		<div id = 'preload'></div>
 
 		<section id = 'annoying-splash'>
-			<div>
+			<div class = 'haydens-door'>
 				<h2>BELOW HAYDEN</h2>
 
 
 				<p>Loading...</p>
+
+				<div id = 'character-creation' style = 'opacity:0;transition: opacity 1s;'>
+					<input class = 'name-input' type="text" placeholder="Name" style="width:100px;
+						text-align: center;
+					"><span> &nbsp; the </span><select class = 'class-select' style = 'width:100px;'>
+						<option>Adventurer</option>
+						<option>Mage</option>
+						<option>Paladin</option>
+						<option>Rogue</option>
+						<option>Warlock</option>
+					</select>
+					
+					<br><br>
+					
+					<button onmousedown="enterDungeon()" style="
+						width: auto;
+						color: white;
+						font-size: .8rem;
+						border: 3px groove gray;
+						text-align: center;
+					">ENTER DUNGEON</button>
+				</div>
 			</div>
+			<div style="
+			background: #1d4e1d;
+			width: 100%;
+			flex-grow: .4;
+		"></div>
 		</section>
 
 		<h1 class = 'game-title'>Below Hayden</h1>
@@ -70,10 +91,10 @@
 
 		</div>
 
-		<div style="padding: 1rem;background: #282828;box-shadow: 0px 3px 3px black inset;border: 3px groove silver;" id="player-stat-area"></div>
-
+		
 		<div class = 'inventory-and-info'>
 			<p id = 'item-info'></p>
+			<div style="padding: 1rem;background: #282828;box-shadow: 0px 3px 3px black inset;border: 3px groove silver;" id="player-stat-area"></div>
 			<div id = 'inventory'>
 				<button class = 'item' data-id = '-1' onclick = "showItemInfo(this)"></button>
 				<button class = 'item' data-id = '-1' onclick = "showItemInfo(this)"></button>
@@ -109,6 +130,6 @@
 			<div id="log"></div>
 		</details>
 
-		<script src = 'game.js?1111111111111111111111'></script>
+		<script src = 'game.js?111111111111111111111111'></script>
 	</body>
 </html>

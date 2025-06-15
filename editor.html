@@ -66,7 +66,8 @@
 			display: block;
 			margin-bottom: 0.2em;
 		}
-
+		.object-item img {     width: 16px;
+			image-rendering: pixelated;}
 		input,
 		select,
 		textarea {
@@ -103,6 +104,12 @@
 		h1 {
 			margin: 1rem;
 		}
+		[data-rarity="junk"] { color:gray; }
+		[data-rarity="normal"] { color:white; }
+		[data-rarity="rare"] { color:#55c34a; }
+		[data-rarity="epic"] { color:#03a9f4; }
+		[data-rarity="legendary"] { color:#8845ff; }
+
 	</style>
 </head>
 
@@ -165,7 +172,7 @@
 				}
 
 				const div = document.createElement('div');
-				div.textContent = item.name || `Unnamed ${i}`;
+				div.innerHTML = `<img width=16 height=16 src = '${item.sprite || ""}'> <span data-rarity="${item.rarity}">` + (item.name || `Unnamed ${i}`) + "</span>";
 				div.className = 'object-item' + (i === selectedIndex ? ' selected' : '');
 				div.onclick = () => {
 					selectedIndex = i;
