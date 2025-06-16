@@ -284,7 +284,7 @@
 				}
 				else if (key === 'giveStatusEffectTo' || key == 'itemTarget') {
 					input = document.createElement('select');
-					["self", "all-foes", "single-foe"].forEach(rarity => {
+					["self", "all-foes", "single-foe", "cleave"].forEach(rarity => {
 						const option = document.createElement('option');
 						option.value = rarity;
 						option.textContent = rarity;

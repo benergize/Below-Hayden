@@ -113,12 +113,14 @@ button:hover:not(button:disabled) {
 	background-size:cover; 
 	width:40px; 
 	height:40px; 
-	transition: width 1s, height 1s, top 1s, left 1s;
+	transition: scale 1s;/*width 1s, height 1s, top 1s, left 1s;*/
 	vertical-align: top;
 	position: relative;
 	z-index: 1;
 	top: 0;
 	left: 0;
+	margin-bottom:0px;
+	scale:1;
 }
 
 .door.open {
@@ -127,17 +129,24 @@ button:hover:not(button:disabled) {
 }
 
 
-.door.chosen {
+.door.chosen {/*
 	width: 200vw;
 	height: 200vh;
 	top: -50vh;
-	left: -50vw;
+	left: -50vw;*/
+	scale:30;
 	opacity:1;
 }
 #doors { 
-	height:45px; 
+	
 	overflow:visible; 
 	background: url(dungeon/wee_dung_brick_grey.png);
+
+
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
 
 .monster-container button { 
@@ -262,13 +271,13 @@ div#inventory {
 #item-info img.magic { filter: hue-rotate(87deg); }
 #item-info img.magic { filter: hue-rotate(87deg); }
 
-#item-info button, #death-text button {
+#item-info button, #death-text button, button.button {
 	
     font-size: 20px;
     width: auto;
     border: 1px outset white;
     color: white;
-    padding: 1px 19px;
+    padding: 1px 17px;
     height: auto;
     margin-top: .5rem;
     box-shadow: 0px 1px 2px gray;
@@ -366,33 +375,6 @@ td .greenText {
 
 details { display:none; }
 
-#annoying-splash {
-	position: absolute;
-	z-index:33;
-	top:0;
-	left:0;
-	width:100vw;
-	height:100vh;
-	background-color: black;
-	display: flex;
-	flex-flow:column;
-	justify-content: flex-end;
-	align-items: center;
-	text-align: center;
-    background-image: url(dungeon/brick_dark.png?1);
-	transition:left 2.3s ease-in;
-}
-
-.haydens-door {
-	
-	background: #282828;
-    box-shadow: 0px 2px 99px black inset;
-    height: 300px;
-    padding: 12px;
-    padding-top: 80px;
-    border: 1px solid #3a3a3ab8;
-
-}
 
 .shake { animation: shake .5s ease 0s 1 normal forwards !important; }
 
@@ -482,16 +464,37 @@ details { display:none; }
 	}
 }
 
-.haydens-door h2 {
+.main-menu {
+	
+	height: 100vh;
+	transition: height 2s;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-flow: column;
+}
+
+.main-menu button.button { width:170px; opacity:1; transition: opacity 2s, height 2s, margin 2s; height:27px; overflow:hidden;} 
+.main-menu button.button:not(#annoying-splash.show-menu button), .scroll .main-menu button.button  {  opacity:0; pointer-events: none; height:0px; margin:0px;}
+
+
+#annoying-splash h2 {
 	text-shadow: 0px 0px 3px white;
 }
 #player-name {margin:1px;}
+
+
 #annoying-splash.enter { 
 	pointer-events: none; 
-	transition: scale 2s ease-in, opacity 2s;
+	transition: scale 3s ease-in, opacity 3.25s;
 	scale: 36 36;
 }
 #annoying-splash.enter .haydens-door * { transition:opacity .5s; opacity:0;}
+#annoying-splash .grass {
+	background: #1d4e1d;
+	width: 100%;
+	height:-webkit-fill-available;
+}
 .enter-dungeon-button {
 	width: auto;
 	color: white;
@@ -499,6 +502,43 @@ details { display:none; }
 	border: 3px groove gray;
 	text-align: center;
 }
+
+#annoying-splash p{
+	transition:opacity 1s;
+}
+#annoying-splash {
+	position: absolute;
+	z-index:33;
+	top:0;
+	left:0;
+	width:100vw;
+	height:100vh;
+	background-color: black;
+	text-align: center;
+    background-image: url(dungeon/brick_dark.png?1);
+	background-position-y:0px;
+	transition:background-position 2s;
+}
+#annoying-splash.scroll {
+	background-position-y: -28vh;
+}
+
+.haydens-door {
+	background: black;
+    box-shadow: 0px 2px 99px black inset;
+    border: 1px solid #3a3a3ab8;
+    width: 249px;
+    height: 305px;
+    margin: 0 auto;
+    display: flex
+;
+    justify-content: center;
+    align-items: center;
+    padding: 34px;
+    box-sizing: border-box;
+
+}
+
 .explosion {
     width: 64px;
     height: 64px;
