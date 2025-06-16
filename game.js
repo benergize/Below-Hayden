@@ -6,6 +6,25 @@ setTimeout(fn=>{
 	document.body.style.opacity = 1;
 }, 500);
 
+const DOM = {
+	doorsElement: document.querySelector("#doors"),
+	highScoreArea: document.querySelector("#high-score"),
+	splashScreenP: document.querySelector("#annoying-splash p")
+};
+
+const playerHPSpan = document.getElementById('playerHP');
+const playerXPSpan = document.getElementById('playerXP');
+const floorSpan = document.getElementById('floor');
+const goldSpan = document.getElementById('gold');
+const logDiv = document.getElementById('log');
+const enemyDiv = document.getElementById('enemyInfo');
+const enemyHearts = document.querySelector("#hearts");
+const monsterButton = document.querySelector(".monster");
+const chestButton = document.querySelector(".chest");
+const lastLog = document.querySelector("#last-log");
+const monsterDOM = document.querySelector(".monsters");
+const itemInfo = document.querySelector("#item-info");
+
 
 let preload = document.querySelector("#preload");
 let preloadInner = "";
@@ -17,7 +36,7 @@ fetch("/assets/sprites/").then(el=>{return el.json();}).then(el=>{
     });
     preload.innerHTML = preloadInner;
 	
-	document.querySelector("#annoying-splash p").innerText = `Tap anywhere to start.`;
+	DOM.splashScreenP.innerText = `Tap anywhere to start.`;
 })
 .catch(fn=>{
 	
@@ -29,10 +48,10 @@ fetch("/assets/sprites/").then(el=>{return el.json();}).then(el=>{
 		});
 		preload.innerHTML = preloadInner;
 		
-		document.querySelector("#annoying-splash p").innerText = `Tap anywhere to start.`;
+		DOM.splashScreenP.innerText = `Tap anywhere to start.`;
 	}).catch(fn=>{
 		
-		document.querySelector("#annoying-splash p").innerText = `Tap anywhere to start.`;
+		DOM.splashScreenP.innerText = `Tap anywhere to start.`;
 	});
 });
 
@@ -55,7 +74,8 @@ window.addEventListener("mouseup", ev=>{
 
 
 if(typeof localStorage.highScore == "undefined") { localStorage.highScore = 10; }
-document.querySelector("#high-score").innerText = Number.parseInt(localStorage.highScore);
+DOM.highScoreArea.innerText = Number.parseInt(localStorage.highScore);
+
 db.findItem = function(itemName) {
 	let i = db.items.filter(item=>{ return item.name == itemName; });
 	if(i.length > 0) { return i[0]; }
@@ -89,19 +109,6 @@ const classes = ["adventurer", "mage", "paladin", "rogue", "warlock"];
 enemy = null
 monsters = [];
 
-
-const playerHPSpan = document.getElementById('playerHP');
-const playerXPSpan = document.getElementById('playerXP');
-const floorSpan = document.getElementById('floor');
-const goldSpan = document.getElementById('gold');
-const logDiv = document.getElementById('log');
-const enemyDiv = document.getElementById('enemyInfo');
-const enemyHearts = document.querySelector("#hearts");
-const monsterButton = document.querySelector(".monster");
-const chestButton = document.querySelector(".chest");
-const lastLog = document.querySelector("#last-log");
-const monsterDOM = document.querySelector(".monsters");
-const itemInfo = document.querySelector("#item-info");
 
 function log(msg) {
 
@@ -154,7 +161,7 @@ function updateUI() {
 
 	if(player.level > localStorage.highScore) {
 		localStorage.highScore = player.level;
-		document.querySelector("#high-score").innerText = game.floor;
+		DOM.highScoreArea.innerText = game.floor;
 	}
 
 	updateMonsters();
@@ -481,6 +488,7 @@ function Item(name, desc="", sprite="dungeon/wee_dung_potion_red.png", sound=sou
 	}
 
 	this.getDamageRange = function() {
+
 		if(this.dmg == 0) { return ""; }
 
 		
@@ -488,17 +496,27 @@ function Item(name, desc="", sprite="dungeon/wee_dung_potion_red.png", sound=sou
 		let high = (this.dmg + (this.numberOfDice * this.numberOfSides));
 		let dmgBonusLow = "";
 		let dmgBonusHigh = "";
+
+		let bonus = 0;
+		
+		if(this.consumable) {
+			let pdmg = player.getDmg(this.effectType);
+			bonus += pdmg;
+			dmgBonusLow += greenText(" + " + (bonus));
+			dmgBonusHigh += greenText(" + " + (bonus));
+		}
 		
 		if(this.slot != "ring") { 
 		let ring = player.getItemInSlot("ring");
 			if(ring) {
 				if(ring.effectType == this.effectType) {
 
-					dmgBonusLow = greenText(" + " + (low * ring.dmg));
-					dmgBonusLow = greenText(" + " + (high * ring.dmg));
+					dmgBonusLow += greenText(" + " + (low * ring.dmg));
+					dmgBonusHigh += greenText(" + " + (high * ring.dmg));
 				}
 			}
 		}
+
 
 		return high==low ? (`${high} ${dmgBonusHigh}`) : `${low} ${dmgBonusLow} - ${high} ${dmgBonusHigh}`
 	}
@@ -888,15 +906,16 @@ function useChest() {
 		else if(roll >= 7) {
 			sou_foundSomethingMd.play();
 
-			let i = gear.concat(items).filter(item=>{ 
+			let i = (gear.concat(items)).filter(item=>{ 
 				return game.floor >= item.minimumDropFloor && 
 				player.level >= item.minimumDropPlayerLevel &&
 
 				/* Only show items rarer than this room? */
 				(
-					rarityScale.indexOf(item.rarity) >= (game.thisRoomDifficulty == 0 ? game.thisRoomDifficulty + (dice(1,2)-1) : game.thisRoomDifficulty)
+					game.thisRoomDifficulty >= rarityScale.indexOf(item.rarity) - (game.floor - item.minimumDropFloor)  //(game.thisRoomDifficulty == 0 ? game.thisRoomDifficulty + (dice(1,2)-1) : game.thisRoomDifficulty)
 				)
-			}).chooseRandom();
+			}).chooseRandom(); 
+
 
 			let item = Array.isArray(i) ? new Item(...i) : new Item(i);
 			console.log(item);
@@ -979,7 +998,7 @@ function pickDoor(el) {
 
 			setTimeout(()=>{
 				document.body.style.opacity=1;
-				document.querySelector("#doors").innerHTML = "";
+				DOM.doorsElement.innerHTML = "";
 				enterPath(el.dataset.level);
 			},200,el);
 
@@ -1049,7 +1068,7 @@ function randomizeDoors() {
 
 		if(!haveShop && game.roomType != "shop" && Math.random() * 100 > 90) { dlvl = "_shop"; haveShop = true; }
 
-		document.querySelector("#doors").innerHTML += `
+		DOM.doorsElement.innerHTML += `
 			<button onclick="pickDoor(this)" style = 'background-image:url(dungeon/door${dlvl}.png);' class = 'door' data-level="${
 				dlvl
 			}">Door ${v}</button>
@@ -1074,7 +1093,7 @@ function disableDoors() {
 	});
 }
 function enableDoors() {
-	document.querySelector("#doors").style.visibility = "visible";
+	DOM.doorsElement.style.visibility = "visible";
 	document.querySelectorAll(".door").forEach(door=>{ 
 		door.disabled = false; 
 	});
@@ -1209,8 +1228,8 @@ function restart() {
 	};
 
 	player = { 
-		hp: 20, 
-		maxHp: 20, 
+		hp: 35, 
+		maxHp: 35, 
 		gold: 0, 
 		dgold:0,
 		dmg: 1,
@@ -1298,18 +1317,20 @@ function restart() {
 			if(player.class == "warlock") { primaryDamage = 'curse'; }
 			return primaryDamage;
 		},
-		getDmg: function(){ 
+		getDmg: function(specificDamageSource = false){
+
 			let d = 0;//this.dmg;
 			let damageSources = {};
 
-			let primaryDamage =player.getPrimaryDamageType();
+			let primaryDamage = player.getPrimaryDamageType();
+
+			if(specificDamageSource && primaryDamage == specificDamageSource) { d += player.dmg; }
 
 			damageSources[primaryDamage] = this.dmg;
 
 			for(let slot in player.slots) {
 				let i = this.getItemInSlot(slot);
 	
-				
 				if(i) { 
 					
 					if(slot != "ring") {
@@ -1317,6 +1338,8 @@ function restart() {
 						if(typeof i.dmg == "number" && i.dmg != 0) {
 	
 							damageSources[i.effectType] = (damageSources[i.effectType] || 0) + i.getDmg();
+
+							if(specificDamageSource && i.effectType == specificDamageSource) { d += i.dmg; }
 						}
 					}
 				}
@@ -1329,18 +1352,30 @@ function restart() {
 	
 					if(typeof damageSources[ring.effectType] == "number") {
 	
-						d += damageSources[ring.effectType] * ring.dmg; 
+						if(!specificDamageSource || (specificDamageSource && ring.effectType == specificDamageSource)) {
+							d += damageSources[ring.effectType] * ring.dmg; 
+						}
+
 					}
 				}
 			}
 
-			for(let ds in damageSources) { d += damageSources[ds]; }
-			
-			return d; 
+			if(specificDamageSource) { return d; }
+			else {
+				for(let ds in damageSources) { d += damageSources[ds]; }
+				
+				return d; 
+			}
 		},
 		rollDamage: fn=>{
 
-			return player.getDmg() + dice(player.numberOfDice, player.numberOfSides);
+			let equipped = player.getItemInSlot("weapon");
+			let dmgType = equipped ? equipped.effectType : "physical";
+
+			let d = player.getDmg(dmgType) + dice(player.numberOfDice, player.numberOfSides);
+			//if(dmgType != getPrimaryDamageType && !equipped)
+
+			return d;
 		},
 		getItemInSlot: slot=> {
 			
@@ -1366,21 +1401,23 @@ function restart() {
 			let critDelay = 0;
 	
 			let playerWeapon = item || player.getItemInSlot("weapon");
+			let itemTarget = "single-foe";
 
-			console.log(targets);
+			
 			let initialtarget = typeof targets == "number" ? targets : (Array.isArray(targets) ? targets[0]?.id : targets.id);
-			console.log(initialtarget);
+			
+			
 
+			if(playerWeapon && playerWeapon.itemTarget == "all-foes" || playerWeapon.itemTarget == "cleave") {
 
-			if(playerWeapon && playerWeapon.itemTarget == "all-foes") { 
+				itemTarget = playerWeapon.itemTarget;
 				
 				targets = monsters.sort((a,b)=>{ return Math.abs(a.id-initialtarget) < Math.abs(b.id-initialtarget) ? -1 : 1; });
 				
-
-				console.log(targets);
 				
-				console.log('all foes');
 			}
+
+			
 			
 			if(!Array.isArray(targets)) { targets = [targets]; }
 			
@@ -1397,6 +1434,12 @@ function restart() {
 	
 					let crit = false;
 					let playerDmg = item ? item.getDmg() : Math.floor(player.rollDamage());
+
+					if(item) {
+						playerDmg += player.getDmg(item.effectType);
+					}
+
+					if(itemTarget == "cleave" && ind != 0) { playerDmg *= .5; }
 	
 					if(playerWeapon && typeof monster.weakTo != "undefined") {
 						if(monster.weakTo.indexOf(playerWeapon.effectType) != -1) {
@@ -1455,7 +1498,7 @@ function restart() {
 					updateUI();
 					lockMonsters();
 	
-				}, 500 * ind);
+				}, 500 * ind, itemTarget);
 			});
 	
 	
@@ -1515,7 +1558,7 @@ function restart() {
 	
 	log("YOU HAVE VENTURED TO THE<br/>DARK PLACES BELOW HAYDEN.<br/><br/>Choose a door to explore.")
 
-	document.querySelector("#doors").innerHTML=`
+	DOM.doorsElement.innerHTML=`
 	<button onclick="pickDoor(this)" class = 'door'>Door 1</button>
 	<button onclick="pickDoor(this)" class = 'door'>Door 2</button>
 	<button onclick="pickDoor(this)" class = 'door'>Door 3</button>
@@ -1627,14 +1670,26 @@ function bindCritAnimation(){
 }
 
 document.querySelector("#annoying-splash").onmouseup = fn=>{
+
+	if(document.querySelector("#annoying-splash").classList.contains("show-menu")) { return;}
 	actx.resume();
 	
 	sou_mainMenu.play();
-	document.querySelector("#annoying-splash p").innerText = "Who are you?";
-	document.querySelector("#character-creation").style.opacity = 1;
+	sou_slide.play();
+	document.querySelector("#annoying-splash").classList.add('show-menu');
 
 	/*document.querySelector("#annoying-splash").style.left='100%';*/
 };
+
+function scrollToCharacterSelect() {
+	
+	document.querySelector("#annoying-splash").classList.add('scroll');
+
+	sou_slide.play();
+	DOM.splashScreenP.innerText = "Create Your Character:";
+	document.querySelector("#character-creation").style.opacity = 1;
+	document.querySelector(".main-menu").style.height = "28vh";
+}
 
 function enterDungeon() {
 	player.name = document.querySelector(".name-input").value;
@@ -1650,6 +1705,12 @@ function enterDungeon() {
 		}
 		if(player.class == "paladin") {
 			giveItem(new Item(db.findItem("Rusted Hammer")));
+		}
+		if(player.class == "rogue") {
+			giveItem(new Item(db.findItem("Rusted Knife")));
+		}
+		if(player.class == "warlock") {
+			giveItem(new Item(db.findItem("Cursed Trinket")));
 		}
 
 		
