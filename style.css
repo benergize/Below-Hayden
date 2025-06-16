@@ -283,6 +283,12 @@ div#inventory {
     box-shadow: 0px 1px 2px gray;
 }
 
+[data-primary-stat] {
+	
+    color: gold;
+    text-shadow: 0px 0px 1px #0000009e;
+}
+
 .chatbox {
     width: 100%;
     height: 100%;

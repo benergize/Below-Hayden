@@ -1211,7 +1211,12 @@ function sellItem(el) {
 
 function restart() {
 
-	
+	document.querySelector("#annoying-splash").classList.remove("scroll");
+	document.querySelector("#annoying-splash").classList.remove("show-menu");
+	document.querySelector("#annoying-splash").classList.remove("enter");
+    document.querySelector(".main-menu").style.height="100vh";
+    document.querySelector("#annoying-splash").style.opacity = 1;
+    document.querySelector(".main-menu p").innerText = "Tap anywhere to start.";
 	
 	enemy = null
 	monsters = [];
@@ -1617,11 +1622,11 @@ function renderPlayerStats() {
 				<thead>
 					<tr>
 						<td></td>
-						<td>Phy</td>
-						<td>Mag</td>
-						<td>Hol</td>
-						<td>Poi</td>
-						<td>Crs</td>
+						<td ${player.getPrimaryDamageType() == "physical" ? "data-primary-stat=1" : ""}>Phy</td>
+						<td ${player.getPrimaryDamageType() == "magic" ? "data-primary-stat=1" : ""}>Mag</td>
+						<td ${player.getPrimaryDamageType() == "holy" ? "data-primary-stat=1" : ""}>Hol</td>
+						<td ${player.getPrimaryDamageType() == "poison" ? "data-primary-stat=1" : ""}>Poi</td>
+						<td ${player.getPrimaryDamageType() == "curse" ? "data-primary-stat=1" : ""}>Crs</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -1673,7 +1678,7 @@ document.querySelector("#annoying-splash").onmouseup = fn=>{
 
 	if(document.querySelector("#annoying-splash").classList.contains("show-menu")) { return;}
 	actx.resume();
-	
+	sou_mainMenu.sound.currentTime=0;
 	sou_mainMenu.play();
 	sou_slide.play();
 	document.querySelector("#annoying-splash").classList.add('show-menu');
