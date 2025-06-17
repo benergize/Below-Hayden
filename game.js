@@ -482,6 +482,18 @@ function Item(name, desc="", sprite="dungeon/wee_dung_potion_red.png", sound=sou
 		return this.name;// + " of +" + (this.dmg||this.hp);
 	}
 
+	this.randomizeStats = function() {
+		if(this.hp != 0) {
+			this.hp = (this.hp - 2) + Math.round(Math.random() * 4);
+		}
+		if(this.dmg != 0) {
+			this.dmg = (this.dmg - 2) + Math.round(Math.random() * 4);
+		}
+		if(this.armor != 0) {
+			this.armor = (this.armor - 2) + Math.round(Math.random() * 4);
+		}
+	}
+
 
 	this.getDmg = function() {
 		return this.dmg + dice(this.numberOfDice, this.numberOfSides);
@@ -502,8 +514,11 @@ function Item(name, desc="", sprite="dungeon/wee_dung_potion_red.png", sound=sou
 		if(this.consumable) {
 			let pdmg = player.getDmg(this.effectType);
 			bonus += pdmg;
-			dmgBonusLow += greenText(" + " + (bonus));
-			dmgBonusHigh += greenText(" + " + (bonus));
+
+			if(pdmg > 0) {
+				dmgBonusLow += greenText(" + " + (bonus));
+				dmgBonusHigh += greenText(" + " + (bonus));
+			}
 		}
 		
 		if(this.slot != "ring") { 
@@ -918,6 +933,9 @@ function useChest() {
 
 
 			let item = Array.isArray(i) ? new Item(...i) : new Item(i);
+
+			item.randomizeStats();
+
 			console.log(item);
 
 			log("FOUND " + item.getName());
@@ -1052,6 +1070,24 @@ function enterPath(difficultyLevel) {
 
 }
 
+Array.prototype.shuffle = function () {
+    let array = this;
+	let currentIndex = array.length;
+  
+	// While there remain elements to shuffle...
+	while (currentIndex != 0) {
+  
+	  // Pick a remaining element...
+	  let randomIndex = Math.floor(Math.random() * currentIndex);
+	  currentIndex--;
+  
+	  // And swap it with the current element.
+	  [array[currentIndex], array[randomIndex]] = [
+		array[randomIndex], array[currentIndex]];
+	}
+    return array;
+  }
+
 //generateDoors, createDoors
 function randomizeDoors() {
 
@@ -1059,12 +1095,20 @@ function randomizeDoors() {
 	let haveStairs = false;
 	let haveShop = false;
 
+	let doors = [0];
+
 	for(let v = 0; v < numberOfDoors; v++) {
 		
 
-		let dice = Math.random() * 20;
+		
+		let dlvl = dice(1,6)-1;
+		doors.push(dlvl);
 
-		let dlvl = dice < 16 + (game.floor / 5) ? 0 : Math.floor(20-dice);
+	}
+
+	doors = doors.shuffle();
+
+	doors.forEach((dlvl,v)=>{
 
 		if(!haveShop && game.roomType != "shop" && Math.random() * 100 > 90) { dlvl = "_shop"; haveShop = true; }
 
@@ -1073,7 +1117,7 @@ function randomizeDoors() {
 				dlvl
 			}">Door ${v}</button>
 		`;
-	}
+	})
 
 
 	document.querySelectorAll(".door").forEach(door=>{ 
@@ -1122,6 +1166,7 @@ function showShop() {
 
 	game.roomType = "shop";
 
+	sou_shop_music.sound.currentTime=0;
 	sou_shop_music.play();
 
 	log('"BUY SOMETHING, WILL YOU?"');
@@ -1140,6 +1185,8 @@ function showShop() {
 		i2,
 		i3
 	];
+
+	game.itemShopItems.forEach(item=>{item.randomizeStats();});
 
 	monsterDOM.innerHTML = `
 		<img src="monsters/shopkeeper.png" width="80" height="80">
@@ -1400,6 +1447,12 @@ function restart() {
 			
 			return d; 
 		},
+		heal: amt=> {
+			player.hp += amt;
+			if(player.hp > player.getMaxHp()) {
+				player.hp = player.getMaxHp();
+			}
+		},
 		attack: function(targets, item=false) {
 			
 	
@@ -1444,6 +1497,7 @@ function restart() {
 						playerDmg += player.getDmg(item.effectType);
 					}
 
+					//If this isn't the initial target and it's a cleave attack, reduce the damage per cleave
 					if(itemTarget == "cleave" && ind != 0) { playerDmg *= .5; }
 	
 					if(playerWeapon && typeof monster.weakTo != "undefined") {
@@ -1461,7 +1515,7 @@ function restart() {
 						}
 					}
 	
-	
+					//Critical hit~!
 					if(dice(1,20) > 18 || (player.hasStatusEffect("crit"))) {
 						logText += "<span class = 'critText'>CRITICAL HIT!</span>&nbsp;";
 						playerDmg *= 2;
@@ -1472,8 +1526,11 @@ function restart() {
 					}
 	
 					if(item) {
-						if(typeof item.sound == "string") { soundRegistry[item.sound].play() }
-						else { item.sound.play(); }
+						try {
+							if(typeof item.sound == "string") { soundRegistry[item.sound].play() }
+							else { item.sound.play(); }
+						}
+						catch(e) { console.warn("Failed to play sound!"); }
 					}
 					else {
 						sou_punch[Math.floor(Math.random() * sou_punch.length)].play();
@@ -1494,6 +1551,16 @@ function restart() {
 					if(typeof playerWeapon.giveStatusEffect != "undefined" && playerWeapon.giveStatusEffect.trim() != "") {
 						monster.giveStatusEffect(playerWeapon.giveStatusEffect, playerWeapon.statusEffectTurns);
 						statusEffectText = `${monster.name} is ${playerWeapon.giveStatusEffect}`;
+					}
+
+					if(playerWeapon) {
+						if(playerWeapon.effectType == "holy" && player.getPrimaryDamageType() == "holy") {
+							if(dice(1,20) > 12) {
+								player.heal(playerDmg / 4);
+
+								statusEffectText += "&nbsp;<span style = 'color:palegoldenrod'>Healed for " + (playerDmg/4) + ".</span>";
+							}
+						}
 					}
 	
 					log(`${logText} Hit ${monster.name} for ${playerDmg}${bonuses}. ${statusEffectText}`);
