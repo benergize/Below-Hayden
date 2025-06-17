@@ -142,6 +142,7 @@ button:hover:not(button:disabled) {
 	overflow:visible; 
 	background: url(dungeon/wee_dung_brick_grey.png);
 
+    border-top: 15px solid rgba(0, 0, 0, .25);
 
     height: 90px;
     display: flex;
@@ -530,14 +531,14 @@ details { display:none; }
 }
 
 .haydens-door {
-	background: black;
+    background: black;
     box-shadow: 0px 2px 99px black inset;
-    border: 1px solid #3a3a3ab8;
+    border: 12px solid #3a3a3a42;
+    border-bottom: 12px solid black;
     width: 249px;
     height: 305px;
     margin: 0 auto;
-    display: flex
-;
+    display: flex;
     justify-content: center;
     align-items: center;
     padding: 34px;
