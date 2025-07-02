@@ -369,6 +369,11 @@
 					obj[key] = input.value.includes(',') ? input.value.split(',').map(x => x.trim()) : input.value;
 					saveData();
 				};
+				input.onkeyup = () => {
+					obj[key] = input.value.includes(',') ? input.value.split(',').map(x => x.trim()) : input.value;
+					saveData();
+					renderList();
+				}
 				group.appendChild(label);
 				group.appendChild(input);
 				panel.appendChild(group);
@@ -389,7 +394,7 @@
 		document.getElementById('add-button').onclick = () => {
 			const newObj = currentTab === 'monsters' ? {
 				name: '', sprite: '', hp: 5, dmg: 1, strongTo: [], weakTo: []
-			} : itemSchema;
+			} : JSON.parse(JSON.stringify(itemSchema));
 			if (currentTab === 'monsters') {
 				if (!data.monsterList[0]) data.monsterList[0] = [];
 				data.monsterList[0].push(newObj);

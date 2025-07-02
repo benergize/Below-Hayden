@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="manifest" href="manifest.json">
+
+		<title>Below Hayden</title>
+
+		<script src = 'sounds.js'></script>
+		<link rel = 'stylesheet' href = 'css/style.css' />
+		<link rel = 'stylesheet' href = 'css/animations.css' />
+
+	</head>
+	<body>
+		<div id = 'preload'></div>
+
+		<section id = 'annoying-splash'>
+
+			<div class = 'options-menu'>
+
+				<div id = 'actual-options'>
+					<h2>Options:</h2>
+					<div id="volume-selectors">
+						<div>
+							<b>SFX Volume</b>
+							<div data-field="sfx" class="volume-adjust"><div></div></div>
+						</div>
+						<div>
+							<b>Music Volume</b>
+							<div data-field="music" class="volume-adjust"><div></div></div>
+						</div>
+					</div>
+				</div>
+
+				<div id="saved-games"><h2>Load Game:</h2>
+					<div id = 'saved-game-area'></div>
+					
+				</div>
+
+				<button class = 'button' onclick = 'document.querySelector(".options-menu").classList.remove("open");document.querySelector(".options-menu").classList.remove("saved");'>Close</button>
+			</div>
+			<div class = 'main-menu' >	
+				<h2>BELOW HAYDEN</h2>
+				<p>Loading...</p>
+
+				<button class="button" onclick = 'scrollToCharacterSelect()'>New Character</button>
+				<button class="button" onclick = 'document.querySelector(".options-menu").classList.add("saved")'>Load Saved</button>
+				<button class="button" onclick = 'document.querySelector(".options-menu").classList.add("open")'>Options</button>
+				<button class="button" onclick = 'window.close();'>Quit</button>
+			</div>
+			<div class = 'haydens-door'>
+
+				<div id = 'character-creation' style = 'opacity:0;transition: opacity 1s;'>
+					<p>Who are you?</p>
+					<p class = 'error-message'>&nbsp;</p>
+						
+					<input class = 'name-input' type="text" placeholder="Name">
+					<div> the </div>
+					<select class = 'class-select' style = 'width:100px;'>
+						<option>Adventurer</option>
+						<option>Mage</option>
+						<option>Paladin</option>
+						<option>Rogue</option>
+						<option>Warlock</option>
+					</select>
+					
+					<br><br>
+					
+					<button onclick="enterDungeon()" class = 'enter-dungeon-button'>ENTER DUNGEON</button>
+				</div>
+			</div>
+			<div class='grass'></div>
+		</section>
+
+		<h1 class = 'game-title'>Below Hayden</h1>
+
+		<div id = 'main-ui'>
+			<marquee style = 'display:none;'>High Score: <span id = 'high-score'></span></marquee>
+			<div>
+				<div id = 'player-name'></div>
+				<div id = 'hpbar' class = 'bar'>
+					<strong>HP: <span id="playerHP"></span></strong> 
+					<div></div>
+				</div>
+				<div id = 'xpbar' class = 'bar'>
+					<strong>XP: <span id="playerXP"></span></strong> 
+					<div></div>
+				</div>
+				<strong id = 'level-label'>Level:</strong> <span id="floor">1</span>
+				<strong>Gold:</strong> <span id="gold">1</span>
+			</div>
+		</div>
+
+		<div id = 'game-frame'>
+
+			<div id = 'doors'>
+				<button onclick="pickDoor(this)" class = 'door'>Door 1</button>
+				<button onclick="pickDoor(this)" class = 'door'>Door 2</button>
+				<button onclick="pickDoor(this)" class = 'door'>Door 3</button>
+				<button onclick="pickDoor(this)" class = 'door'>Door 4</button>
+			</div>
+
+			<br/>
+
+			<div class = 'monsters'>
+			</div>
+
+			<button class = 'chest closed' onclick = 'useChest()'></button>
+			
+
+			<div id="last-log">YOU KICK DOWN THE DOOR. THERE IS A BAT HERE.</div>
+			
+
+		</div>
+
+		
+		<div class = 'inventory-and-info'>
+			<p id = 'item-info'></p>
+			<div style="padding: 1rem;background: #282828;box-shadow: 0px 3px 3px black inset;border: 3px groove silver;" id="player-stat-area"></div>
+			<div id = 'inventory'>
+				<button class = 'item' data-id = '-1' onclick = "showItemInfo(this)"></button>
+				<button class = 'item' data-id = '-1' onclick = "showItemInfo(this)"></button>
+				<button class = 'item' data-id = '-1' onclick = "showItemInfo(this)"></button>
+				<button class = 'item' data-id = '-1' onclick = "showItemInfo(this)"></button>
+				<button class = 'item' data-id = '-1' onclick = "showItemInfo(this)"></button>
+				<button class = 'item' data-id = '-1' onclick = "showItemInfo(this)"></button>
+			</div>
+		</div>
+
+		<div id="death-text">
+			<h2>You died at Level <span id = 'died-at-level'></span>!</h2>
+			<p><span id = 'dead-high-score'></span></p>
+			<button onclick = 'restart()'>Play Again?</button>
+		</div>
+
+		<div id="level-up"><h2>LEVEL UP!</h2></div>
+		<div class="pick-upgrade">
+			<h2>LEVEL UP!</h2>
+			<p>Select an upgrade:</p>
+			<div class="upgrade-buttons">
+				<button data-stat="damage" onclick="player.upgradeStat('dmg')">+ Damage</button>
+				<button data-stat="hp" onclick="player.upgradeStat('hp')">+ Health</button>
+			</div>
+		</div>
+
+		<br/>
+		<details>
+			<h3>Enemy</h3>
+			<div id="enemyInfo"></div>
+
+			<h3>Log</h3>
+			<div id="log"></div>
+		</details>
+
+		<script src = 'js/game.js'></script>
+		<script src = 'js/classes/player.js'></script>
+		<script src = 'js/classes/monster.js'></script>
+		<script src = 'js/classes/item.js'></script>
+		<script src = 'js/item-functions.js'></script>
+
+		<script> 
+			if ('serviceWorker' in navigator) {
+			window.addEventListener('load', () => {
+				navigator.serviceWorker.register('sw.js')
+				.then(registration => {
+					console.log('Service Worker registered with scope:', registration.scope);
+				})
+				.catch(error => {
+					console.error('Service Worker registration failed:', error);
+				});
+			});
+			}
+
+			document.querySelector(`[data-field="sfx"]>div`).style.width = (localStorage["sfx-volume"] * 100) + "%"
+			document.querySelector(`[data-field="music"]>div`).style.width = (localStorage["music-volume"] * 100) + "%"
+
+			document.querySelectorAll(".volume-adjust").forEach(el=>{el.ontouchmove=ev=>{
+				
+				window[ev.srcElement.dataset.field + "-volume"] = 
+					(ev.touches[0].clientX-ev.srcElement.getBoundingClientRect().x) / ev.srcElement.getBoundingClientRect().width;
+				ev.srcElement.children[0].style.width = (window[ev.srcElement.dataset.field + "-volume"] * 100) + "%";
+
+				localStorage[ev.srcElement.dataset.field + "-volume"] = window[ev.srcElement.dataset.field + "-volume"];
+			} });
+		</script>
+	</body>
+</html>

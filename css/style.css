@@ -17,18 +17,20 @@ html,body {
 }
 body {
 	font-family: Tiny5, monospace;
-	background: url("dungeon/wee_dung_floor.png");
+	background: url("../dungeon/wee_dung_floor.png");
 	color: #eee;
 	-webkit-user-select: none; /* Safari */
 	-ms-user-select: none; /* IE 10 and IE 11 */
 	user-select: none; /* Standard syntax */
 	transition:opacity .2s;
-	cursor:url(ui/cursor.png),auto;
+	cursor:url(../ui/cursor.png),auto;
 
 	opacity:0;
 	transition: opacity 1s;
 	overflow-x: hidden;
 	width:100%;
+    position: fixed;
+    height: 100%;
 }
 
 * {font-family: Tiny5, monospace; image-rendering: pixelated}
@@ -52,6 +54,8 @@ body {
 
 }
 
+.name-input{width:100px;text-align: center;}
+
 button {
 	background: #444;
 	color: #000000;
@@ -61,12 +65,12 @@ button {
 	font-size:1px;
 	width:40px;
 	height:40px;
-	cursor:url(ui/pointer.png),auto;
+	cursor:url(../ui/pointer.png),auto;
 
 }
 
 .monsters button:not(button:disabled) { 
-	cursor:url(ui/sword.png),auto;
+	cursor:url(../ui/sword.png),auto;
 }
 
 button:disabled:not(.monsters button) {opacity:.25;}
@@ -109,7 +113,7 @@ button:hover:not(button:disabled) {
 }
 
 .door { 
-	background: url('dungeon/wee_dung_door_grey.png'); 
+	background: url('../dungeon/wee_dung_door_grey.png'); 
 	background-size:cover; 
 	width:40px; 
 	height:40px; 
@@ -122,9 +126,28 @@ button:hover:not(button:disabled) {
 	margin-bottom:0px;
 	scale:1;
 }
+.door:before {
+	content: "\2160";
+    font-size: 12px;
+    color: #dcdcdcd9;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -180%;
+    text-shadow: 0px 0px 1px black;
+}
+.door[data-level="1"]:before { content: "\2161"; }
+.door[data-level="2"]:before { content: "\2162"; }
+.door[data-level="3"]:before { content: "\2163"; }
+.door[data-level="4"]:before { content: "\2164"; }
+.door[data-level="5"]:before { content: "\2165"; }
+.door[data-level="_shop"]:before { content: "\424"; }
 
 .door.open {
-	background-image: url(dungeon/wee_dung_door_grey_open.png);
+	background-image: url(../dungeon/wee_dung_door_grey_open.png);
 	opacity:1;
 }
 
@@ -140,7 +163,7 @@ button:hover:not(button:disabled) {
 #doors { 
 	
 	overflow:visible; 
-	background: url(dungeon/wee_dung_brick_grey.png);
+	background: url(../dungeon/wee_dung_brick_grey.png);
 
     border-top: 15px solid rgba(0, 0, 0, .25);
 
@@ -149,7 +172,12 @@ button:hover:not(button:disabled) {
     justify-content: center;
     align-items: flex-end;
 }
-
+.error-message {
+	font-style: italic;
+	color: #f3f7be;
+					
+}
+.monster-container { transition: margin-left .5s ease-in; }
 .monster-container button { 
 	display:none;  
 	background-color: transparent;
@@ -195,7 +223,7 @@ div#inventory {
 
 #last-log {
 	
-	margin-top: 1rem;
+	/*margin-top: 1rem;*/
 	text-transform: uppercase;
 	min-height:3.5rem;
 	
@@ -210,9 +238,9 @@ div#inventory {
     position: relative;
     top: -48px;
 }
-.chest.closed { background-image:url('dungeon/wee_dung_chest.png'); }
-.chest:not(.closed){ background-image:url('dungeon/wee_dung_chest_open.png'); }
-.chest.empty:not(.closed) {background-image:url('dungeon/wee_dung_chest_empty.png');}
+.chest.closed { background-image:url('../dungeon/wee_dung_chest.png'); }
+.chest:not(.closed){ background-image:url('../dungeon/wee_dung_chest_open.png'); }
+.chest.empty:not(.closed) {background-image:url('../dungeon/wee_dung_chest_empty.png');}
 
 #hearts {
 
@@ -223,7 +251,7 @@ div#inventory {
     flex-flow: row wrap;
 
 }
-.heart { display:inline-block; background:url('ui/wee_ui_heart.png'); background-size:cover;  margin:5px; width:15px; height:15px; }
+.heart { display:inline-block; background:url('../ui/wee_ui_heart.png'); background-size:cover;  margin:5px; width:15px; height:15px; }
 
 .inventory-and-info {
 	position: absolute;
@@ -311,7 +339,7 @@ div#inventory {
 
 #game-frame {
 	text-align:center;
-	background:url(dungeon/wee_dung_floor.png);
+	background:url(../dungeon/wee_dung_floor.png);
 	position: relative;
     padding-bottom: 6rem;
 }
@@ -382,6 +410,65 @@ td .greenText {
 
 details { display:none; }
 
+.options-menu {
+	
+    position: absolute;
+    width: 90vw;
+    height: 90vh;
+    background: #d5cec2;
+    left: 102vw;
+    z-index: 3;
+    box-shadow: 0px 0px 2px black inset;
+    transition: 1s left ease-out;
+    top: 5vh;
+    padding: 12px;
+    box-sizing: border-box;
+    text-align: left;
+    color: black;
+
+}
+
+.options-menu.open,.options-menu.saved {
+    left: 5vw;
+}
+#saved-games { display:none; }
+.options-menu.saved #saved-games { display:block; }
+.options-menu.saved #actual-options { display:none; }
+.options-menu h2 {
+    color: black;
+    border-bottom: 1px solid darkgoldenrod;
+    padding-bottom: 14px;
+    width: 80%;
+    margin: 24px auto;
+	text-align: center;
+}
+
+.options-menu b {
+    font-size: 17px;
+}
+
+.volume-adjust {
+    height: 24px;
+    width: 100%;
+    background: white;
+    margin-top: 12px;
+	overflow: hidden;
+}
+.volume-adjust>div{
+    pointer-events: none;
+    background: #a05c5c;
+    height: 100%;
+}
+
+div#volume-selectors {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+#volume-selectors>div {
+    width: 48%;
+}
 
 .shake { animation: shake .5s ease 0s 1 normal forwards !important; }
 
@@ -390,13 +477,13 @@ details { display:none; }
 	50%,
 	100% {
 		background-size: 130%;
-		background-image: url(monsters/wee_mons_druid_atk_d_1.png);
+		background-image: url(../monsters/wee_mons_druid_atk_d_1.png);
 	}
 
 	25%,
 	75% {
 		background-size: 140%;
-		background-image: url(monsters/wee_mons_druid_atk_d_2.png);
+		background-image: url(../monsters/wee_mons_druid_atk_d_2.png);
 	}
 }
 
@@ -522,7 +609,7 @@ details { display:none; }
 	height:100vh;
 	background-color: black;
 	text-align: center;
-    background-image: url(dungeon/brick_dark.png?1);
+    background-image: url(../dungeon/brick_dark.png?1);
 	background-position-y:0px;
 	transition:background-position 2s;
 }
@@ -549,7 +636,7 @@ details { display:none; }
 .explosion {
     width: 64px;
     height: 64px;
-    background-image: url(fx/Gw6wm.png);
+    background-image: url(../fx/Gw6wm.png);
     background-repeat: no-repeat;
     background-position: 0px 0px;
     background-size: 64px;
@@ -565,7 +652,7 @@ details { display:none; }
 }
 
 .pick-upgrade button {
-    background-image: url(dungeon/wee_dung_sword.png);
+    background-image: url(../dungeon/wee_dung_sword.png);
     background-size: cover;
     border: 2px outset lightgray;
     padding: 22px;
@@ -618,7 +705,7 @@ details { display:none; }
 }
 
 .pick-upgrade button[data-stat="hp"] {
-    background-image: url(ui/wee_ui_heart.png);
+    background-image: url(../ui/wee_ui_heart.png);
 	background-size: 50;
 	background-position: center center;
 	background-repeat: no-repeat;

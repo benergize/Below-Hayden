@@ -1,4 +1,6 @@
 window.actx = new AudioContext(); 
+window['sfx-volume'] = 1;
+window['music-volume'] = 1;
 
 window.soundRegistry = {};
 
@@ -17,8 +19,11 @@ function Sound(unused, src, volume){
 
 	this.track.connect(this.gain).connect(window.actx.destination);
 
+	this.volume = volume;
 	this.sound.volume = volume;
-	this.play = fn=>{ this.sound.play()};
+
+	this.play = fn=>{ this.sound.volume = this.volume * window['sfx-volume'] * 2; this.sound.currentTime = 0; this.sound.play() };
+	this.stop = fn=>{ this.sound.pause(); this.sound.currentTime = 0; }
 
 	return this;
 }
@@ -50,6 +55,10 @@ var sou_item_drop = new Sound("x", "sounds/sfx_sounds_impact1.wav",.2);
 var sou_level_up = new Sound("x", "sounds/level up.wav",.2);
 
 
+var sou_high_score = new Sound("x", "sounds/high_score.mp3",.4);
+sou_high_score.loop=true;
+
+
 var sou_gameover = new Sound("x", "sounds/game over2.wav",.2);
 var sou_mainMenu = new Sound("x", "sounds/main theme.mp3",.25);
 var sou_shop_music = new Sound("x", "sounds/shop music.mp3",.2);
@@ -59,6 +68,9 @@ sou_shop_music.sound.loop = true;
 var sou_damage_foe = new Sound("x","sounds/sfx_sounds_impact2.wav",.1);
 var sou_slide = new Sound("x","sounds/slide.wav",.2);
 var sou_kill_foe = new Sound("x", "sounds/sfx_exp_shortest_soft1.wav",.2);
+
+var sou_packrat_caught = new Sound("x","sounds/packrat caught.wav",.2);
+var sou_packrat_lost = new Sound("x","sounds/packrat lost.wav",.2);
 
 
 //Pickups

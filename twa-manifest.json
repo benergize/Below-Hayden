@@ -13,8 +13,8 @@
   "backgroundColor": "#000000",
   "enableNotifications": true,
   "startUrl": "/indev/below_hayden/",
-  "iconUrl": "https://benergize.com/indev/below_hayden/icon512_maskable.png",
-  "maskableIconUrl": "https://benergize.com/indev/below_hayden/icon512_maskable.png",
+  "iconUrl": "https://benergize.com/indev/below_hayden/icons/icon512_maskable.png",
+  "maskableIconUrl": "https://benergize.com/indev/below_hayden/icons/icon512_maskable.png",
   "splashScreenFadeOutDuration": 300,
   "signingKey": {
     "path": "C:\\Users\\Ben Ehrlich\\Repositories\\Below-Hayden\\android.keystore",
