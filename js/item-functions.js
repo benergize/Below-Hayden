@@ -9,7 +9,7 @@ function giveItem(item) {
 
 		if(it.getName() == item.getName() && it.consumable && item.consumable) {
 
-			it.uses += item.uses;
+			it.uses += Number.parseInt(item.uses)||1;
 			return;
 		}
 	}
@@ -171,7 +171,7 @@ function showItemInfo(el,ignoreOpen=false, initiator="inventory") {
 				(
 					isShopItem ?
 						`<button class = 'itbtn'  onclick = "buyItem(this);" data-id="${item.id}">BUY FOR ${item.value}</button>` :
-						`<button class = 'itbtn'  onclick = "sellItem(this);" data-id="${item.id}">SELL FOR FOR ${Math.ceil(item.value * .75)}</button>`
+						`<button class = 'itbtn'  onclick = "sellItem(this);" data-id="${item.id}">SELL FOR FOR ${Math.ceil(item.getSellPrice() * .75)}</button>`
 				) : "")
 			}
 			${!isShop?`<button onclick = "removeItem(this);sou_item_drop.play();updateUI();" data-id="${itemId}">DROP</button>`:""}

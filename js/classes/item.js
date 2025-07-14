@@ -32,6 +32,7 @@ function Item(name, desc="", sprite="dungeon/wee_dung_potion_red.png", sound=sou
 		this.numberOfSides = numberOfSides;
 	}
 
+
 	this.hp = Number.parseFloat(this.hp)||0;
 	this.dmg = Number.parseFloat(this.dmg)||0;
 
@@ -50,9 +51,16 @@ function Item(name, desc="", sprite="dungeon/wee_dung_potion_red.png", sound=sou
 	if(this.consumable == "true") { this.consumable = true; }
 	if(this.consumable == "false") { this.consumable = false; }
 
+	this.initialQuantity = this.consumable ? this.uses : 1;
+
 	this.getName = function() {
 
 		return this.name;// + " of +" + (this.dmg||this.hp);
+	}
+
+	this.getSellPrice = function() {
+
+		return this.value / Math.max(1,this.initialQuantity);
 	}
 
 	this.randomizeStats = function() {
