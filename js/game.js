@@ -808,7 +808,7 @@ function sellItem(el) {
 
 	if(player.slots[item.slot] == item.id) { unequipItem(item.id); }
 
-	player.gold += Math.ceil(item.value * .75);
+	player.gold += Math.ceil(item.getSellPrice() * .75);
 
 	if(item.consumable && item.uses > 1) { item.uses--; }
 	else { player.inventory = player.inventory.filter(i=>{ return i.id != item.id; }); showItemInfo(-1); }
