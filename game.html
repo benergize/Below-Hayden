@@ -38,15 +38,15 @@
 					
 				</div>
 
-				<button class = 'button' onclick = 'document.querySelector(".options-menu").classList.remove("open");document.querySelector(".options-menu").classList.remove("saved");'>Close</button>
+				<button class = 'button' onclick = 'document.querySelector(".options-menu").classList.remove("open");'>&lt;- Back</button>
 			</div>
 			<div class = 'main-menu' >	
 				<h2>BELOW HAYDEN</h2>
 				<p>Loading...</p>
 
 				<button class="button" onclick = 'scrollToCharacterSelect()'>New Character</button>
-				<button class="button" onclick = 'document.querySelector(".options-menu").classList.add("saved")'>Load Saved</button>
-				<button class="button" onclick = 'document.querySelector(".options-menu").classList.add("open")'>Options</button>
+				<button class="button" onclick = 'document.querySelector(".options-menu").classList.add("open");document.querySelector(".options-menu").classList.add("saved")'>Load Saved</button>
+				<button class="button" onclick = 'document.querySelector(".options-menu").classList.add("open");document.querySelector(".options-menu").classList.remove("saved")'>Options</button>
 				<button class="button" onclick = 'window.close();'>Quit</button>
 			</div>
 			<div class = 'haydens-door'>
