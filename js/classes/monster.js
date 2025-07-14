@@ -187,7 +187,7 @@ function Monster(name, sprite="", hp=5, dmg=1, strongTo=[], weakTo=[]) {
 		if(this.hp < 10) {
 			for(let v = 0; v < this.hp; v++) { monsterHearts += "<span class = 'heart'></span>" } 
 		}
-		else { monsterHearts = "<span class = 'heart'>&nbsp;x"+this.hp+"</span>"; }
+		else { monsterHearts = "<span class = 'heart'>&nbsp;x"+ (this.name == "Pack Rat" ? "?" : this.hp) +"</span>"; }
 
 		return monsterHearts;
 	}
